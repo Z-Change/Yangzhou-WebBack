@@ -1,0 +1,32 @@
+server:
+  port: 28019
+  address: 0.0.0.0
+
+spring:
+  datasource:
+    name: newbee-mall-datasource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/newbee_mall_db_v2?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
+    username: yangzhou
+    password: yz422
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: hikariCP
+      max-lifetime: 600000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+
+# mybatis config
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+#  logging:
+#    level:
+#      ltd:
+#        newbee:
+#          mall:
+#            dao: dubug
+
