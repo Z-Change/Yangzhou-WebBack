@@ -32,7 +32,7 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table tb_newbee_mall_carousel
+# Dump of table tb_newbee_mall_carousel 1
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `tb_newbee_mall_carousel`;
