@@ -8,12 +8,12 @@
  */
 package ltd.newbee.mall.common;
 
-public class NewBeeMallException extends RuntimeException {
+public class PilipiliMallException extends RuntimeException {
 
-    public NewBeeMallException() {
+    public PilipiliMallException() {
     }
 
-    public NewBeeMallException(String message) {
+    public PilipiliMallException(String message) {
         super(message);
     }
 
@@ -23,7 +23,7 @@ public class NewBeeMallException extends RuntimeException {
      * @param message
      */
     public static void fail(String message) {
-        throw new NewBeeMallException(message);
+        throw new PilipiliMallException(message);
     }
 
 }

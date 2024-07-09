@@ -9,7 +9,7 @@
 package ltd.newbee.mall.service.impl;
 
 import ltd.newbee.mall.api.mall.vo.NewBeeMallUserAddressVO;
-import ltd.newbee.mall.common.NewBeeMallException;
+import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.dao.MallUserAddressMapper;
 import ltd.newbee.mall.entity.MallUserAddress;
@@ -48,7 +48,7 @@ public class NewBeeMallUserAddressServiceImpl implements NewBeeMallUserAddressSe
                 int updateResult = userAddressMapper.updateByPrimaryKeySelective(defaultAddress);
                 if (updateResult < 1) {
                     //未更新成功
-                    NewBeeMallException.fail(ServiceResultEnum.DB_ERROR.getResult());
+                    PilipiliMallException.fail(ServiceResultEnum.DB_ERROR.getResult());
                 }
             }
         }
@@ -69,7 +69,7 @@ public class NewBeeMallUserAddressServiceImpl implements NewBeeMallUserAddressSe
                 int updateResult = userAddressMapper.updateByPrimaryKeySelective(defaultAddress);
                 if (updateResult < 1) {
                     //未更新成功
-                    NewBeeMallException.fail(ServiceResultEnum.DB_ERROR.getResult());
+                    PilipiliMallException.fail(ServiceResultEnum.DB_ERROR.getResult());
                 }
             }
         }
@@ -81,7 +81,7 @@ public class NewBeeMallUserAddressServiceImpl implements NewBeeMallUserAddressSe
     public MallUserAddress getMallUserAddressById(Long addressId) {
         MallUserAddress mallUserAddress = userAddressMapper.selectByPrimaryKey(addressId);
         if (mallUserAddress == null) {
-            NewBeeMallException.fail(ServiceResultEnum.DATA_NOT_EXIST.getResult());
+            PilipiliMallException.fail(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }
         return mallUserAddress;
     }

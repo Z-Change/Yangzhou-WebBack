@@ -41,12 +41,12 @@ import jakarta.validation.Valid;
 @RestController
 @Tag(description = "v1", name = "后台管理系统管理员模块接口")
 @RequestMapping("/manage-api/v1")
-public class NewBeeAdminManageUserAPI {
+public class PilipiliAdminManageUserAPI {
 
     @Resource
     private AdminUserService adminUserService;
 
-    private static final Logger logger = LoggerFactory.getLogger(NewBeeAdminManageUserAPI.class);
+    private static final Logger logger = LoggerFactory.getLogger(PilipiliAdminManageUserAPI.class);
 
     @RequestMapping(value = "/adminUser/login", method = RequestMethod.POST)
     public Result<String> login(@RequestBody @Valid AdminLoginParam adminLoginParam) {

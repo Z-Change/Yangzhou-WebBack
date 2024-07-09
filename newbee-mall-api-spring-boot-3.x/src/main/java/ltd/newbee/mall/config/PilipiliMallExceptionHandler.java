@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.config;
 
-import ltd.newbee.mall.common.NewBeeMallException;
+import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.util.Result;
 import org.springframework.validation.BindException;
@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Objects;
@@ -25,7 +24,7 @@ import java.util.Objects;
  * newbee-mall全局异常处理
  */
 @RestControllerAdvice
-public class NewBeeMallExceptionHandler {
+public class PilipiliMallExceptionHandler {
 
     @ExceptionHandler(BindException.class)
     public Object bindException(BindException e) {
@@ -50,7 +49,7 @@ public class NewBeeMallExceptionHandler {
         Result result = new Result();
         result.setResultCode(500);
         //区分是否为自定义异常
-        if (e instanceof NewBeeMallException) {
+        if (e instanceof PilipiliMallException) {
             result.setMessage(e.getMessage());
             if (e.getMessage().equals(ServiceResultEnum.NOT_LOGIN_ERROR.getResult()) || e.getMessage().equals(ServiceResultEnum.TOKEN_EXPIRE_ERROR.getResult())) {
                 result.setResultCode(416);

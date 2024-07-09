@@ -37,9 +37,9 @@ import java.util.*;
 @RestController
 @Tag(description = "v1", name = "后台管理系统文件上传接口")
 @RequestMapping("/manage-api/v1")
-public class NewBeeAdminUploadAPI {
+public class PilipiliAdminUploadAPI {
 
-    private static final Logger logger = LoggerFactory.getLogger(NewBeeAdminUploadAPI.class);
+    private static final Logger logger = LoggerFactory.getLogger(PilipiliAdminUploadAPI.class);
 
     @Autowired
     private StandardServletMultipartResolver standardServletMultipartResolver;

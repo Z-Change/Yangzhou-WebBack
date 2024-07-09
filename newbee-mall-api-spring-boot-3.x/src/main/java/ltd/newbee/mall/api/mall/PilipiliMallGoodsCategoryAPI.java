@@ -10,7 +10,7 @@ package ltd.newbee.mall.api.mall;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import ltd.newbee.mall.common.NewBeeMallException;
+import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.api.mall.vo.NewBeeMallIndexCategoryVO;
 import ltd.newbee.mall.service.NewBeeMallCategoryService;
@@ -27,7 +27,7 @@ import java.util.List;
 @RestController
 @Tag(description = "v1", name = "新蜂商城分类页面接口")
 @RequestMapping("/api/v1")
-public class NewBeeMallGoodsCategoryAPI {
+public class PilipiliMallGoodsCategoryAPI {
 
     @Resource
     private NewBeeMallCategoryService newBeeMallCategoryService;
@@ -37,7 +37,7 @@ public class NewBeeMallGoodsCategoryAPI {
     public Result<List<NewBeeMallIndexCategoryVO>> getCategories() {
         List<NewBeeMallIndexCategoryVO> categories = newBeeMallCategoryService.getCategoriesForIndex();
         if (CollectionUtils.isEmpty(categories)) {
-            NewBeeMallException.fail(ServiceResultEnum.DATA_NOT_EXIST.getResult());
+            PilipiliMallException.fail(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }
         return ResultGenerator.genSuccessResult(categories);
     }

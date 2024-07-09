@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import ltd.newbee.mall.api.mall.vo.NewBeeMallSearchGoodsVO;
 import ltd.newbee.mall.common.Constants;
-import ltd.newbee.mall.common.NewBeeMallException;
+import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToMallUser;
 import ltd.newbee.mall.api.mall.vo.NewBeeMallGoodsDetailVO;
@@ -34,9 +34,9 @@ import java.util.Map;
 @RestController
 @Tag(description = "v1", name = "新蜂商城商品相关接口")
 @RequestMapping("/api/v1")
-public class NewBeeMallGoodsAPI {
+public class PilipiliMallGoodsAPI {
 
-    private static final Logger logger = LoggerFactory.getLogger(NewBeeMallGoodsAPI.class);
+    private static final Logger logger = LoggerFactory.getLogger(PilipiliMallGoodsAPI.class);
 
     @Resource
     private NewBeeMallGoodsService newBeeMallGoodsService;
@@ -54,7 +54,7 @@ public class NewBeeMallGoodsAPI {
         Map params = new HashMap(8);
         //两个搜索参数都为空，直接返回异常
         if (goodsCategoryId == null && !StringUtils.hasText(keyword)) {
-            NewBeeMallException.fail("非法的搜索参数");
+            PilipiliMallException.fail("非法的搜索参数");
         }
         if (pageNumber == null || pageNumber < 1) {
             pageNumber = 1;
@@ -85,7 +85,7 @@ public class NewBeeMallGoodsAPI {
         }
         NewBeeMallGoods goods = newBeeMallGoodsService.getNewBeeMallGoodsById(goodsId);
         if (Constants.SELL_STATUS_UP != goods.getGoodsSellStatus()) {
-            NewBeeMallException.fail(ServiceResultEnum.GOODS_PUT_DOWN.getResult());
+            PilipiliMallException.fail(ServiceResultEnum.GOODS_PUT_DOWN.getResult());
         }
         NewBeeMallGoodsDetailVO goodsDetailVO = new NewBeeMallGoodsDetailVO();
         BeanUtil.copyProperties(goods, goodsDetailVO);

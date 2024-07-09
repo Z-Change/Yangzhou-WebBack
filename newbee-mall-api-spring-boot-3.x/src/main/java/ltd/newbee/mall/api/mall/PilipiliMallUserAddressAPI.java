@@ -30,7 +30,7 @@ import java.util.List;
 @RestController
 @Tag(description = "v1", name = "新蜂商城个人地址相关接口")
 @RequestMapping("/api/v1")
-public class NewBeeMallUserAddressAPI {
+public class PilipiliMallUserAddressAPI {
 
     @Resource
     private NewBeeMallUserAddressService mallUserAddressService;

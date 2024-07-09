@@ -11,7 +11,7 @@ package ltd.newbee.mall.service.impl;
 import ltd.newbee.mall.api.mall.param.SaveCartItemParam;
 import ltd.newbee.mall.api.mall.param.UpdateCartItemParam;
 import ltd.newbee.mall.common.Constants;
-import ltd.newbee.mall.common.NewBeeMallException;
+import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.api.mall.vo.NewBeeMallShoppingCartItemVO;
 import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
@@ -44,7 +44,7 @@ public class NewBeeMallShoppingCartServiceImpl implements NewBeeMallShoppingCart
         NewBeeMallShoppingCartItem temp = newBeeMallShoppingCartItemMapper.selectByUserIdAndGoodsId(userId, saveCartItemParam.getGoodsId());
         if (temp != null) {
             //已存在则修改该记录
-            NewBeeMallException.fail(ServiceResultEnum.SHOPPING_CART_ITEM_EXIST_ERROR.getResult());
+            PilipiliMallException.fail(ServiceResultEnum.SHOPPING_CART_ITEM_EXIST_ERROR.getResult());
         }
         NewBeeMallGoods newBeeMallGoods = newBeeMallGoodsMapper.selectByPrimaryKey(saveCartItemParam.getGoodsId());
         //商品为空
@@ -81,7 +81,7 @@ public class NewBeeMallShoppingCartServiceImpl implements NewBeeMallShoppingCart
             return ServiceResultEnum.DATA_NOT_EXIST.getResult();
         }
         if (!newBeeMallShoppingCartItemUpdate.getUserId().equals(userId)) {
-            NewBeeMallException.fail(ServiceResultEnum.REQUEST_FORBIDEN_ERROR.getResult());
+            PilipiliMallException.fail(ServiceResultEnum.REQUEST_FORBIDEN_ERROR.getResult());
         }
         //超出单个商品的最大数量
         if (updateCartItemParam.getGoodsCount() > Constants.SHOPPING_CART_ITEM_LIMIT_NUMBER) {
@@ -108,7 +108,7 @@ public class NewBeeMallShoppingCartServiceImpl implements NewBeeMallShoppingCart
     public NewBeeMallShoppingCartItem getNewBeeMallCartItemById(Long newBeeMallShoppingCartItemId) {
         NewBeeMallShoppingCartItem newBeeMallShoppingCartItem = newBeeMallShoppingCartItemMapper.selectByPrimaryKey(newBeeMallShoppingCartItemId);
         if (newBeeMallShoppingCartItem == null) {
-            NewBeeMallException.fail(ServiceResultEnum.DATA_NOT_EXIST.getResult());
+            PilipiliMallException.fail(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }
         return newBeeMallShoppingCartItem;
     }
@@ -137,14 +137,14 @@ public class NewBeeMallShoppingCartServiceImpl implements NewBeeMallShoppingCart
     public List<NewBeeMallShoppingCartItemVO> getCartItemsForSettle(List<Long> cartItemIds, Long newBeeMallUserId) {
         List<NewBeeMallShoppingCartItemVO> newBeeMallShoppingCartItemVOS = new ArrayList<>();
         if (CollectionUtils.isEmpty(cartItemIds)) {
-            NewBeeMallException.fail("购物项不能为空");
+            PilipiliMallException.fail("购物项不能为空");
         }
         List<NewBeeMallShoppingCartItem> newBeeMallShoppingCartItems = newBeeMallShoppingCartItemMapper.selectByUserIdAndCartItemIds(newBeeMallUserId, cartItemIds);
         if (CollectionUtils.isEmpty(newBeeMallShoppingCartItems)) {
-            NewBeeMallException.fail("购物项不能为空");
+            PilipiliMallException.fail("购物项不能为空");
         }
         if (newBeeMallShoppingCartItems.size() != cartItemIds.size()) {
-            NewBeeMallException.fail("参数异常");
+            PilipiliMallException.fail("参数异常");
         }
         return getNewBeeMallShoppingCartItemVOS(newBeeMallShoppingCartItemVOS, newBeeMallShoppingCartItems);
     }

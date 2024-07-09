@@ -9,7 +9,7 @@
 package ltd.newbee.mall.config.handler;
 
 import ltd.newbee.mall.common.Constants;
-import ltd.newbee.mall.common.NewBeeMallException;
+import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToAdminUser;
 import ltd.newbee.mall.dao.NewBeeAdminUserTokenMapper;
@@ -44,13 +44,13 @@ public class TokenToAdminUserMethodArgumentResolver implements HandlerMethodArgu
             if (null != token && !"".equals(token) && token.length() == Constants.TOKEN_LENGTH) {
                 AdminUserToken adminUserToken = newBeeAdminUserTokenMapper.selectByToken(token);
                 if (adminUserToken == null) {
-                    NewBeeMallException.fail(ServiceResultEnum.ADMIN_NOT_LOGIN_ERROR.getResult());
+                    PilipiliMallException.fail(ServiceResultEnum.ADMIN_NOT_LOGIN_ERROR.getResult());
                 } else if (adminUserToken.getExpireTime().getTime() <= System.currentTimeMillis()) {
-                    NewBeeMallException.fail(ServiceResultEnum.ADMIN_TOKEN_EXPIRE_ERROR.getResult());
+                    PilipiliMallException.fail(ServiceResultEnum.ADMIN_TOKEN_EXPIRE_ERROR.getResult());
                 }
                 return adminUserToken;
             } else {
-                NewBeeMallException.fail(ServiceResultEnum.ADMIN_NOT_LOGIN_ERROR.getResult());
+                PilipiliMallException.fail(ServiceResultEnum.ADMIN_NOT_LOGIN_ERROR.getResult());
             }
         }
         return null;

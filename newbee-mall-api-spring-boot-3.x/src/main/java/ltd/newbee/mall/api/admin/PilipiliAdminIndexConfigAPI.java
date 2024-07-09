@@ -42,9 +42,9 @@ import java.util.Map;
 @RestController
 @Tag(description = "v1", name = "后台管理系统首页配置模块接口")
 @RequestMapping("/manage-api/v1")
-public class NewBeeAdminIndexConfigAPI {
+public class PilipiliAdminIndexConfigAPI {
 
-    private static final Logger logger = LoggerFactory.getLogger(NewBeeAdminIndexConfigAPI.class);
+    private static final Logger logger = LoggerFactory.getLogger(PilipiliAdminIndexConfigAPI.class);
 
     @Resource
     private NewBeeMallIndexConfigService newBeeMallIndexConfigService;

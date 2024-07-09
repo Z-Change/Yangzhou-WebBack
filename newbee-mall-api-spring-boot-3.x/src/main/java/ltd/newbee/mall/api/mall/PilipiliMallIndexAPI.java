@@ -29,7 +29,7 @@ import java.util.List;
 @RestController
 @Tag(description = "v1", name = "新蜂商城首页接口")
 @RequestMapping("/api/v1")
-public class NewBeeMallIndexAPI {
+public class PilipiliMallIndexAPI {
 
     @Resource
     private NewBeeMallCarouselService newBeeMallCarouselService;

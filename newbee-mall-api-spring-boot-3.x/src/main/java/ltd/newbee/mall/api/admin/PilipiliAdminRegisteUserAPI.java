@@ -35,9 +35,9 @@ import java.util.Map;
 @RestController
 @Tag(description = "v1", name = "后台管理系统注册用户模块接口")
 @RequestMapping("/manage-api/v1")
-public class NewBeeAdminRegisteUserAPI {
+public class PilipiliAdminRegisteUserAPI {
 
-    private static final Logger logger = LoggerFactory.getLogger(NewBeeAdminRegisteUserAPI.class);
+    private static final Logger logger = LoggerFactory.getLogger(PilipiliAdminRegisteUserAPI.class);
 
     @Resource
     private NewBeeMallUserService newBeeMallUserService;

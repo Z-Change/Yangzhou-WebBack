@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import ltd.newbee.mall.api.mall.param.SaveCartItemParam;
 import ltd.newbee.mall.api.mall.param.UpdateCartItemParam;
 import ltd.newbee.mall.common.Constants;
-import ltd.newbee.mall.common.NewBeeMallException;
+import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToMallUser;
 import ltd.newbee.mall.api.mall.vo.NewBeeMallShoppingCartItemVO;
@@ -37,7 +37,7 @@ import java.util.Map;
 @RestController
 @Tag(description = "v1", name = "新蜂商城购物车相关接口")
 @RequestMapping("/api/v1")
-public class NewBeeMallShoppingCartAPI {
+public class PilipiliMallShoppingCartAPI {
 
     @Resource
     private NewBeeMallShoppingCartService newBeeMallShoppingCartService;
@@ -110,20 +110,20 @@ public class NewBeeMallShoppingCartAPI {
     @Operation(summary = "根据购物项id数组查询购物项明细", description = "确认订单页面使用")
     public Result<List<NewBeeMallShoppingCartItemVO>> toSettle(Long[] cartItemIds, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
         if (cartItemIds.length < 1) {
-            NewBeeMallException.fail("参数异常");
+            PilipiliMallException.fail("参数异常");
         }
         int priceTotal = 0;
         List<NewBeeMallShoppingCartItemVO> itemsForSettle = newBeeMallShoppingCartService.getCartItemsForSettle(Arrays.asList(cartItemIds), loginMallUser.getUserId());
         if (CollectionUtils.isEmpty(itemsForSettle)) {
             //无数据则抛出异常
-            NewBeeMallException.fail("参数异常");
+            PilipiliMallException.fail("参数异常");
         } else {
             //总价
             for (NewBeeMallShoppingCartItemVO newBeeMallShoppingCartItemVO : itemsForSettle) {
                 priceTotal += newBeeMallShoppingCartItemVO.getGoodsCount() * newBeeMallShoppingCartItemVO.getSellingPrice();
             }
             if (priceTotal < 1) {
-                NewBeeMallException.fail("价格异常");
+                PilipiliMallException.fail("价格异常");
             }
         }
         return ResultGenerator.genSuccessResult(itemsForSettle);

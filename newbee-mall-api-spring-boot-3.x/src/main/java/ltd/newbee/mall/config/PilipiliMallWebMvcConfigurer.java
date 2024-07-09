@@ -21,7 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import java.util.List;
 
 @Configuration
-public class NeeBeeMallWebMvcConfigurer extends WebMvcConfigurationSupport {
+public class PilipiliMallWebMvcConfigurer extends WebMvcConfigurationSupport {
 
     @Autowired
     private TokenToMallUserMethodArgumentResolver tokenToMallUserMethodArgumentResolver;

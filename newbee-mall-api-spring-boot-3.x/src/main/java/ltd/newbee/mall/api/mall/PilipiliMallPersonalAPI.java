@@ -34,12 +34,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Tag(description = "v1", name = "新蜂商城用户操作相关接口")
 @RequestMapping("/api/v1")
-public class NewBeeMallPersonalAPI {
+public class PilipiliMallPersonalAPI {
 
     @Resource
     private NewBeeMallUserService newBeeMallUserService;
 
-    private static final Logger logger = LoggerFactory.getLogger(NewBeeMallPersonalAPI.class);
+    private static final Logger logger = LoggerFactory.getLogger(PilipiliMallPersonalAPI.class);
 
     @PostMapping("/user/login")
     @Operation(summary = "登录接口", description = "返回token")

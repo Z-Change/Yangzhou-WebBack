@@ -15,7 +15,7 @@ import ltd.newbee.mall.api.mall.param.SaveOrderParam;
 import ltd.newbee.mall.api.mall.vo.NewBeeMallOrderDetailVO;
 import ltd.newbee.mall.api.mall.vo.NewBeeMallOrderListVO;
 import ltd.newbee.mall.common.Constants;
-import ltd.newbee.mall.common.NewBeeMallException;
+import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToMallUser;
 import ltd.newbee.mall.api.mall.vo.NewBeeMallShoppingCartItemVO;
@@ -40,7 +40,7 @@ import java.util.Map;
 @RestController
 @Tag(description = "v1", name = "新蜂商城订单操作相关接口")
 @RequestMapping("/api/v1")
-public class NewBeeMallOrderAPI {
+public class PilipiliMallOrderAPI {
 
     @Resource
     private NewBeeMallShoppingCartService newBeeMallShoppingCartService;
@@ -54,22 +54,22 @@ public class NewBeeMallOrderAPI {
     public Result<String> saveOrder(@Parameter(description = "订单参数") @RequestBody SaveOrderParam saveOrderParam, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
         int priceTotal = 0;
         if (saveOrderParam == null || saveOrderParam.getCartItemIds() == null || saveOrderParam.getAddressId() == null) {
-            NewBeeMallException.fail(ServiceResultEnum.PARAM_ERROR.getResult());
+            PilipiliMallException.fail(ServiceResultEnum.PARAM_ERROR.getResult());
         }
         if (saveOrderParam.getCartItemIds().length < 1) {
-            NewBeeMallException.fail(ServiceResultEnum.PARAM_ERROR.getResult());
+            PilipiliMallException.fail(ServiceResultEnum.PARAM_ERROR.getResult());
         }
         List<NewBeeMallShoppingCartItemVO> itemsForSave = newBeeMallShoppingCartService.getCartItemsForSettle(Arrays.asList(saveOrderParam.getCartItemIds()), loginMallUser.getUserId());
         if (CollectionUtils.isEmpty(itemsForSave)) {
             //无数据
-            NewBeeMallException.fail("参数异常");
+            PilipiliMallException.fail("参数异常");
         } else {
             //总价
             for (NewBeeMallShoppingCartItemVO newBeeMallShoppingCartItemVO : itemsForSave) {
                 priceTotal += newBeeMallShoppingCartItemVO.getGoodsCount() * newBeeMallShoppingCartItemVO.getSellingPrice();
             }
             if (priceTotal < 1) {
-                NewBeeMallException.fail("价格异常");
+                PilipiliMallException.fail("价格异常");
             }
             MallUserAddress address = newBeeMallUserAddressService.getMallUserAddressById(saveOrderParam.getAddressId());
             if (!loginMallUser.getUserId().equals(address.getUserId())) {

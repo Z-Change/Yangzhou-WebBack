@@ -9,7 +9,7 @@
 package ltd.newbee.mall.config.handler;
 
 import ltd.newbee.mall.common.Constants;
-import ltd.newbee.mall.common.NewBeeMallException;
+import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToMallUser;
 import ltd.newbee.mall.dao.MallUserMapper;
@@ -52,18 +52,18 @@ public class TokenToMallUserMethodArgumentResolver implements HandlerMethodArgum
             if (null != token && !"".equals(token) && token.length() == Constants.TOKEN_LENGTH) {
                 MallUserToken mallUserToken = newBeeMallUserTokenMapper.selectByToken(token);
                 if (mallUserToken == null || mallUserToken.getExpireTime().getTime() <= System.currentTimeMillis()) {
-                    NewBeeMallException.fail(ServiceResultEnum.TOKEN_EXPIRE_ERROR.getResult());
+                    PilipiliMallException.fail(ServiceResultEnum.TOKEN_EXPIRE_ERROR.getResult());
                 }
                 mallUser = mallUserMapper.selectByPrimaryKey(mallUserToken.getUserId());
                 if (mallUser == null) {
-                    NewBeeMallException.fail(ServiceResultEnum.USER_NULL_ERROR.getResult());
+                    PilipiliMallException.fail(ServiceResultEnum.USER_NULL_ERROR.getResult());
                 }
                 if (mallUser.getLockedFlag().intValue() == 1) {
-                    NewBeeMallException.fail(ServiceResultEnum.LOGIN_USER_LOCKED_ERROR.getResult());
+                    PilipiliMallException.fail(ServiceResultEnum.LOGIN_USER_LOCKED_ERROR.getResult());
                 }
                 return mallUser;
             } else {
-                NewBeeMallException.fail(ServiceResultEnum.NOT_LOGIN_ERROR.getResult());
+                PilipiliMallException.fail(ServiceResultEnum.NOT_LOGIN_ERROR.getResult());
             }
         }
         return null;

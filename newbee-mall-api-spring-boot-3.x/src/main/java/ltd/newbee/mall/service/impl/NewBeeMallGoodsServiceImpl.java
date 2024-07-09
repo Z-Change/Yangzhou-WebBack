@@ -9,8 +9,8 @@
 package ltd.newbee.mall.service.impl;
 
 import ltd.newbee.mall.api.mall.vo.NewBeeMallSearchGoodsVO;
-import ltd.newbee.mall.common.NewBeeMallCategoryLevelEnum;
-import ltd.newbee.mall.common.NewBeeMallException;
+import ltd.newbee.mall.common.PilipiliMallCategoryLevelEnum;
+import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.dao.GoodsCategoryMapper;
 import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
@@ -48,7 +48,7 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
     public String saveNewBeeMallGoods(NewBeeMallGoods goods) {
         GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(goods.getGoodsCategoryId());
         // 分类不存在或者不是三级分类，则该参数字段异常
-        if (goodsCategory == null || goodsCategory.getCategoryLevel().intValue() != NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
+        if (goodsCategory == null || goodsCategory.getCategoryLevel().intValue() != PilipiliMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
             return ServiceResultEnum.GOODS_CATEGORY_ERROR.getResult();
         }
         if (goodsMapper.selectByCategoryIdAndName(goods.getGoodsName(), goods.getGoodsCategoryId()) != null) {
@@ -71,7 +71,7 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
     public String updateNewBeeMallGoods(NewBeeMallGoods goods) {
         GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(goods.getGoodsCategoryId());
         // 分类不存在或者不是三级分类，则该参数字段异常
-        if (goodsCategory == null || goodsCategory.getCategoryLevel().intValue() != NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
+        if (goodsCategory == null || goodsCategory.getCategoryLevel().intValue() != PilipiliMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
             return ServiceResultEnum.GOODS_CATEGORY_ERROR.getResult();
         }
         NewBeeMallGoods temp = goodsMapper.selectByPrimaryKey(goods.getGoodsId());
@@ -94,7 +94,7 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
     public NewBeeMallGoods getNewBeeMallGoodsById(Long id) {
         NewBeeMallGoods newBeeMallGoods = goodsMapper.selectByPrimaryKey(id);
         if (newBeeMallGoods == null) {
-            NewBeeMallException.fail(ServiceResultEnum.GOODS_NOT_EXIST.getResult());
+            PilipiliMallException.fail(ServiceResultEnum.GOODS_NOT_EXIST.getResult());
         }
         return newBeeMallGoods;
     }
