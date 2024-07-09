@@ -11,7 +11,7 @@ package ltd.newbee.mall.entity;
 import lombok.Data;
 
 @Data
-public class NewBeeMallOrderAddress {
+public class PilipiliMallOrderAddress {
     private Long orderId;
 
     private String userName;

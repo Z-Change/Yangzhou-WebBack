@@ -18,7 +18,7 @@ import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToMallUser;
 import ltd.newbee.mall.api.mall.vo.PilipiliMallGoodsDetailVO;
 import ltd.newbee.mall.entity.MallUser;
-import ltd.newbee.mall.entity.NewBeeMallGoods;
+import ltd.newbee.mall.entity.PilipiliMallGoods;
 import ltd.newbee.mall.service.NewBeeMallGoodsService;
 import ltd.newbee.mall.util.*;
 import org.slf4j.Logger;
@@ -83,7 +83,7 @@ public class PilipiliMallGoodsAPI {
         if (goodsId < 1) {
             return ResultGenerator.genFailResult("参数异常");
         }
-        NewBeeMallGoods goods = newBeeMallGoodsService.getNewBeeMallGoodsById(goodsId);
+        PilipiliMallGoods goods = newBeeMallGoodsService.getNewBeeMallGoodsById(goodsId);
         if (Constants.SELL_STATUS_UP != goods.getGoodsSellStatus()) {
             PilipiliMallException.fail(ServiceResultEnum.GOODS_PUT_DOWN.getResult());
         }

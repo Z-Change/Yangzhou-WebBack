@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.service;
 
-import ltd.newbee.mall.entity.NewBeeMallGoods;
+import ltd.newbee.mall.entity.PilipiliMallGoods;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
 
@@ -29,15 +29,15 @@ public interface NewBeeMallGoodsService {
      * @param goods
      * @return
      */
-    String saveNewBeeMallGoods(NewBeeMallGoods goods);
+    String saveNewBeeMallGoods(PilipiliMallGoods goods);
 
     /**
      * 批量新增商品数据
      *
-     * @param newBeeMallGoodsList
+     * @param pilipiliMallGoodsList
      * @return
      */
-    void batchSaveNewBeeMallGoods(List<NewBeeMallGoods> newBeeMallGoodsList);
+    void batchSaveNewBeeMallGoods(List<PilipiliMallGoods> pilipiliMallGoodsList);
 
     /**
      * 修改商品信息
@@ -45,7 +45,7 @@ public interface NewBeeMallGoodsService {
      * @param goods
      * @return
      */
-    String updateNewBeeMallGoods(NewBeeMallGoods goods);
+    String updateNewBeeMallGoods(PilipiliMallGoods goods);
 
     /**
      * 批量修改销售状态(上架下架)
@@ -61,7 +61,7 @@ public interface NewBeeMallGoodsService {
      * @param id
      * @return
      */
-    NewBeeMallGoods getNewBeeMallGoodsById(Long id);
+    PilipiliMallGoods getNewBeeMallGoodsById(Long id);
 
     /**
      * 商品搜索

@@ -11,7 +11,7 @@ package ltd.newbee.mall.service;
 import ltd.newbee.mall.api.mall.param.SaveCartItemParam;
 import ltd.newbee.mall.api.mall.param.UpdateCartItemParam;
 import ltd.newbee.mall.api.mall.vo.PilipiliMallShoppingCartItemVO;
-import ltd.newbee.mall.entity.NewBeeMallShoppingCartItem;
+import ltd.newbee.mall.entity.PilipiliMallShoppingCartItem;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
 
@@ -43,7 +43,7 @@ public interface NewBeeMallShoppingCartService {
      * @param newBeeMallShoppingCartItemId
      * @return
      */
-    NewBeeMallShoppingCartItem getNewBeeMallCartItemById(Long newBeeMallShoppingCartItemId);
+    PilipiliMallShoppingCartItem getNewBeeMallCartItemById(Long newBeeMallShoppingCartItemId);
 
     /**
      * 删除购物车中的商品

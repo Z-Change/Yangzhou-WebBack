@@ -8,35 +8,25 @@
  */
 package ltd.newbee.mall.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class NewBeeMallOrder {
+public class PilipiliMallOrderItem {
+    private Long orderItemId;
+
     private Long orderId;
 
-    private String orderNo;
+    private Long goodsId;
 
-    private Long userId;
+    private String goodsName;
 
-    private Integer totalPrice;
+    private String goodsCoverImg;
 
-    private Byte payStatus;
+    private Integer sellingPrice;
 
-    private Byte payType;
+    private Integer goodsCount;
 
-    private Date payTime;
-
-    private Byte orderStatus;
-
-    private String extraInfo;
-
-    private Byte isDeleted;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date updateTime;
 }

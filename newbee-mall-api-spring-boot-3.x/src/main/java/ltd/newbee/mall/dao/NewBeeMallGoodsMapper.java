@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.dao;
 
-import ltd.newbee.mall.entity.NewBeeMallGoods;
+import ltd.newbee.mall.entity.PilipiliMallGoods;
 import ltd.newbee.mall.entity.StockNumDTO;
 import ltd.newbee.mall.util.PageQueryUtil;
 import org.apache.ibatis.annotations.Param;
@@ -18,31 +18,31 @@ import java.util.List;
 public interface NewBeeMallGoodsMapper {
     int deleteByPrimaryKey(Long goodsId);
 
-    int insert(NewBeeMallGoods record);
+    int insert(PilipiliMallGoods record);
 
-    int insertSelective(NewBeeMallGoods record);
+    int insertSelective(PilipiliMallGoods record);
 
-    NewBeeMallGoods selectByPrimaryKey(Long goodsId);
+    PilipiliMallGoods selectByPrimaryKey(Long goodsId);
 
-    NewBeeMallGoods selectByCategoryIdAndName(@Param("goodsName") String goodsName, @Param("goodsCategoryId") Long goodsCategoryId);
+    PilipiliMallGoods selectByCategoryIdAndName(@Param("goodsName") String goodsName, @Param("goodsCategoryId") Long goodsCategoryId);
 
-    int updateByPrimaryKeySelective(NewBeeMallGoods record);
+    int updateByPrimaryKeySelective(PilipiliMallGoods record);
 
-    int updateByPrimaryKeyWithBLOBs(NewBeeMallGoods record);
+    int updateByPrimaryKeyWithBLOBs(PilipiliMallGoods record);
 
-    int updateByPrimaryKey(NewBeeMallGoods record);
+    int updateByPrimaryKey(PilipiliMallGoods record);
 
-    List<NewBeeMallGoods> findNewBeeMallGoodsList(PageQueryUtil pageUtil);
+    List<PilipiliMallGoods> findNewBeeMallGoodsList(PageQueryUtil pageUtil);
 
     int getTotalNewBeeMallGoods(PageQueryUtil pageUtil);
 
-    List<NewBeeMallGoods> selectByPrimaryKeys(List<Long> goodsIds);
+    List<PilipiliMallGoods> selectByPrimaryKeys(List<Long> goodsIds);
 
-    List<NewBeeMallGoods> findNewBeeMallGoodsListBySearch(PageQueryUtil pageUtil);
+    List<PilipiliMallGoods> findNewBeeMallGoodsListBySearch(PageQueryUtil pageUtil);
 
     int getTotalNewBeeMallGoodsBySearch(PageQueryUtil pageUtil);
 
-    int batchInsert(@Param("newBeeMallGoodsList") List<NewBeeMallGoods> newBeeMallGoodsList);
+    int batchInsert(@Param("newBeeMallGoodsList") List<PilipiliMallGoods> pilipiliMallGoodsList);
 
     int updateStockNum(@Param("stockNumDTOS") List<StockNumDTO> stockNumDTOS);
 

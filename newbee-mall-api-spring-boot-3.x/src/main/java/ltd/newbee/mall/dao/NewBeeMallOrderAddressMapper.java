@@ -8,18 +8,18 @@
  */
 package ltd.newbee.mall.dao;
 
-import ltd.newbee.mall.entity.NewBeeMallOrderAddress;
+import ltd.newbee.mall.entity.PilipiliMallOrderAddress;
 
 public interface NewBeeMallOrderAddressMapper {
     int deleteByPrimaryKey(Long orderId);
 
-    int insert(NewBeeMallOrderAddress record);
+    int insert(PilipiliMallOrderAddress record);
 
-    int insertSelective(NewBeeMallOrderAddress record);
+    int insertSelective(PilipiliMallOrderAddress record);
 
-    NewBeeMallOrderAddress selectByPrimaryKey(Long orderId);
+    PilipiliMallOrderAddress selectByPrimaryKey(Long orderId);
 
-    int updateByPrimaryKeySelective(NewBeeMallOrderAddress record);
+    int updateByPrimaryKeySelective(PilipiliMallOrderAddress record);
 
-    int updateByPrimaryKey(NewBeeMallOrderAddress record);
+    int updateByPrimaryKey(PilipiliMallOrderAddress record);
 }

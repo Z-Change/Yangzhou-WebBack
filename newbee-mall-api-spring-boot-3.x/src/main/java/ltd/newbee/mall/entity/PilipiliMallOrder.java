@@ -14,38 +14,29 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class NewBeeMallGoods {
-    private Long goodsId;
+public class PilipiliMallOrder {
+    private Long orderId;
 
-    private String goodsName;
+    private String orderNo;
 
-    private String goodsIntro;
+    private Long userId;
 
-    private Long goodsCategoryId;
+    private Integer totalPrice;
 
-    private String goodsCoverImg;
+    private Byte payStatus;
 
-    private String goodsCarousel;
+    private Byte payType;
 
-    private Integer originalPrice;
+    private Date payTime;
 
-    private Integer sellingPrice;
+    private Byte orderStatus;
 
-    private Integer stockNum;
+    private String extraInfo;
 
-    private String tag;
-
-    private Byte goodsSellStatus;
-
-    private Integer createUser;
+    private Byte isDeleted;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
-
-    private Integer updateUser;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
-
-    private String goodsDetailContent;
 }

@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.dao;
 
-import ltd.newbee.mall.entity.NewBeeMallOrder;
+import ltd.newbee.mall.entity.PilipiliMallOrder;
 import ltd.newbee.mall.util.PageQueryUtil;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,23 +17,23 @@ import java.util.List;
 public interface NewBeeMallOrderMapper {
     int deleteByPrimaryKey(Long orderId);
 
-    int insert(NewBeeMallOrder record);
+    int insert(PilipiliMallOrder record);
 
-    int insertSelective(NewBeeMallOrder record);
+    int insertSelective(PilipiliMallOrder record);
 
-    NewBeeMallOrder selectByPrimaryKey(Long orderId);
+    PilipiliMallOrder selectByPrimaryKey(Long orderId);
 
-    NewBeeMallOrder selectByOrderNo(String orderNo);
+    PilipiliMallOrder selectByOrderNo(String orderNo);
 
-    int updateByPrimaryKeySelective(NewBeeMallOrder record);
+    int updateByPrimaryKeySelective(PilipiliMallOrder record);
 
-    int updateByPrimaryKey(NewBeeMallOrder record);
+    int updateByPrimaryKey(PilipiliMallOrder record);
 
-    List<NewBeeMallOrder> findNewBeeMallOrderList(PageQueryUtil pageUtil);
+    List<PilipiliMallOrder> findNewBeeMallOrderList(PageQueryUtil pageUtil);
 
     int getTotalNewBeeMallOrders(PageQueryUtil pageUtil);
 
-    List<NewBeeMallOrder> selectByPrimaryKeys(@Param("orderIds") List<Long> orderIds);
+    List<PilipiliMallOrder> selectByPrimaryKeys(@Param("orderIds") List<Long> orderIds);
 
     int checkOut(@Param("orderIds") List<Long> orderIds);
 

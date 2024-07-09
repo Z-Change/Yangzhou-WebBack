@@ -9,7 +9,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ltd.newbee.mall.dao.NewBeeMallGoodsMapper">
-    <resultMap id="BaseResultMap" type="ltd.newbee.mall.entity.NewBeeMallGoods">
+    <resultMap id="BaseResultMap" type="ltd.newbee.mall.entity.PilipiliMallGoods">
         <id column="goods_id" jdbcType="BIGINT" property="goodsId"/>
         <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
         <result column="goods_intro" jdbcType="VARCHAR" property="goodsIntro"/>
@@ -26,7 +26,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
-    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="ltd.newbee.mall.entity.NewBeeMallGoods">
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="ltd.newbee.mall.entity.PilipiliMallGoods">
         <result column="goods_detail_content" jdbcType="LONGVARCHAR" property="goodsDetailContent"/>
     </resultMap>
     <sql id="Base_Column_List">
@@ -44,7 +44,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         goods_detail_content,original_price,
         selling_price, stock_num)
         VALUES
-        <foreach collection="newBeeMallGoodsList" item="goods" separator=",">
+        <foreach collection="pilipiliMallGoodsList" item="goods" separator=",">
             (#{goods.goodsName},#{goods.goodsIntro},#{goods.goodsCategoryId},#{goods.goodsCoverImg},#{goods.goodsCarousel},#{goods.goodsDetailContent},#{goods.originalPrice},#{goods.sellingPrice},#{goods.stockNum})
         </foreach>
     </insert>
@@ -193,7 +193,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
     delete from pilipili_mall_goods_info
     where goods_id = #{goodsId,jdbcType=BIGINT}
   </delete>
-    <insert id="insert" parameterType="ltd.newbee.mall.entity.NewBeeMallGoods">
+    <insert id="insert" parameterType="ltd.newbee.mall.entity.PilipiliMallGoods">
     insert into pilipili_mall_goods_info (goods_id, goods_name, goods_intro,
       goods_cover_img, goods_carousel, original_price, 
       selling_price, stock_num, tag, 
@@ -207,7 +207,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
       #{updateUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{goodsDetailContent,jdbcType=LONGVARCHAR}
       )
   </insert>
-    <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.NewBeeMallGoods">
+    <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.PilipiliMallGoods">
         insert into pilipili_mall_goods_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="goodsId != null">
@@ -310,7 +310,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.NewBeeMallGoods">
+    <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.PilipiliMallGoods">
         update pilipili_mall_goods_info
         <set>
             <if test="goodsName != null">
@@ -361,7 +361,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         </set>
         where goods_id = #{goodsId,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKeyWithBLOBs" parameterType="ltd.newbee.mall.entity.NewBeeMallGoods">
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="ltd.newbee.mall.entity.PilipiliMallGoods">
     update pilipili_mall_goods_info
     set goods_name = #{goodsName,jdbcType=VARCHAR},
       goods_intro = #{goodsIntro,jdbcType=VARCHAR},
@@ -379,7 +379,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
       goods_detail_content = #{goodsDetailContent,jdbcType=LONGVARCHAR}
     where goods_id = #{goodsId,jdbcType=BIGINT}
   </update>
-    <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.NewBeeMallGoods">
+    <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.PilipiliMallGoods">
     update pilipili_mall_goods_info
     set goods_name = #{goodsName,jdbcType=VARCHAR},
       goods_intro = #{goodsIntro,jdbcType=VARCHAR},

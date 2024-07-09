@@ -19,7 +19,7 @@ import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToAdminUser;
 import ltd.newbee.mall.entity.AdminUserToken;
 import ltd.newbee.mall.entity.GoodsCategory;
-import ltd.newbee.mall.entity.NewBeeMallGoods;
+import ltd.newbee.mall.entity.PilipiliMallGoods;
 import ltd.newbee.mall.service.NewBeeMallCategoryService;
 import ltd.newbee.mall.service.NewBeeMallGoodsService;
 import ltd.newbee.mall.util.BeanUtil;
@@ -87,9 +87,9 @@ public class PilipiliAdminGoodsInfoAPI {
     @Operation(summary = "新增商品信息", description = "新增商品信息")
     public Result save(@RequestBody @Valid GoodsAddParam goodsAddParam, @TokenToAdminUser @Parameter(hidden = true) AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
-        NewBeeMallGoods newBeeMallGoods = new NewBeeMallGoods();
-        BeanUtil.copyProperties(goodsAddParam, newBeeMallGoods);
-        String result = newBeeMallGoodsService.saveNewBeeMallGoods(newBeeMallGoods);
+        PilipiliMallGoods pilipiliMallGoods = new PilipiliMallGoods();
+        BeanUtil.copyProperties(goodsAddParam, pilipiliMallGoods);
+        String result = newBeeMallGoodsService.saveNewBeeMallGoods(pilipiliMallGoods);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -105,9 +105,9 @@ public class PilipiliAdminGoodsInfoAPI {
     @Operation(summary = "修改商品信息", description = "修改商品信息")
     public Result update(@RequestBody @Valid GoodsEditParam goodsEditParam, @TokenToAdminUser @Parameter(hidden = true) AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
-        NewBeeMallGoods newBeeMallGoods = new NewBeeMallGoods();
-        BeanUtil.copyProperties(goodsEditParam, newBeeMallGoods);
-        String result = newBeeMallGoodsService.updateNewBeeMallGoods(newBeeMallGoods);
+        PilipiliMallGoods pilipiliMallGoods = new PilipiliMallGoods();
+        BeanUtil.copyProperties(goodsEditParam, pilipiliMallGoods);
+        String result = newBeeMallGoodsService.updateNewBeeMallGoods(pilipiliMallGoods);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -123,7 +123,7 @@ public class PilipiliAdminGoodsInfoAPI {
     public Result info(@PathVariable("id") Long id, @TokenToAdminUser @Parameter(hidden = true) AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
         Map goodsInfo = new HashMap(8);
-        NewBeeMallGoods goods = newBeeMallGoodsService.getNewBeeMallGoodsById(id);
+        PilipiliMallGoods goods = newBeeMallGoodsService.getNewBeeMallGoodsById(id);
         if (goods == null) {
             return ResultGenerator.genFailResult(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }

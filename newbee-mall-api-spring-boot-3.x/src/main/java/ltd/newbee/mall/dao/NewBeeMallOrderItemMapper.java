@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.dao;
 
-import ltd.newbee.mall.entity.NewBeeMallOrderItem;
+import ltd.newbee.mall.entity.PilipiliMallOrderItem;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,11 +16,11 @@ import java.util.List;
 public interface NewBeeMallOrderItemMapper {
     int deleteByPrimaryKey(Long orderItemId);
 
-    int insert(NewBeeMallOrderItem record);
+    int insert(PilipiliMallOrderItem record);
 
-    int insertSelective(NewBeeMallOrderItem record);
+    int insertSelective(PilipiliMallOrderItem record);
 
-    NewBeeMallOrderItem selectByPrimaryKey(Long orderItemId);
+    PilipiliMallOrderItem selectByPrimaryKey(Long orderItemId);
 
     /**
      * 根据订单id获取订单项列表
@@ -28,7 +28,7 @@ public interface NewBeeMallOrderItemMapper {
      * @param orderId
      * @return
      */
-    List<NewBeeMallOrderItem> selectByOrderId(Long orderId);
+    List<PilipiliMallOrderItem> selectByOrderId(Long orderId);
 
     /**
      * 根据订单ids获取订单项列表
@@ -36,7 +36,7 @@ public interface NewBeeMallOrderItemMapper {
      * @param orderIds
      * @return
      */
-    List<NewBeeMallOrderItem> selectByOrderIds(@Param("orderIds") List<Long> orderIds);
+    List<PilipiliMallOrderItem> selectByOrderIds(@Param("orderIds") List<Long> orderIds);
 
     /**
      * 批量insert订单项数据
@@ -44,9 +44,9 @@ public interface NewBeeMallOrderItemMapper {
      * @param orderItems
      * @return
      */
-    int insertBatch(@Param("orderItems") List<NewBeeMallOrderItem> orderItems);
+    int insertBatch(@Param("orderItems") List<PilipiliMallOrderItem> orderItems);
 
-    int updateByPrimaryKeySelective(NewBeeMallOrderItem record);
+    int updateByPrimaryKeySelective(PilipiliMallOrderItem record);
 
-    int updateByPrimaryKey(NewBeeMallOrderItem record);
+    int updateByPrimaryKey(PilipiliMallOrderItem record);
 }

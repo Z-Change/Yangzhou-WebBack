@@ -13,7 +13,7 @@ import ltd.newbee.mall.api.mall.vo.PilipiliMallOrderItemVO;
 import ltd.newbee.mall.api.mall.vo.PilipiliMallShoppingCartItemVO;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.entity.MallUserAddress;
-import ltd.newbee.mall.entity.NewBeeMallOrder;
+import ltd.newbee.mall.entity.PilipiliMallOrder;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
 
@@ -78,10 +78,10 @@ public interface NewBeeMallOrderService {
     /**
      * 订单信息修改
      *
-     * @param newBeeMallOrder
+     * @param pilipiliMallOrder
      * @return
      */
-    String updateOrderInfo(NewBeeMallOrder newBeeMallOrder);
+    String updateOrderInfo(PilipiliMallOrder pilipiliMallOrder);
 
     /**
      * 配货

@@ -13,7 +13,7 @@ import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.dao.IndexConfigMapper;
 import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
 import ltd.newbee.mall.entity.IndexConfig;
-import ltd.newbee.mall.entity.NewBeeMallGoods;
+import ltd.newbee.mall.entity.PilipiliMallGoods;
 import ltd.newbee.mall.service.NewBeeMallIndexConfigService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
@@ -91,8 +91,8 @@ public class NewBeeMallIndexConfigServiceImpl implements NewBeeMallIndexConfigSe
         if (!CollectionUtils.isEmpty(indexConfigs)) {
             //取出所有的goodsId
             List<Long> goodsIds = indexConfigs.stream().map(IndexConfig::getGoodsId).collect(Collectors.toList());
-            List<NewBeeMallGoods> newBeeMallGoods = goodsMapper.selectByPrimaryKeys(goodsIds);
-            pilipiliMallIndexConfigGoodsVOS = BeanUtil.copyList(newBeeMallGoods, PilipiliMallIndexConfigGoodsVO.class);
+            List<PilipiliMallGoods> pilipiliMallGoods = goodsMapper.selectByPrimaryKeys(goodsIds);
+            pilipiliMallIndexConfigGoodsVOS = BeanUtil.copyList(pilipiliMallGoods, PilipiliMallIndexConfigGoodsVO.class);
             for (PilipiliMallIndexConfigGoodsVO pilipiliMallIndexConfigGoodsVO : pilipiliMallIndexConfigGoodsVOS) {
                 String goodsName = pilipiliMallIndexConfigGoodsVO.getGoodsName();
                 String goodsIntro = pilipiliMallIndexConfigGoodsVO.getGoodsIntro();
