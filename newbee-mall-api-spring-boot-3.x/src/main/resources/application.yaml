@@ -4,7 +4,7 @@ server:
 
 spring:
   datasource:
-    name: newbee-mall-datasource
+    name: pilipili-mall-datasource
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/pilipili_mall_db?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
     username: yangzhou

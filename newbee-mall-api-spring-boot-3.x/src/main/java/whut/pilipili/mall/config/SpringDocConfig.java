@@ -16,8 +16,8 @@ public class SpringDocConfig {
     // 注意事项：可以在Swagger UI页面中的搜索框中输入/v3/api-docs、/v3/api-docs/mallGroup、/v3/api-docs/adminGroup查看所有接口、商城端接口和后台管理端接口。
 
     // 扫描路径
-    private static final String adminBasePackage = "ltd.newbee.mall.api.admin";
-    private static final String mallBasePackage = "ltd.newbee.mall.api.mall";
+    private static final String adminBasePackage = "whut.pilipili.mall.api.admin";
+    private static final String mallBasePackage = "whut.pilipili.mall.api.mall";
     // 请求头名称
     private static final String headerName = "token";
 
