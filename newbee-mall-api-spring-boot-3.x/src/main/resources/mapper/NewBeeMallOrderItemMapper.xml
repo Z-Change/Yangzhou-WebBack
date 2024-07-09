@@ -26,19 +26,19 @@ Copyright (c) 2019-2021 十三 all rights reserved.
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_order_item
+        from pilipili_mall_order_item
         where order_item_id = #{orderItemId,jdbcType=BIGINT}
     </select>
     <select id="selectByOrderId" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_order_item
+        from pilipili_mall_order_item
         where order_id = #{orderItemId,jdbcType=BIGINT}
     </select>
     <select id="selectByOrderIds" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_order_item
+        from pilipili_mall_order_item
         where order_id
         in
         <foreach item="id" collection="orderIds" open="(" separator="," close=")">
@@ -46,11 +46,11 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         </foreach>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from tb_newbee_mall_order_item
+    delete from pilipili_mall_order_item
     where order_item_id = #{orderItemId,jdbcType=BIGINT}
   </delete>
     <insert id="insertBatch" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderItem">
-        insert into tb_newbee_mall_order_item (order_id, goods_id,
+        insert into pilipili_mall_order_item (order_id, goods_id,
         goods_name, goods_cover_img, selling_price,
         goods_count)
         values
@@ -62,7 +62,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         </foreach>
     </insert>
     <insert id="insert" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderItem">
-    insert into tb_newbee_mall_order_item (order_item_id, order_id, goods_id,
+    insert into pilipili_mall_order_item (order_item_id, order_id, goods_id,
       goods_name, goods_cover_img, selling_price,
       goods_count, create_time)
     values (#{orderItemId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT},
@@ -70,7 +70,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
       #{goodsCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
     <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderItem">
-        insert into tb_newbee_mall_order_item
+        insert into pilipili_mall_order_item
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="orderItemId != null">
                 order_item_id,
@@ -125,7 +125,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderItem">
-        update tb_newbee_mall_order_item
+        update pilipili_mall_order_item
         <set>
             <if test="orderId != null">
                 order_id = #{orderId,jdbcType=BIGINT},
@@ -152,7 +152,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         where order_item_id = #{orderItemId,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderItem">
-    update tb_newbee_mall_order_item
+    update pilipili_mall_order_item
     set order_id = #{orderId,jdbcType=BIGINT},
       goods_id = #{goodsId,jdbcType=BIGINT},
       goods_name = #{goodsName,jdbcType=VARCHAR},

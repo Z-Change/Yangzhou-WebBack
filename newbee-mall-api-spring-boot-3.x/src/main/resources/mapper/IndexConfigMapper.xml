@@ -30,7 +30,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
     <select id="findIndexConfigList" parameterType="Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_index_config
+        from pilipili_mall_index_config
         <where>
             <if test="configType!=null and configType!=''">
                 and config_type = #{configType}
@@ -43,7 +43,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         </if>
     </select>
     <select id="getTotalIndexConfigs" parameterType="Map" resultType="int">
-        select count(*) from tb_newbee_mall_index_config
+        select count(*) from pilipili_mall_index_config
         <where>
             <if test="configType!=null and configType!=''">
                 and config_type = #{configType}
@@ -54,7 +54,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
     <select id="findIndexConfigsByTypeAndNum" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_index_config
+        from pilipili_mall_index_config
         where config_type = #{configType} and is_deleted = 0
         order by config_rank desc
         limit #{number}
@@ -62,28 +62,28 @@ Copyright (c) 2019-2021 十三 all rights reserved.
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_index_config
+        from pilipili_mall_index_config
         where config_id = #{configId,jdbcType=BIGINT} and is_deleted=0
     </select>
     <select id="selectByTypeAndGoodsId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_index_config
+        from pilipili_mall_index_config
         where config_type = #{configType,jdbcType=BIGINT} and goods_id=#{goodsId,jdbcType=BIGINT} and is_deleted=0 limit 1
     </select>
     <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    update tb_newbee_mall_index_config set is_deleted=1
+    update pilipili_mall_index_config set is_deleted=1
     where config_id = #{configId,jdbcType=BIGINT} and is_deleted=0
   </update>
     <update id="deleteBatch">
-        update tb_newbee_mall_index_config
+        update pilipili_mall_index_config
         set is_deleted=1,update_time=now() where is_deleted=0 and config_id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </update>
     <insert id="insert" parameterType="ltd.newbee.mall.entity.IndexConfig">
-    insert into tb_newbee_mall_index_config (config_id, config_name, config_type, 
+    insert into pilipili_mall_index_config (config_id, config_name, config_type,
       goods_id, redirect_url, config_rank, 
       is_deleted, create_time, create_user, 
       update_time, update_user)
@@ -93,7 +93,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
       #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.IndexConfig">
-        insert into tb_newbee_mall_index_config
+        insert into pilipili_mall_index_config
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="configId != null">
                 config_id,
@@ -166,7 +166,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.IndexConfig">
-        update tb_newbee_mall_index_config
+        update pilipili_mall_index_config
         <set>
             <if test="configName != null">
                 config_name = #{configName,jdbcType=VARCHAR},
@@ -202,7 +202,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         where config_id = #{configId,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.IndexConfig">
-    update tb_newbee_mall_index_config
+    update pilipili_mall_index_config
     set config_name = #{configName,jdbcType=VARCHAR},
       config_type = #{configType,jdbcType=TINYINT},
       goods_id = #{goodsId,jdbcType=BIGINT},

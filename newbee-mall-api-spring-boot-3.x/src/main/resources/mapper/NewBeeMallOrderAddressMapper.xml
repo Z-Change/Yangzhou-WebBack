@@ -24,15 +24,15 @@ Copyright (c) 2019-2021 十三 all rights reserved.
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_newbee_mall_order_address
+    from pilipili_mall_order_address
     where order_id = #{orderId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from tb_newbee_mall_order_address
+    delete from pilipili_mall_order_address
     where order_id = #{orderId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderAddress">
-    insert into tb_newbee_mall_order_address (order_id, user_name, user_phone, 
+    insert into pilipili_mall_order_address (order_id, user_name, user_phone,
       province_name, city_name, region_name, 
       detail_address)
     values (#{orderId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
@@ -40,7 +40,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
       #{detailAddress,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderAddress">
-    insert into tb_newbee_mall_order_address
+    insert into pilipili_mall_order_address
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
         order_id,
@@ -89,7 +89,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderAddress">
-    update tb_newbee_mall_order_address
+    update pilipili_mall_order_address
     <set>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
@@ -113,7 +113,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
     where order_id = #{orderId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderAddress">
-    update tb_newbee_mall_order_address
+    update pilipili_mall_order_address
     set user_name = #{userName,jdbcType=VARCHAR},
       user_phone = #{userPhone,jdbcType=VARCHAR},
       province_name = #{provinceName,jdbcType=VARCHAR},
