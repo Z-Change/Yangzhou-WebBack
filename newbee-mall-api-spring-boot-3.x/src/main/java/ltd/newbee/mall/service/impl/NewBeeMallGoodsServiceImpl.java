@@ -119,8 +119,8 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
                     goodsName = goodsName.substring(0, 28) + "...";
                     newBeeMallSearchGoodsVO.setGoodsName(goodsName);
                 }
-                if (goodsIntro.length() > 30) {
-                    goodsIntro = goodsIntro.substring(0, 30) + "...";
+                if (goodsIntro.length() > 100) {
+                    goodsIntro = goodsIntro.substring(0, 100) + "...";
                     newBeeMallSearchGoodsVO.setGoodsIntro(goodsIntro);
                 }
             }

@@ -21,27 +21,27 @@ Copyright (c) 2019-2021 十三 all rights reserved.
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_newbee_mall_admin_user_token
+    from pilipili_mall_admin_user_token
     where admin_user_id = #{adminUserId,jdbcType=BIGINT}
   </select>
   <select id="selectByToken" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from tb_newbee_mall_admin_user_token
+    from pilipili_mall_admin_user_token
     where token = #{token,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from tb_newbee_mall_admin_user_token
+    delete from pilipili_mall_admin_user_token
     where admin_user_id = #{adminUserId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="ltd.newbee.mall.entity.AdminUserToken">
-    insert into tb_newbee_mall_admin_user_token (admin_user_id, token, update_time, 
+    insert into pilipili_mall_admin_user_token (admin_user_id, token, update_time,
       expire_time)
     values (#{adminUserId,jdbcType=BIGINT}, #{token,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{expireTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.AdminUserToken">
-    insert into tb_newbee_mall_admin_user_token
+    insert into pilipili_mall_admin_user_token
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="adminUserId != null">
         admin_user_id,
@@ -72,7 +72,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.AdminUserToken">
-    update tb_newbee_mall_admin_user_token
+    update pilipili_mall_admin_user_token
     <set>
       <if test="token != null">
         token = #{token,jdbcType=VARCHAR},
@@ -87,7 +87,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
     where admin_user_id = #{adminUserId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.AdminUserToken">
-    update tb_newbee_mall_admin_user_token
+    update pilipili_mall_admin_user_token
     set token = #{token,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       expire_time = #{expireTime,jdbcType=TIMESTAMP}
