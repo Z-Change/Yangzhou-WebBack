@@ -16,7 +16,7 @@ import ltd.newbee.mall.dao.MallUserMapper;
 import ltd.newbee.mall.dao.NewBeeMallUserTokenMapper;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.entity.MallUserToken;
-import ltd.newbee.mall.service.NewBeeMallUserService;
+import ltd.newbee.mall.service.PilipiliMallUserService;
 import ltd.newbee.mall.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class NewBeeMallUserServiceImpl implements NewBeeMallUserService {
+public class PilipiliMallUserServiceImpl implements PilipiliMallUserService {
 
     @Autowired
     private MallUserMapper mallUserMapper;

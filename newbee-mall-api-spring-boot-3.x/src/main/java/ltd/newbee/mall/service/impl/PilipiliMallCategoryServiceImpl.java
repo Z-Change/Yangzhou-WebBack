@@ -16,7 +16,7 @@ import ltd.newbee.mall.common.PilipiliMallCategoryLevelEnum;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.dao.GoodsCategoryMapper;
 import ltd.newbee.mall.entity.GoodsCategory;
-import ltd.newbee.mall.service.NewBeeMallCategoryService;
+import ltd.newbee.mall.service.PilipiliMallCategoryService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
 
 @Service
-public class NewBeeMallCategoryServiceImpl implements NewBeeMallCategoryService {
+public class PilipiliMallCategoryServiceImpl implements PilipiliMallCategoryService {
 
     @Autowired
     private GoodsCategoryMapper goodsCategoryMapper;

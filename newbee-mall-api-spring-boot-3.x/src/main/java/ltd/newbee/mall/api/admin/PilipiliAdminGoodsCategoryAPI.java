@@ -19,7 +19,7 @@ import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToAdminUser;
 import ltd.newbee.mall.entity.AdminUserToken;
 import ltd.newbee.mall.entity.GoodsCategory;
-import ltd.newbee.mall.service.NewBeeMallCategoryService;
+import ltd.newbee.mall.service.PilipiliMallCategoryService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.Result;
@@ -50,7 +50,7 @@ public class PilipiliAdminGoodsCategoryAPI {
     private static final Logger logger = LoggerFactory.getLogger(PilipiliAdminGoodsCategoryAPI.class);
 
     @Resource
-    private NewBeeMallCategoryService newBeeMallCategoryService;
+    private PilipiliMallCategoryService pilipiliMallCategoryService;
 
     /**
      * 列表
@@ -71,7 +71,7 @@ public class PilipiliAdminGoodsCategoryAPI {
         params.put("categoryLevel", categoryLevel);
         params.put("parentId", parentId);
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallCategoryService.getCategorisPage(pageUtil));
+        return ResultGenerator.genSuccessResult(pilipiliMallCategoryService.getCategorisPage(pageUtil));
     }
 
     /**
@@ -84,7 +84,7 @@ public class PilipiliAdminGoodsCategoryAPI {
         if (categoryId == null || categoryId < 1) {
             return ResultGenerator.genFailResult("缺少参数！");
         }
-        GoodsCategory category = newBeeMallCategoryService.getGoodsCategoryById(categoryId);
+        GoodsCategory category = pilipiliMallCategoryService.getGoodsCategoryById(categoryId);
         //既不是一级分类也不是二级分类则为不返回数据
         if (category == null || category.getCategoryLevel() == PilipiliMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
             return ResultGenerator.genFailResult("参数异常！");
@@ -93,17 +93,17 @@ public class PilipiliAdminGoodsCategoryAPI {
         if (category.getCategoryLevel() == PilipiliMallCategoryLevelEnum.LEVEL_ONE.getLevel()) {
             //如果是一级分类则返回当前一级分类下的所有二级分类，以及二级分类列表中第一条数据下的所有三级分类列表
             //查询一级分类列表中第一个实体的所有二级分类
-            List<GoodsCategory> secondLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(categoryId), PilipiliMallCategoryLevelEnum.LEVEL_TWO.getLevel());
+            List<GoodsCategory> secondLevelCategories = pilipiliMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(categoryId), PilipiliMallCategoryLevelEnum.LEVEL_TWO.getLevel());
             if (!CollectionUtils.isEmpty(secondLevelCategories)) {
                 //查询二级分类列表中第一个实体的所有三级分类
-                List<GoodsCategory> thirdLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(secondLevelCategories.get(0).getCategoryId()), PilipiliMallCategoryLevelEnum.LEVEL_THREE.getLevel());
+                List<GoodsCategory> thirdLevelCategories = pilipiliMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(secondLevelCategories.get(0).getCategoryId()), PilipiliMallCategoryLevelEnum.LEVEL_THREE.getLevel());
                 categoryResult.put("secondLevelCategories", secondLevelCategories);
                 categoryResult.put("thirdLevelCategories", thirdLevelCategories);
             }
         }
         if (category.getCategoryLevel() == PilipiliMallCategoryLevelEnum.LEVEL_TWO.getLevel()) {
             //如果是二级分类则返回当前分类下的所有三级分类列表
-            List<GoodsCategory> thirdLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(categoryId), PilipiliMallCategoryLevelEnum.LEVEL_THREE.getLevel());
+            List<GoodsCategory> thirdLevelCategories = pilipiliMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(categoryId), PilipiliMallCategoryLevelEnum.LEVEL_THREE.getLevel());
             categoryResult.put("thirdLevelCategories", thirdLevelCategories);
         }
         return ResultGenerator.genSuccessResult(categoryResult);
@@ -118,7 +118,7 @@ public class PilipiliAdminGoodsCategoryAPI {
         logger.info("adminUser:{}", adminUser.toString());
         GoodsCategory goodsCategory = new GoodsCategory();
         BeanUtil.copyProperties(goodsCategoryAddParam, goodsCategory);
-        String result = newBeeMallCategoryService.saveCategory(goodsCategory);
+        String result = pilipiliMallCategoryService.saveCategory(goodsCategory);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -136,7 +136,7 @@ public class PilipiliAdminGoodsCategoryAPI {
         logger.info("adminUser:{}", adminUser.toString());
         GoodsCategory goodsCategory = new GoodsCategory();
         BeanUtil.copyProperties(goodsCategoryEditParam, goodsCategory);
-        String result = newBeeMallCategoryService.updateGoodsCategory(goodsCategory);
+        String result = pilipiliMallCategoryService.updateGoodsCategory(goodsCategory);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -151,7 +151,7 @@ public class PilipiliAdminGoodsCategoryAPI {
     @Operation(summary = "获取单条分类信息", description = "根据id查询")
     public Result info(@PathVariable("id") Long id, @TokenToAdminUser @Parameter(hidden = true) AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
-        GoodsCategory goodsCategory = newBeeMallCategoryService.getGoodsCategoryById(id);
+        GoodsCategory goodsCategory = pilipiliMallCategoryService.getGoodsCategoryById(id);
         if (goodsCategory == null) {
             return ResultGenerator.genFailResult("未查询到数据");
         }
@@ -168,7 +168,7 @@ public class PilipiliAdminGoodsCategoryAPI {
         if (batchIdParam == null || batchIdParam.getIds().length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        if (newBeeMallCategoryService.deleteBatch(batchIdParam.getIds())) {
+        if (pilipiliMallCategoryService.deleteBatch(batchIdParam.getIds())) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("删除失败");

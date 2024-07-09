@@ -20,7 +20,7 @@ import ltd.newbee.mall.config.annotation.TokenToMallUser;
 import ltd.newbee.mall.api.mall.vo.PilipiliMallShoppingCartItemVO;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.entity.PilipiliMallShoppingCartItem;
-import ltd.newbee.mall.service.NewBeeMallShoppingCartService;
+import ltd.newbee.mall.service.PilipiliMallShoppingCartService;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
 import ltd.newbee.mall.util.Result;
@@ -40,7 +40,7 @@ import java.util.Map;
 public class PilipiliMallShoppingCartAPI {
 
     @Resource
-    private NewBeeMallShoppingCartService newBeeMallShoppingCartService;
+    private PilipiliMallShoppingCartService pilipiliMallShoppingCartService;
 
     @GetMapping("/shop-cart/page")
     @Operation(summary = "购物车列表(每页默认5条)", description = "传参为页码")
@@ -54,20 +54,20 @@ public class PilipiliMallShoppingCartAPI {
         params.put("limit", Constants.SHOPPING_CART_PAGE_LIMIT);
         //封装分页请求参数
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallShoppingCartService.getMyShoppingCartItems(pageUtil));
+        return ResultGenerator.genSuccessResult(pilipiliMallShoppingCartService.getMyShoppingCartItems(pageUtil));
     }
 
     @GetMapping("/shop-cart")
     @Operation(summary = "购物车列表(网页移动端不分页)", description = "")
     public Result<List<PilipiliMallShoppingCartItemVO>> cartItemList(@TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
-        return ResultGenerator.genSuccessResult(newBeeMallShoppingCartService.getMyShoppingCartItems(loginMallUser.getUserId()));
+        return ResultGenerator.genSuccessResult(pilipiliMallShoppingCartService.getMyShoppingCartItems(loginMallUser.getUserId()));
     }
 
     @PostMapping("/shop-cart")
     @Operation(summary = "添加商品到购物车接口", description = "传参为商品id、数量")
     public Result saveNewBeeMallShoppingCartItem(@RequestBody SaveCartItemParam saveCartItemParam,
                                                  @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
-        String saveResult = newBeeMallShoppingCartService.saveNewBeeMallCartItem(saveCartItemParam, loginMallUser.getUserId());
+        String saveResult = pilipiliMallShoppingCartService.saveNewBeeMallCartItem(saveCartItemParam, loginMallUser.getUserId());
         //添加成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(saveResult)) {
             return ResultGenerator.genSuccessResult();
@@ -80,7 +80,7 @@ public class PilipiliMallShoppingCartAPI {
     @Operation(summary = "修改购物项数据", description = "传参为购物项id、数量")
     public Result updateNewBeeMallShoppingCartItem(@RequestBody UpdateCartItemParam updateCartItemParam,
                                                    @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
-        String updateResult = newBeeMallShoppingCartService.updateNewBeeMallCartItem(updateCartItemParam, loginMallUser.getUserId());
+        String updateResult = pilipiliMallShoppingCartService.updateNewBeeMallCartItem(updateCartItemParam, loginMallUser.getUserId());
         //修改成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(updateResult)) {
             return ResultGenerator.genSuccessResult();
@@ -93,11 +93,11 @@ public class PilipiliMallShoppingCartAPI {
     @Operation(summary = "删除购物项", description = "传参为购物项id")
     public Result updateNewBeeMallShoppingCartItem(@PathVariable("newBeeMallShoppingCartItemId") Long newBeeMallShoppingCartItemId,
                                                    @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
-        PilipiliMallShoppingCartItem newBeeMallCartItemById = newBeeMallShoppingCartService.getNewBeeMallCartItemById(newBeeMallShoppingCartItemId);
+        PilipiliMallShoppingCartItem newBeeMallCartItemById = pilipiliMallShoppingCartService.getNewBeeMallCartItemById(newBeeMallShoppingCartItemId);
         if (!loginMallUser.getUserId().equals(newBeeMallCartItemById.getUserId())) {
             return ResultGenerator.genFailResult(ServiceResultEnum.REQUEST_FORBIDEN_ERROR.getResult());
         }
-        Boolean deleteResult = newBeeMallShoppingCartService.deleteById(newBeeMallShoppingCartItemId,loginMallUser.getUserId());
+        Boolean deleteResult = pilipiliMallShoppingCartService.deleteById(newBeeMallShoppingCartItemId,loginMallUser.getUserId());
         //删除成功
         if (deleteResult) {
             return ResultGenerator.genSuccessResult();
@@ -113,7 +113,7 @@ public class PilipiliMallShoppingCartAPI {
             PilipiliMallException.fail("参数异常");
         }
         int priceTotal = 0;
-        List<PilipiliMallShoppingCartItemVO> itemsForSettle = newBeeMallShoppingCartService.getCartItemsForSettle(Arrays.asList(cartItemIds), loginMallUser.getUserId());
+        List<PilipiliMallShoppingCartItemVO> itemsForSettle = pilipiliMallShoppingCartService.getCartItemsForSettle(Arrays.asList(cartItemIds), loginMallUser.getUserId());
         if (CollectionUtils.isEmpty(itemsForSettle)) {
             //无数据则抛出异常
             PilipiliMallException.fail("参数异常");

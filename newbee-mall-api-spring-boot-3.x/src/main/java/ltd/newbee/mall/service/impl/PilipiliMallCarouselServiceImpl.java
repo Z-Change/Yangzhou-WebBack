@@ -12,7 +12,7 @@ import ltd.newbee.mall.api.mall.vo.PilipiliMallIndexCarouselVO;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.dao.CarouselMapper;
 import ltd.newbee.mall.entity.Carousel;
-import ltd.newbee.mall.service.NewBeeMallCarouselService;
+import ltd.newbee.mall.service.PilipiliMallCarouselService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class NewBeeMallCarouselServiceImpl implements NewBeeMallCarouselService {
+public class PilipiliMallCarouselServiceImpl implements PilipiliMallCarouselService {
 
     @Autowired
     private CarouselMapper carouselMapper;

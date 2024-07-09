@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import ltd.newbee.mall.api.admin.param.BatchIdParam;
 import ltd.newbee.mall.config.annotation.TokenToAdminUser;
 import ltd.newbee.mall.entity.AdminUserToken;
-import ltd.newbee.mall.service.NewBeeMallUserService;
+import ltd.newbee.mall.service.PilipiliMallUserService;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
@@ -40,7 +40,7 @@ public class PilipiliAdminRegisteUserAPI {
     private static final Logger logger = LoggerFactory.getLogger(PilipiliAdminRegisteUserAPI.class);
 
     @Resource
-    private NewBeeMallUserService newBeeMallUserService;
+    private PilipiliMallUserService pilipiliMallUserService;
 
     /**
      * 列表
@@ -61,7 +61,7 @@ public class PilipiliAdminRegisteUserAPI {
             params.put("orderStatus", lockStatus);
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallUserService.getNewBeeMallUsersPage(pageUtil));
+        return ResultGenerator.genSuccessResult(pilipiliMallUserService.getNewBeeMallUsersPage(pageUtil));
     }
 
     /**
@@ -77,7 +77,7 @@ public class PilipiliAdminRegisteUserAPI {
         if (lockStatus != 0 && lockStatus != 1) {
             return ResultGenerator.genFailResult("操作非法！");
         }
-        if (newBeeMallUserService.lockUsers(batchIdParam.getIds(), lockStatus)) {
+        if (pilipiliMallUserService.lockUsers(batchIdParam.getIds(), lockStatus)) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("禁用失败");

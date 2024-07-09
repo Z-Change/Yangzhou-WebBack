@@ -15,7 +15,7 @@ import ltd.newbee.mall.api.mall.vo.PilipiliMallShoppingCartItemVO;
 import ltd.newbee.mall.common.*;
 import ltd.newbee.mall.dao.*;
 import ltd.newbee.mall.entity.*;
-import ltd.newbee.mall.service.NewBeeMallOrderService;
+import ltd.newbee.mall.service.PilipiliMallOrderService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.NumberUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
 
 @Service
-public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
+public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
 
     @Autowired
     private NewBeeMallOrderMapper newBeeMallOrderMapper;

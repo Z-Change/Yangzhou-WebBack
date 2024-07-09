@@ -15,7 +15,7 @@ import ltd.newbee.mall.util.PageResult;
 
 import java.util.List;
 
-public interface NewBeeMallCarouselService {
+public interface PilipiliMallCarouselService {
 
     /**
      * 返回固定数量的轮播图对象(首页调用)

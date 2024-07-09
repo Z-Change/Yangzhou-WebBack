@@ -20,8 +20,8 @@ import ltd.newbee.mall.config.annotation.TokenToAdminUser;
 import ltd.newbee.mall.entity.AdminUserToken;
 import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.entity.PilipiliMallGoods;
-import ltd.newbee.mall.service.NewBeeMallCategoryService;
-import ltd.newbee.mall.service.NewBeeMallGoodsService;
+import ltd.newbee.mall.service.PilipiliMallCategoryService;
+import ltd.newbee.mall.service.PilipiliMallGoodsService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.Result;
@@ -50,9 +50,9 @@ public class PilipiliAdminGoodsInfoAPI {
     private static final Logger logger = LoggerFactory.getLogger(PilipiliAdminGoodsInfoAPI.class);
 
     @Resource
-    private NewBeeMallGoodsService newBeeMallGoodsService;
+    private PilipiliMallGoodsService pilipiliMallGoodsService;
     @Resource
-    private NewBeeMallCategoryService newBeeMallCategoryService;
+    private PilipiliMallCategoryService pilipiliMallCategoryService;
 
     /**
      * 列表
@@ -77,7 +77,7 @@ public class PilipiliAdminGoodsInfoAPI {
             params.put("goodsSellStatus", goodsSellStatus);
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallGoodsService.getNewBeeMallGoodsPage(pageUtil));
+        return ResultGenerator.genSuccessResult(pilipiliMallGoodsService.getNewBeeMallGoodsPage(pageUtil));
     }
 
     /**
@@ -89,7 +89,7 @@ public class PilipiliAdminGoodsInfoAPI {
         logger.info("adminUser:{}", adminUser.toString());
         PilipiliMallGoods pilipiliMallGoods = new PilipiliMallGoods();
         BeanUtil.copyProperties(goodsAddParam, pilipiliMallGoods);
-        String result = newBeeMallGoodsService.saveNewBeeMallGoods(pilipiliMallGoods);
+        String result = pilipiliMallGoodsService.saveNewBeeMallGoods(pilipiliMallGoods);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -107,7 +107,7 @@ public class PilipiliAdminGoodsInfoAPI {
         logger.info("adminUser:{}", adminUser.toString());
         PilipiliMallGoods pilipiliMallGoods = new PilipiliMallGoods();
         BeanUtil.copyProperties(goodsEditParam, pilipiliMallGoods);
-        String result = newBeeMallGoodsService.updateNewBeeMallGoods(pilipiliMallGoods);
+        String result = pilipiliMallGoodsService.updateNewBeeMallGoods(pilipiliMallGoods);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -123,7 +123,7 @@ public class PilipiliAdminGoodsInfoAPI {
     public Result info(@PathVariable("id") Long id, @TokenToAdminUser @Parameter(hidden = true) AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
         Map goodsInfo = new HashMap(8);
-        PilipiliMallGoods goods = newBeeMallGoodsService.getNewBeeMallGoodsById(id);
+        PilipiliMallGoods goods = pilipiliMallGoodsService.getNewBeeMallGoodsById(id);
         if (goods == null) {
             return ResultGenerator.genFailResult(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }
@@ -131,13 +131,13 @@ public class PilipiliAdminGoodsInfoAPI {
         GoodsCategory thirdCategory;
         GoodsCategory secondCategory;
         GoodsCategory firstCategory;
-        thirdCategory = newBeeMallCategoryService.getGoodsCategoryById(goods.getGoodsCategoryId());
+        thirdCategory = pilipiliMallCategoryService.getGoodsCategoryById(goods.getGoodsCategoryId());
         if (thirdCategory != null) {
             goodsInfo.put("thirdCategory", thirdCategory);
-            secondCategory = newBeeMallCategoryService.getGoodsCategoryById(thirdCategory.getParentId());
+            secondCategory = pilipiliMallCategoryService.getGoodsCategoryById(thirdCategory.getParentId());
             if (secondCategory != null) {
                 goodsInfo.put("secondCategory", secondCategory);
-                firstCategory = newBeeMallCategoryService.getGoodsCategoryById(secondCategory.getParentId());
+                firstCategory = pilipiliMallCategoryService.getGoodsCategoryById(secondCategory.getParentId());
                 if (firstCategory != null) {
                     goodsInfo.put("firstCategory", firstCategory);
                 }
@@ -159,7 +159,7 @@ public class PilipiliAdminGoodsInfoAPI {
         if (sellStatus != Constants.SELL_STATUS_UP && sellStatus != Constants.SELL_STATUS_DOWN) {
             return ResultGenerator.genFailResult("状态异常！");
         }
-        if (newBeeMallGoodsService.batchUpdateSellStatus(batchIdParam.getIds(), sellStatus)) {
+        if (pilipiliMallGoodsService.batchUpdateSellStatus(batchIdParam.getIds(), sellStatus)) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("修改失败");

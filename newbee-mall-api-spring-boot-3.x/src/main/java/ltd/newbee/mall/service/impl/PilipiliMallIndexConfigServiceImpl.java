@@ -14,7 +14,7 @@ import ltd.newbee.mall.dao.IndexConfigMapper;
 import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
 import ltd.newbee.mall.entity.IndexConfig;
 import ltd.newbee.mall.entity.PilipiliMallGoods;
-import ltd.newbee.mall.service.NewBeeMallIndexConfigService;
+import ltd.newbee.mall.service.PilipiliMallIndexConfigService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class NewBeeMallIndexConfigServiceImpl implements NewBeeMallIndexConfigService {
+public class PilipiliMallIndexConfigServiceImpl implements PilipiliMallIndexConfigService {
 
     @Autowired
     private IndexConfigMapper indexConfigMapper;

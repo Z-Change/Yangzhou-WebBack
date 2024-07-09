@@ -16,7 +16,7 @@ import ltd.newbee.mall.api.mall.vo.PilipiliMallOrderDetailVO;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToAdminUser;
 import ltd.newbee.mall.entity.AdminUserToken;
-import ltd.newbee.mall.service.NewBeeMallOrderService;
+import ltd.newbee.mall.service.PilipiliMallOrderService;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
@@ -43,7 +43,7 @@ public class PilipiliAdminOrderAPI {
     private static final Logger logger = LoggerFactory.getLogger(PilipiliAdminOrderAPI.class);
 
     @Resource
-    private NewBeeMallOrderService newBeeMallOrderService;
+    private PilipiliMallOrderService pilipiliMallOrderService;
 
     /**
      * 列表
@@ -68,14 +68,14 @@ public class PilipiliAdminOrderAPI {
             params.put("orderStatus", orderStatus);
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallOrderService.getNewBeeMallOrdersPage(pageUtil));
+        return ResultGenerator.genSuccessResult(pilipiliMallOrderService.getNewBeeMallOrdersPage(pageUtil));
     }
 
     @GetMapping("/orders/{orderId}")
     @Operation(summary = "订单详情接口", description = "传参为订单号")
     public Result<PilipiliMallOrderDetailVO> orderDetailPage(@Parameter(description = "订单号") @PathVariable("orderId") Long orderId, @TokenToAdminUser @Parameter(hidden = true) AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
-        return ResultGenerator.genSuccessResult(newBeeMallOrderService.getOrderDetailByOrderId(orderId));
+        return ResultGenerator.genSuccessResult(pilipiliMallOrderService.getOrderDetailByOrderId(orderId));
     }
 
     /**
@@ -88,7 +88,7 @@ public class PilipiliAdminOrderAPI {
         if (batchIdParam==null||batchIdParam.getIds().length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallOrderService.checkDone(batchIdParam.getIds());
+        String result = pilipiliMallOrderService.checkDone(batchIdParam.getIds());
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -106,7 +106,7 @@ public class PilipiliAdminOrderAPI {
         if (batchIdParam==null||batchIdParam.getIds().length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallOrderService.checkOut(batchIdParam.getIds());
+        String result = pilipiliMallOrderService.checkOut(batchIdParam.getIds());
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -124,7 +124,7 @@ public class PilipiliAdminOrderAPI {
         if (batchIdParam==null||batchIdParam.getIds().length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallOrderService.closeOrder(batchIdParam.getIds());
+        String result = pilipiliMallOrderService.closeOrder(batchIdParam.getIds());
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {

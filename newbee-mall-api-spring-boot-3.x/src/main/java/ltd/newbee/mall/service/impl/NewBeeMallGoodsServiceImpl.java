@@ -16,7 +16,7 @@ import ltd.newbee.mall.dao.GoodsCategoryMapper;
 import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
 import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.entity.PilipiliMallGoods;
-import ltd.newbee.mall.service.NewBeeMallGoodsService;
+import ltd.newbee.mall.service.PilipiliMallGoodsService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
+public class NewBeeMallGoodsServiceImpl implements PilipiliMallGoodsService {
 
     @Autowired
     private NewBeeMallGoodsMapper goodsMapper;

@@ -17,7 +17,7 @@ import ltd.newbee.mall.util.PageResult;
 
 import java.util.List;
 
-public interface NewBeeMallShoppingCartService {
+public interface PilipiliMallShoppingCartService {
 
     /**
      * 保存商品至购物车中

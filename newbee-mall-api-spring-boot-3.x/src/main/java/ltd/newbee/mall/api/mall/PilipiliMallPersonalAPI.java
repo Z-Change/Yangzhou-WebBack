@@ -21,7 +21,7 @@ import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToMallUser;
 import ltd.newbee.mall.entity.MallUser;
-import ltd.newbee.mall.service.NewBeeMallUserService;
+import ltd.newbee.mall.service.PilipiliMallUserService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.NumberUtil;
 import ltd.newbee.mall.util.Result;
@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.*;
 public class PilipiliMallPersonalAPI {
 
     @Resource
-    private NewBeeMallUserService newBeeMallUserService;
+    private PilipiliMallUserService pilipiliMallUserService;
 
     private static final Logger logger = LoggerFactory.getLogger(PilipiliMallPersonalAPI.class);
 
@@ -47,7 +47,7 @@ public class PilipiliMallPersonalAPI {
         if (!NumberUtil.isPhone(mallUserLoginParam.getLoginName())){
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_NAME_IS_NOT_PHONE.getResult());
         }
-        String loginResult = newBeeMallUserService.login(mallUserLoginParam.getLoginName(), mallUserLoginParam.getPasswordMd5());
+        String loginResult = pilipiliMallUserService.login(mallUserLoginParam.getLoginName(), mallUserLoginParam.getPasswordMd5());
 
         logger.info("login api,loginName={},loginResult={}", mallUserLoginParam.getLoginName(), loginResult);
 
@@ -65,7 +65,7 @@ public class PilipiliMallPersonalAPI {
     @PostMapping("/user/logout")
     @Operation(summary = "登出接口", description = "清除token")
     public Result<String> logout(@TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
-        Boolean logoutResult = newBeeMallUserService.logout(loginMallUser.getUserId());
+        Boolean logoutResult = pilipiliMallUserService.logout(loginMallUser.getUserId());
 
         logger.info("logout api,loginMallUser={}", loginMallUser.getUserId());
 
@@ -84,7 +84,7 @@ public class PilipiliMallPersonalAPI {
         if (!NumberUtil.isPhone(mallUserRegisterParam.getLoginName())){
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_NAME_IS_NOT_PHONE.getResult());
         }
-        String registerResult = newBeeMallUserService.register(mallUserRegisterParam.getLoginName(), mallUserRegisterParam.getPassword());
+        String registerResult = pilipiliMallUserService.register(mallUserRegisterParam.getLoginName(), mallUserRegisterParam.getPassword());
 
         logger.info("register api,loginName={},loginResult={}", mallUserRegisterParam.getLoginName(), registerResult);
 
@@ -99,7 +99,7 @@ public class PilipiliMallPersonalAPI {
     @PutMapping("/user/info")
     @Operation(summary = "修改用户信息", description = "")
     public Result updateInfo(@RequestBody @Parameter(description = "用户信息") MallUserUpdateParam mallUserUpdateParam, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
-        Boolean flag = newBeeMallUserService.updateUserInfo(mallUserUpdateParam, loginMallUser.getUserId());
+        Boolean flag = pilipiliMallUserService.updateUserInfo(mallUserUpdateParam, loginMallUser.getUserId());
         if (flag) {
             //返回成功
             Result result = ResultGenerator.genSuccessResult();

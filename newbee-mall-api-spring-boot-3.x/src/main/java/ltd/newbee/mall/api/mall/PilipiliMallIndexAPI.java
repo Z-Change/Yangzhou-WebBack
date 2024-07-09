@@ -15,8 +15,8 @@ import ltd.newbee.mall.common.IndexConfigTypeEnum;
 import ltd.newbee.mall.api.mall.vo.IndexInfoVO;
 import ltd.newbee.mall.api.mall.vo.PilipiliMallIndexCarouselVO;
 import ltd.newbee.mall.api.mall.vo.PilipiliMallIndexConfigGoodsVO;
-import ltd.newbee.mall.service.NewBeeMallCarouselService;
-import ltd.newbee.mall.service.NewBeeMallIndexConfigService;
+import ltd.newbee.mall.service.PilipiliMallCarouselService;
+import ltd.newbee.mall.service.PilipiliMallIndexConfigService;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,19 +32,19 @@ import java.util.List;
 public class PilipiliMallIndexAPI {
 
     @Resource
-    private NewBeeMallCarouselService newBeeMallCarouselService;
+    private PilipiliMallCarouselService pilipiliMallCarouselService;
 
     @Resource
-    private NewBeeMallIndexConfigService newBeeMallIndexConfigService;
+    private PilipiliMallIndexConfigService pilipiliMallIndexConfigService;
 
     @GetMapping("/index-infos")
     @Operation(summary = "获取首页数据", description = "轮播图、新品、推荐等")
     public Result<IndexInfoVO> indexInfo() {
         IndexInfoVO indexInfoVO = new IndexInfoVO();
-        List<PilipiliMallIndexCarouselVO> carousels = newBeeMallCarouselService.getCarouselsForIndex(Constants.INDEX_CAROUSEL_NUMBER);
-        List<PilipiliMallIndexConfigGoodsVO> hotGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_HOT.getType(), Constants.INDEX_GOODS_HOT_NUMBER);
-        List<PilipiliMallIndexConfigGoodsVO> newGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_NEW.getType(), Constants.INDEX_GOODS_NEW_NUMBER);
-        List<PilipiliMallIndexConfigGoodsVO> recommendGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_RECOMMOND.getType(), Constants.INDEX_GOODS_RECOMMOND_NUMBER);
+        List<PilipiliMallIndexCarouselVO> carousels = pilipiliMallCarouselService.getCarouselsForIndex(Constants.INDEX_CAROUSEL_NUMBER);
+        List<PilipiliMallIndexConfigGoodsVO> hotGoodses = pilipiliMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_HOT.getType(), Constants.INDEX_GOODS_HOT_NUMBER);
+        List<PilipiliMallIndexConfigGoodsVO> newGoodses = pilipiliMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_NEW.getType(), Constants.INDEX_GOODS_NEW_NUMBER);
+        List<PilipiliMallIndexConfigGoodsVO> recommendGoodses = pilipiliMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_RECOMMOND.getType(), Constants.INDEX_GOODS_RECOMMOND_NUMBER);
         indexInfoVO.setCarousels(carousels);
         indexInfoVO.setHotGoodses(hotGoodses);
         indexInfoVO.setNewGoodses(newGoodses);

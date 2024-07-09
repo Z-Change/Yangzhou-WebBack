@@ -21,9 +21,9 @@ import ltd.newbee.mall.config.annotation.TokenToMallUser;
 import ltd.newbee.mall.api.mall.vo.PilipiliMallShoppingCartItemVO;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.entity.MallUserAddress;
-import ltd.newbee.mall.service.NewBeeMallOrderService;
-import ltd.newbee.mall.service.NewBeeMallShoppingCartService;
-import ltd.newbee.mall.service.NewBeeMallUserAddressService;
+import ltd.newbee.mall.service.PilipiliMallOrderService;
+import ltd.newbee.mall.service.PilipiliMallShoppingCartService;
+import ltd.newbee.mall.service.PilipiliMallUserAddressService;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
 import ltd.newbee.mall.util.Result;
@@ -43,11 +43,11 @@ import java.util.Map;
 public class PilipiliMallOrderAPI {
 
     @Resource
-    private NewBeeMallShoppingCartService newBeeMallShoppingCartService;
+    private PilipiliMallShoppingCartService pilipiliMallShoppingCartService;
     @Resource
-    private NewBeeMallOrderService newBeeMallOrderService;
+    private PilipiliMallOrderService pilipiliMallOrderService;
     @Resource
-    private NewBeeMallUserAddressService newBeeMallUserAddressService;
+    private PilipiliMallUserAddressService pilipiliMallUserAddressService;
 
     @PostMapping("/saveOrder")
     @Operation(summary = "生成订单接口", description = "传参为地址id和待结算的购物项id数组")
@@ -59,7 +59,7 @@ public class PilipiliMallOrderAPI {
         if (saveOrderParam.getCartItemIds().length < 1) {
             PilipiliMallException.fail(ServiceResultEnum.PARAM_ERROR.getResult());
         }
-        List<PilipiliMallShoppingCartItemVO> itemsForSave = newBeeMallShoppingCartService.getCartItemsForSettle(Arrays.asList(saveOrderParam.getCartItemIds()), loginMallUser.getUserId());
+        List<PilipiliMallShoppingCartItemVO> itemsForSave = pilipiliMallShoppingCartService.getCartItemsForSettle(Arrays.asList(saveOrderParam.getCartItemIds()), loginMallUser.getUserId());
         if (CollectionUtils.isEmpty(itemsForSave)) {
             //无数据
             PilipiliMallException.fail("参数异常");
@@ -71,12 +71,12 @@ public class PilipiliMallOrderAPI {
             if (priceTotal < 1) {
                 PilipiliMallException.fail("价格异常");
             }
-            MallUserAddress address = newBeeMallUserAddressService.getMallUserAddressById(saveOrderParam.getAddressId());
+            MallUserAddress address = pilipiliMallUserAddressService.getMallUserAddressById(saveOrderParam.getAddressId());
             if (!loginMallUser.getUserId().equals(address.getUserId())) {
                 return ResultGenerator.genFailResult(ServiceResultEnum.REQUEST_FORBIDEN_ERROR.getResult());
             }
             //保存订单并返回订单号
-            String saveOrderResult = newBeeMallOrderService.saveOrder(loginMallUser, address, itemsForSave);
+            String saveOrderResult = pilipiliMallOrderService.saveOrder(loginMallUser, address, itemsForSave);
             Result result = ResultGenerator.genSuccessResult();
             result.setData(saveOrderResult);
             return result;
@@ -87,7 +87,7 @@ public class PilipiliMallOrderAPI {
     @GetMapping("/order/{orderNo}")
     @Operation(summary = "订单详情接口", description = "传参为订单号")
     public Result<PilipiliMallOrderDetailVO> orderDetailPage(@Parameter(description = "订单号") @PathVariable("orderNo") String orderNo, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
-        return ResultGenerator.genSuccessResult(newBeeMallOrderService.getOrderDetailByOrderNo(orderNo, loginMallUser.getUserId()));
+        return ResultGenerator.genSuccessResult(pilipiliMallOrderService.getOrderDetailByOrderNo(orderNo, loginMallUser.getUserId()));
     }
 
     @GetMapping("/order")
@@ -105,13 +105,13 @@ public class PilipiliMallOrderAPI {
         params.put("limit", Constants.ORDER_SEARCH_PAGE_LIMIT);
         //封装分页请求参数
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallOrderService.getMyOrders(pageUtil));
+        return ResultGenerator.genSuccessResult(pilipiliMallOrderService.getMyOrders(pageUtil));
     }
 
     @PutMapping("/order/{orderNo}/cancel")
     @Operation(summary = "订单取消接口", description = "传参为订单号")
     public Result cancelOrder(@Parameter(description = "订单号") @PathVariable("orderNo") String orderNo, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
-        String cancelOrderResult = newBeeMallOrderService.cancelOrder(orderNo, loginMallUser.getUserId());
+        String cancelOrderResult = pilipiliMallOrderService.cancelOrder(orderNo, loginMallUser.getUserId());
         if (ServiceResultEnum.SUCCESS.getResult().equals(cancelOrderResult)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -122,7 +122,7 @@ public class PilipiliMallOrderAPI {
     @PutMapping("/order/{orderNo}/finish")
     @Operation(summary = "确认收货接口", description = "传参为订单号")
     public Result finishOrder(@Parameter(description = "订单号") @PathVariable("orderNo") String orderNo, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
-        String finishOrderResult = newBeeMallOrderService.finishOrder(orderNo, loginMallUser.getUserId());
+        String finishOrderResult = pilipiliMallOrderService.finishOrder(orderNo, loginMallUser.getUserId());
         if (ServiceResultEnum.SUCCESS.getResult().equals(finishOrderResult)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -133,7 +133,7 @@ public class PilipiliMallOrderAPI {
     @GetMapping("/paySuccess")
     @Operation(summary = "模拟支付成功回调的接口", description = "传参为订单号和支付方式")
     public Result paySuccess(@Parameter(description = "订单号") @RequestParam("orderNo") String orderNo, @Parameter(description = "支付方式") @RequestParam("payType") int payType) {
-        String payResult = newBeeMallOrderService.paySuccess(orderNo, payType);
+        String payResult = pilipiliMallOrderService.paySuccess(orderNo, payType);
         if (ServiceResultEnum.SUCCESS.getResult().equals(payResult)) {
             return ResultGenerator.genSuccessResult();
         } else {

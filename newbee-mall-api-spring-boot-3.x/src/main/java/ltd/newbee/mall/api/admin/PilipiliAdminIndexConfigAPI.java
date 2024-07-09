@@ -19,7 +19,7 @@ import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToAdminUser;
 import ltd.newbee.mall.entity.AdminUserToken;
 import ltd.newbee.mall.entity.IndexConfig;
-import ltd.newbee.mall.service.NewBeeMallIndexConfigService;
+import ltd.newbee.mall.service.PilipiliMallIndexConfigService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.Result;
@@ -47,7 +47,7 @@ public class PilipiliAdminIndexConfigAPI {
     private static final Logger logger = LoggerFactory.getLogger(PilipiliAdminIndexConfigAPI.class);
 
     @Resource
-    private NewBeeMallIndexConfigService newBeeMallIndexConfigService;
+    private PilipiliMallIndexConfigService pilipiliMallIndexConfigService;
 
     /**
      * 列表
@@ -70,7 +70,7 @@ public class PilipiliAdminIndexConfigAPI {
         params.put("limit", pageSize);
         params.put("configType", configType);
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallIndexConfigService.getConfigsPage(pageUtil));
+        return ResultGenerator.genSuccessResult(pilipiliMallIndexConfigService.getConfigsPage(pageUtil));
     }
 
     /**
@@ -82,7 +82,7 @@ public class PilipiliAdminIndexConfigAPI {
         logger.info("adminUser:{}", adminUser.toString());
         IndexConfig indexConfig = new IndexConfig();
         BeanUtil.copyProperties(indexConfigAddParam, indexConfig);
-        String result = newBeeMallIndexConfigService.saveIndexConfig(indexConfig);
+        String result = pilipiliMallIndexConfigService.saveIndexConfig(indexConfig);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -100,7 +100,7 @@ public class PilipiliAdminIndexConfigAPI {
         logger.info("adminUser:{}", adminUser.toString());
         IndexConfig indexConfig = new IndexConfig();
         BeanUtil.copyProperties(indexConfigEditParam, indexConfig);
-        String result = newBeeMallIndexConfigService.updateIndexConfig(indexConfig);
+        String result = pilipiliMallIndexConfigService.updateIndexConfig(indexConfig);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -115,7 +115,7 @@ public class PilipiliAdminIndexConfigAPI {
     @Operation(summary = "获取单条首页配置项信息", description = "根据id查询")
     public Result info(@PathVariable("id") Long id, @TokenToAdminUser @Parameter(hidden = true) AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
-        IndexConfig config = newBeeMallIndexConfigService.getIndexConfigById(id);
+        IndexConfig config = pilipiliMallIndexConfigService.getIndexConfigById(id);
         if (config == null) {
             return ResultGenerator.genFailResult("未查询到数据");
         }
@@ -132,7 +132,7 @@ public class PilipiliAdminIndexConfigAPI {
         if (batchIdParam == null || batchIdParam.getIds().length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        if (newBeeMallIndexConfigService.deleteBatch(batchIdParam.getIds())) {
+        if (pilipiliMallIndexConfigService.deleteBatch(batchIdParam.getIds())) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("删除失败");

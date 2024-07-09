@@ -18,7 +18,7 @@ import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToMallUser;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.entity.MallUserAddress;
-import ltd.newbee.mall.service.NewBeeMallUserAddressService;
+import ltd.newbee.mall.service.PilipiliMallUserAddressService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
@@ -33,7 +33,7 @@ import java.util.List;
 public class PilipiliMallUserAddressAPI {
 
     @Resource
-    private NewBeeMallUserAddressService mallUserAddressService;
+    private PilipiliMallUserAddressService mallUserAddressService;
 
     @GetMapping("/address")
     @Operation(summary = "我的收货地址列表", description = "")

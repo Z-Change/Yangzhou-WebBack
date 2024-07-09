@@ -15,7 +15,7 @@ import ltd.newbee.mall.util.PageResult;
 
 import java.util.List;
 
-public interface NewBeeMallIndexConfigService {
+public interface PilipiliMallIndexConfigService {
 
     /**
      * 返回固定数量的首页配置商品对象(首页调用)

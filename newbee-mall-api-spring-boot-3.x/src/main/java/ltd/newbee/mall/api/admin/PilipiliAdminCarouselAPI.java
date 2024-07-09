@@ -18,7 +18,7 @@ import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToAdminUser;
 import ltd.newbee.mall.entity.AdminUserToken;
 import ltd.newbee.mall.entity.Carousel;
-import ltd.newbee.mall.service.NewBeeMallCarouselService;
+import ltd.newbee.mall.service.PilipiliMallCarouselService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.Result;
@@ -46,7 +46,7 @@ public class PilipiliAdminCarouselAPI {
     private static final Logger logger = LoggerFactory.getLogger(PilipiliAdminCarouselAPI.class);
 
     @Resource
-    NewBeeMallCarouselService newBeeMallCarouselService;
+    PilipiliMallCarouselService pilipiliMallCarouselService;
 
     /**
      * 列表
@@ -63,7 +63,7 @@ public class PilipiliAdminCarouselAPI {
         params.put("page", pageNumber);
         params.put("limit", pageSize);
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallCarouselService.getCarouselPage(pageUtil));
+        return ResultGenerator.genSuccessResult(pilipiliMallCarouselService.getCarouselPage(pageUtil));
     }
 
     /**
@@ -75,7 +75,7 @@ public class PilipiliAdminCarouselAPI {
         logger.info("adminUser:{}", adminUser.toString());
         Carousel carousel = new Carousel();
         BeanUtil.copyProperties(carouselAddParam, carousel);
-        String result = newBeeMallCarouselService.saveCarousel(carousel);
+        String result = pilipiliMallCarouselService.saveCarousel(carousel);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -93,7 +93,7 @@ public class PilipiliAdminCarouselAPI {
         logger.info("adminUser:{}", adminUser.toString());
         Carousel carousel = new Carousel();
         BeanUtil.copyProperties(carouselEditParam, carousel);
-        String result = newBeeMallCarouselService.updateCarousel(carousel);
+        String result = pilipiliMallCarouselService.updateCarousel(carousel);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -108,7 +108,7 @@ public class PilipiliAdminCarouselAPI {
     @Operation(summary = "获取单条轮播图信息", description = "根据id查询")
     public Result info(@PathVariable("id") Integer id, @TokenToAdminUser @Parameter(hidden = true) AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
-        Carousel carousel = newBeeMallCarouselService.getCarouselById(id);
+        Carousel carousel = pilipiliMallCarouselService.getCarouselById(id);
         if (carousel == null) {
             return ResultGenerator.genFailResult(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }
@@ -125,7 +125,7 @@ public class PilipiliAdminCarouselAPI {
         if (batchIdParam == null || batchIdParam.getIds().length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        if (newBeeMallCarouselService.deleteBatch(batchIdParam.getIds())) {
+        if (pilipiliMallCarouselService.deleteBatch(batchIdParam.getIds())) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("删除失败");

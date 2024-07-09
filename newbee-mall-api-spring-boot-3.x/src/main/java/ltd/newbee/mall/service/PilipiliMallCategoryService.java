@@ -15,7 +15,7 @@ import ltd.newbee.mall.util.PageResult;
 
 import java.util.List;
 
-public interface NewBeeMallCategoryService {
+public interface PilipiliMallCategoryService {
 
     String saveCategory(GoodsCategory goodsCategory);
 

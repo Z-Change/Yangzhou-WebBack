@@ -18,7 +18,7 @@ import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
 import ltd.newbee.mall.dao.NewBeeMallShoppingCartItemMapper;
 import ltd.newbee.mall.entity.PilipiliMallGoods;
 import ltd.newbee.mall.entity.PilipiliMallShoppingCartItem;
-import ltd.newbee.mall.service.NewBeeMallShoppingCartService;
+import ltd.newbee.mall.service.PilipiliMallShoppingCartService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
@@ -31,7 +31,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class NewBeeMallShoppingCartServiceImpl implements NewBeeMallShoppingCartService {
+public class PilipiliMallShoppingCartServiceImpl implements PilipiliMallShoppingCartService {
 
     @Autowired
     private NewBeeMallShoppingCartItemMapper newBeeMallShoppingCartItemMapper;

@@ -19,7 +19,7 @@ import ltd.newbee.mall.config.annotation.TokenToMallUser;
 import ltd.newbee.mall.api.mall.vo.PilipiliMallGoodsDetailVO;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.entity.PilipiliMallGoods;
-import ltd.newbee.mall.service.NewBeeMallGoodsService;
+import ltd.newbee.mall.service.PilipiliMallGoodsService;
 import ltd.newbee.mall.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ public class PilipiliMallGoodsAPI {
     private static final Logger logger = LoggerFactory.getLogger(PilipiliMallGoodsAPI.class);
 
     @Resource
-    private NewBeeMallGoodsService newBeeMallGoodsService;
+    private PilipiliMallGoodsService pilipiliMallGoodsService;
 
     @GetMapping("/search")
     @Operation(summary = "商品搜索接口", description = "根据关键字和分类id进行搜索")
@@ -73,7 +73,7 @@ public class PilipiliMallGoodsAPI {
         params.put("goodsSellStatus", Constants.SELL_STATUS_UP);
         //封装商品数据
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallGoodsService.searchNewBeeMallGoods(pageUtil));
+        return ResultGenerator.genSuccessResult(pilipiliMallGoodsService.searchNewBeeMallGoods(pageUtil));
     }
 
     @GetMapping("/goods/detail/{goodsId}")
@@ -83,7 +83,7 @@ public class PilipiliMallGoodsAPI {
         if (goodsId < 1) {
             return ResultGenerator.genFailResult("参数异常");
         }
-        PilipiliMallGoods goods = newBeeMallGoodsService.getNewBeeMallGoodsById(goodsId);
+        PilipiliMallGoods goods = pilipiliMallGoodsService.getNewBeeMallGoodsById(goodsId);
         if (Constants.SELL_STATUS_UP != goods.getGoodsSellStatus()) {
             PilipiliMallException.fail(ServiceResultEnum.GOODS_PUT_DOWN.getResult());
         }

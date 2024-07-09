@@ -13,7 +13,7 @@ import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.dao.MallUserAddressMapper;
 import ltd.newbee.mall.entity.MallUserAddress;
-import ltd.newbee.mall.service.NewBeeMallUserAddressService;
+import ltd.newbee.mall.service.PilipiliMallUserAddressService;
 import ltd.newbee.mall.util.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class NewBeeMallUserAddressServiceImpl implements NewBeeMallUserAddressService {
+public class PilipiliMallUserAddressServiceImpl implements PilipiliMallUserAddressService {
 
     @Autowired
     private MallUserAddressMapper userAddressMapper;

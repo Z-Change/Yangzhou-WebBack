@@ -13,7 +13,7 @@ import ltd.newbee.mall.entity.MallUserAddress;
 
 import java.util.List;
 
-public interface NewBeeMallUserAddressService {
+public interface PilipiliMallUserAddressService {
 
     /**
      * 获取我的收货地址
