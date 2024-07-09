@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.service.impl;
 
-import ltd.newbee.mall.api.mall.vo.NewBeeMallIndexConfigGoodsVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallIndexConfigGoodsVO;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.dao.IndexConfigMapper;
 import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
@@ -85,29 +85,29 @@ public class NewBeeMallIndexConfigServiceImpl implements NewBeeMallIndexConfigSe
     }
 
     @Override
-    public List<NewBeeMallIndexConfigGoodsVO> getConfigGoodsesForIndex(int configType, int number) {
-        List<NewBeeMallIndexConfigGoodsVO> newBeeMallIndexConfigGoodsVOS = new ArrayList<>(number);
+    public List<PilipiliMallIndexConfigGoodsVO> getConfigGoodsesForIndex(int configType, int number) {
+        List<PilipiliMallIndexConfigGoodsVO> pilipiliMallIndexConfigGoodsVOS = new ArrayList<>(number);
         List<IndexConfig> indexConfigs = indexConfigMapper.findIndexConfigsByTypeAndNum(configType, number);
         if (!CollectionUtils.isEmpty(indexConfigs)) {
             //取出所有的goodsId
             List<Long> goodsIds = indexConfigs.stream().map(IndexConfig::getGoodsId).collect(Collectors.toList());
             List<NewBeeMallGoods> newBeeMallGoods = goodsMapper.selectByPrimaryKeys(goodsIds);
-            newBeeMallIndexConfigGoodsVOS = BeanUtil.copyList(newBeeMallGoods, NewBeeMallIndexConfigGoodsVO.class);
-            for (NewBeeMallIndexConfigGoodsVO newBeeMallIndexConfigGoodsVO : newBeeMallIndexConfigGoodsVOS) {
-                String goodsName = newBeeMallIndexConfigGoodsVO.getGoodsName();
-                String goodsIntro = newBeeMallIndexConfigGoodsVO.getGoodsIntro();
+            pilipiliMallIndexConfigGoodsVOS = BeanUtil.copyList(newBeeMallGoods, PilipiliMallIndexConfigGoodsVO.class);
+            for (PilipiliMallIndexConfigGoodsVO pilipiliMallIndexConfigGoodsVO : pilipiliMallIndexConfigGoodsVOS) {
+                String goodsName = pilipiliMallIndexConfigGoodsVO.getGoodsName();
+                String goodsIntro = pilipiliMallIndexConfigGoodsVO.getGoodsIntro();
                 // 字符串过长导致文字超出的问题
                 if (goodsName.length() > 30) {
                     goodsName = goodsName.substring(0, 30) + "...";
-                    newBeeMallIndexConfigGoodsVO.setGoodsName(goodsName);
+                    pilipiliMallIndexConfigGoodsVO.setGoodsName(goodsName);
                 }
                 if (goodsIntro.length() > 22) {
                     goodsIntro = goodsIntro.substring(0, 22) + "...";
-                    newBeeMallIndexConfigGoodsVO.setGoodsIntro(goodsIntro);
+                    pilipiliMallIndexConfigGoodsVO.setGoodsIntro(goodsIntro);
                 }
             }
         }
-        return newBeeMallIndexConfigGoodsVOS;
+        return pilipiliMallIndexConfigGoodsVOS;
     }
 
     @Override

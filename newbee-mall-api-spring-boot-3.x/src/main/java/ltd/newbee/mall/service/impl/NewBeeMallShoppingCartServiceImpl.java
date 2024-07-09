@@ -13,7 +13,7 @@ import ltd.newbee.mall.api.mall.param.UpdateCartItemParam;
 import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallShoppingCartItemVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallShoppingCartItemVO;
 import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
 import ltd.newbee.mall.dao.NewBeeMallShoppingCartItemMapper;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
@@ -127,15 +127,15 @@ public class NewBeeMallShoppingCartServiceImpl implements NewBeeMallShoppingCart
     }
 
     @Override
-    public List<NewBeeMallShoppingCartItemVO> getMyShoppingCartItems(Long newBeeMallUserId) {
-        List<NewBeeMallShoppingCartItemVO> newBeeMallShoppingCartItemVOS = new ArrayList<>();
+    public List<PilipiliMallShoppingCartItemVO> getMyShoppingCartItems(Long newBeeMallUserId) {
+        List<PilipiliMallShoppingCartItemVO> pilipiliMallShoppingCartItemVOS = new ArrayList<>();
         List<NewBeeMallShoppingCartItem> newBeeMallShoppingCartItems = newBeeMallShoppingCartItemMapper.selectByUserId(newBeeMallUserId, Constants.SHOPPING_CART_ITEM_TOTAL_NUMBER);
-        return getNewBeeMallShoppingCartItemVOS(newBeeMallShoppingCartItemVOS, newBeeMallShoppingCartItems);
+        return getNewBeeMallShoppingCartItemVOS(pilipiliMallShoppingCartItemVOS, newBeeMallShoppingCartItems);
     }
 
     @Override
-    public List<NewBeeMallShoppingCartItemVO> getCartItemsForSettle(List<Long> cartItemIds, Long newBeeMallUserId) {
-        List<NewBeeMallShoppingCartItemVO> newBeeMallShoppingCartItemVOS = new ArrayList<>();
+    public List<PilipiliMallShoppingCartItemVO> getCartItemsForSettle(List<Long> cartItemIds, Long newBeeMallUserId) {
+        List<PilipiliMallShoppingCartItemVO> pilipiliMallShoppingCartItemVOS = new ArrayList<>();
         if (CollectionUtils.isEmpty(cartItemIds)) {
             PilipiliMallException.fail("购物项不能为空");
         }
@@ -146,17 +146,17 @@ public class NewBeeMallShoppingCartServiceImpl implements NewBeeMallShoppingCart
         if (newBeeMallShoppingCartItems.size() != cartItemIds.size()) {
             PilipiliMallException.fail("参数异常");
         }
-        return getNewBeeMallShoppingCartItemVOS(newBeeMallShoppingCartItemVOS, newBeeMallShoppingCartItems);
+        return getNewBeeMallShoppingCartItemVOS(pilipiliMallShoppingCartItemVOS, newBeeMallShoppingCartItems);
     }
 
     /**
      * 数据转换
      *
-     * @param newBeeMallShoppingCartItemVOS
+     * @param pilipiliMallShoppingCartItemVOS
      * @param newBeeMallShoppingCartItems
      * @return
      */
-    private List<NewBeeMallShoppingCartItemVO> getNewBeeMallShoppingCartItemVOS(List<NewBeeMallShoppingCartItemVO> newBeeMallShoppingCartItemVOS, List<NewBeeMallShoppingCartItem> newBeeMallShoppingCartItems) {
+    private List<PilipiliMallShoppingCartItemVO> getNewBeeMallShoppingCartItemVOS(List<PilipiliMallShoppingCartItemVO> pilipiliMallShoppingCartItemVOS, List<NewBeeMallShoppingCartItem> newBeeMallShoppingCartItems) {
         if (!CollectionUtils.isEmpty(newBeeMallShoppingCartItems)) {
             //查询商品信息并做数据转换
             List<Long> newBeeMallGoodsIds = newBeeMallShoppingCartItems.stream().map(NewBeeMallShoppingCartItem::getGoodsId).collect(Collectors.toList());
@@ -166,31 +166,31 @@ public class NewBeeMallShoppingCartServiceImpl implements NewBeeMallShoppingCart
                 newBeeMallGoodsMap = newBeeMallGoods.stream().collect(Collectors.toMap(NewBeeMallGoods::getGoodsId, Function.identity(), (entity1, entity2) -> entity1));
             }
             for (NewBeeMallShoppingCartItem newBeeMallShoppingCartItem : newBeeMallShoppingCartItems) {
-                NewBeeMallShoppingCartItemVO newBeeMallShoppingCartItemVO = new NewBeeMallShoppingCartItemVO();
-                BeanUtil.copyProperties(newBeeMallShoppingCartItem, newBeeMallShoppingCartItemVO);
+                PilipiliMallShoppingCartItemVO pilipiliMallShoppingCartItemVO = new PilipiliMallShoppingCartItemVO();
+                BeanUtil.copyProperties(newBeeMallShoppingCartItem, pilipiliMallShoppingCartItemVO);
                 if (newBeeMallGoodsMap.containsKey(newBeeMallShoppingCartItem.getGoodsId())) {
                     NewBeeMallGoods newBeeMallGoodsTemp = newBeeMallGoodsMap.get(newBeeMallShoppingCartItem.getGoodsId());
-                    newBeeMallShoppingCartItemVO.setGoodsCoverImg(newBeeMallGoodsTemp.getGoodsCoverImg());
+                    pilipiliMallShoppingCartItemVO.setGoodsCoverImg(newBeeMallGoodsTemp.getGoodsCoverImg());
                     String goodsName = newBeeMallGoodsTemp.getGoodsName();
                     // 字符串过长导致文字超出的问题
                     if (goodsName.length() > 28) {
                         goodsName = goodsName.substring(0, 28) + "...";
                     }
-                    newBeeMallShoppingCartItemVO.setGoodsName(goodsName);
-                    newBeeMallShoppingCartItemVO.setSellingPrice(newBeeMallGoodsTemp.getSellingPrice());
-                    newBeeMallShoppingCartItemVOS.add(newBeeMallShoppingCartItemVO);
+                    pilipiliMallShoppingCartItemVO.setGoodsName(goodsName);
+                    pilipiliMallShoppingCartItemVO.setSellingPrice(newBeeMallGoodsTemp.getSellingPrice());
+                    pilipiliMallShoppingCartItemVOS.add(pilipiliMallShoppingCartItemVO);
                 }
             }
         }
-        return newBeeMallShoppingCartItemVOS;
+        return pilipiliMallShoppingCartItemVOS;
     }
 
     @Override
     public PageResult getMyShoppingCartItems(PageQueryUtil pageUtil) {
-        List<NewBeeMallShoppingCartItemVO> newBeeMallShoppingCartItemVOS = new ArrayList<>();
+        List<PilipiliMallShoppingCartItemVO> pilipiliMallShoppingCartItemVOS = new ArrayList<>();
         List<NewBeeMallShoppingCartItem> newBeeMallShoppingCartItems = newBeeMallShoppingCartItemMapper.findMyNewBeeMallCartItems(pageUtil);
         int total = newBeeMallShoppingCartItemMapper.getTotalMyNewBeeMallCartItems(pageUtil);
-        PageResult pageResult = new PageResult(getNewBeeMallShoppingCartItemVOS(newBeeMallShoppingCartItemVOS, newBeeMallShoppingCartItems), total, pageUtil.getLimit(), pageUtil.getPage());
+        PageResult pageResult = new PageResult(getNewBeeMallShoppingCartItemVOS(pilipiliMallShoppingCartItemVOS, newBeeMallShoppingCartItems), total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
 }

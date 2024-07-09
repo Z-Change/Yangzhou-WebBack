@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.service.impl;
 
-import ltd.newbee.mall.api.mall.vo.NewBeeMallSearchGoodsVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallSearchGoodsVO;
 import ltd.newbee.mall.common.PilipiliMallCategoryLevelEnum;
 import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
@@ -108,24 +108,24 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
     public PageResult searchNewBeeMallGoods(PageQueryUtil pageUtil) {
         List<NewBeeMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsListBySearch(pageUtil);
         int total = goodsMapper.getTotalNewBeeMallGoodsBySearch(pageUtil);
-        List<NewBeeMallSearchGoodsVO> newBeeMallSearchGoodsVOS = new ArrayList<>();
+        List<PilipiliMallSearchGoodsVO> pilipiliMallSearchGoodsVOS = new ArrayList<>();
         if (!CollectionUtils.isEmpty(goodsList)) {
-            newBeeMallSearchGoodsVOS = BeanUtil.copyList(goodsList, NewBeeMallSearchGoodsVO.class);
-            for (NewBeeMallSearchGoodsVO newBeeMallSearchGoodsVO : newBeeMallSearchGoodsVOS) {
-                String goodsName = newBeeMallSearchGoodsVO.getGoodsName();
-                String goodsIntro = newBeeMallSearchGoodsVO.getGoodsIntro();
+            pilipiliMallSearchGoodsVOS = BeanUtil.copyList(goodsList, PilipiliMallSearchGoodsVO.class);
+            for (PilipiliMallSearchGoodsVO pilipiliMallSearchGoodsVO : pilipiliMallSearchGoodsVOS) {
+                String goodsName = pilipiliMallSearchGoodsVO.getGoodsName();
+                String goodsIntro = pilipiliMallSearchGoodsVO.getGoodsIntro();
                 // 字符串过长导致文字超出的问题
                 if (goodsName.length() > 28) {
                     goodsName = goodsName.substring(0, 28) + "...";
-                    newBeeMallSearchGoodsVO.setGoodsName(goodsName);
+                    pilipiliMallSearchGoodsVO.setGoodsName(goodsName);
                 }
                 if (goodsIntro.length() > 100) {
                     goodsIntro = goodsIntro.substring(0, 100) + "...";
-                    newBeeMallSearchGoodsVO.setGoodsIntro(goodsIntro);
+                    pilipiliMallSearchGoodsVO.setGoodsIntro(goodsIntro);
                 }
             }
         }
-        PageResult pageResult = new PageResult(newBeeMallSearchGoodsVOS, total, pageUtil.getLimit(), pageUtil.getPage());
+        PageResult pageResult = new PageResult(pilipiliMallSearchGoodsVOS, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
 }

@@ -17,7 +17,7 @@ import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToMallUser;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallShoppingCartItemVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallShoppingCartItemVO;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.entity.NewBeeMallShoppingCartItem;
 import ltd.newbee.mall.service.NewBeeMallShoppingCartService;
@@ -44,7 +44,7 @@ public class PilipiliMallShoppingCartAPI {
 
     @GetMapping("/shop-cart/page")
     @Operation(summary = "购物车列表(每页默认5条)", description = "传参为页码")
-    public Result<PageResult<List<NewBeeMallShoppingCartItemVO>>> cartItemPageList(Integer pageNumber, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
+    public Result<PageResult<List<PilipiliMallShoppingCartItemVO>>> cartItemPageList(Integer pageNumber, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
         Map params = new HashMap(8);
         if (pageNumber == null || pageNumber < 1) {
             pageNumber = 1;
@@ -59,7 +59,7 @@ public class PilipiliMallShoppingCartAPI {
 
     @GetMapping("/shop-cart")
     @Operation(summary = "购物车列表(网页移动端不分页)", description = "")
-    public Result<List<NewBeeMallShoppingCartItemVO>> cartItemList(@TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
+    public Result<List<PilipiliMallShoppingCartItemVO>> cartItemList(@TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
         return ResultGenerator.genSuccessResult(newBeeMallShoppingCartService.getMyShoppingCartItems(loginMallUser.getUserId()));
     }
 
@@ -108,19 +108,19 @@ public class PilipiliMallShoppingCartAPI {
 
     @GetMapping("/shop-cart/settle")
     @Operation(summary = "根据购物项id数组查询购物项明细", description = "确认订单页面使用")
-    public Result<List<NewBeeMallShoppingCartItemVO>> toSettle(Long[] cartItemIds, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
+    public Result<List<PilipiliMallShoppingCartItemVO>> toSettle(Long[] cartItemIds, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
         if (cartItemIds.length < 1) {
             PilipiliMallException.fail("参数异常");
         }
         int priceTotal = 0;
-        List<NewBeeMallShoppingCartItemVO> itemsForSettle = newBeeMallShoppingCartService.getCartItemsForSettle(Arrays.asList(cartItemIds), loginMallUser.getUserId());
+        List<PilipiliMallShoppingCartItemVO> itemsForSettle = newBeeMallShoppingCartService.getCartItemsForSettle(Arrays.asList(cartItemIds), loginMallUser.getUserId());
         if (CollectionUtils.isEmpty(itemsForSettle)) {
             //无数据则抛出异常
             PilipiliMallException.fail("参数异常");
         } else {
             //总价
-            for (NewBeeMallShoppingCartItemVO newBeeMallShoppingCartItemVO : itemsForSettle) {
-                priceTotal += newBeeMallShoppingCartItemVO.getGoodsCount() * newBeeMallShoppingCartItemVO.getSellingPrice();
+            for (PilipiliMallShoppingCartItemVO pilipiliMallShoppingCartItemVO : itemsForSettle) {
+                priceTotal += pilipiliMallShoppingCartItemVO.getGoodsCount() * pilipiliMallShoppingCartItemVO.getSellingPrice();
             }
             if (priceTotal < 1) {
                 PilipiliMallException.fail("价格异常");

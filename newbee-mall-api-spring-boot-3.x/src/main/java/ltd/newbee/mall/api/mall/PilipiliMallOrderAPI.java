@@ -12,13 +12,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import ltd.newbee.mall.api.mall.param.SaveOrderParam;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallOrderDetailVO;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallOrderListVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallOrderDetailVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallOrderListVO;
 import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToMallUser;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallShoppingCartItemVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallShoppingCartItemVO;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.entity.MallUserAddress;
 import ltd.newbee.mall.service.NewBeeMallOrderService;
@@ -59,14 +59,14 @@ public class PilipiliMallOrderAPI {
         if (saveOrderParam.getCartItemIds().length < 1) {
             PilipiliMallException.fail(ServiceResultEnum.PARAM_ERROR.getResult());
         }
-        List<NewBeeMallShoppingCartItemVO> itemsForSave = newBeeMallShoppingCartService.getCartItemsForSettle(Arrays.asList(saveOrderParam.getCartItemIds()), loginMallUser.getUserId());
+        List<PilipiliMallShoppingCartItemVO> itemsForSave = newBeeMallShoppingCartService.getCartItemsForSettle(Arrays.asList(saveOrderParam.getCartItemIds()), loginMallUser.getUserId());
         if (CollectionUtils.isEmpty(itemsForSave)) {
             //无数据
             PilipiliMallException.fail("参数异常");
         } else {
             //总价
-            for (NewBeeMallShoppingCartItemVO newBeeMallShoppingCartItemVO : itemsForSave) {
-                priceTotal += newBeeMallShoppingCartItemVO.getGoodsCount() * newBeeMallShoppingCartItemVO.getSellingPrice();
+            for (PilipiliMallShoppingCartItemVO pilipiliMallShoppingCartItemVO : itemsForSave) {
+                priceTotal += pilipiliMallShoppingCartItemVO.getGoodsCount() * pilipiliMallShoppingCartItemVO.getSellingPrice();
             }
             if (priceTotal < 1) {
                 PilipiliMallException.fail("价格异常");
@@ -86,15 +86,15 @@ public class PilipiliMallOrderAPI {
 
     @GetMapping("/order/{orderNo}")
     @Operation(summary = "订单详情接口", description = "传参为订单号")
-    public Result<NewBeeMallOrderDetailVO> orderDetailPage(@Parameter(description = "订单号") @PathVariable("orderNo") String orderNo, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
+    public Result<PilipiliMallOrderDetailVO> orderDetailPage(@Parameter(description = "订单号") @PathVariable("orderNo") String orderNo, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
         return ResultGenerator.genSuccessResult(newBeeMallOrderService.getOrderDetailByOrderNo(orderNo, loginMallUser.getUserId()));
     }
 
     @GetMapping("/order")
     @Operation(summary = "订单列表接口", description = "传参为页码")
-    public Result<PageResult<List<NewBeeMallOrderListVO>>> orderList(@Parameter(description = "页码") @RequestParam(required = false) Integer pageNumber,
-                            @Parameter(description = "订单状态:0.待支付 1.待确认 2.待发货 3:已发货 4.交易成功") @RequestParam(required = false) Integer status,
-                            @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
+    public Result<PageResult<List<PilipiliMallOrderListVO>>> orderList(@Parameter(description = "页码") @RequestParam(required = false) Integer pageNumber,
+                                                                       @Parameter(description = "订单状态:0.待支付 1.待确认 2.待发货 3:已发货 4.交易成功") @RequestParam(required = false) Integer status,
+                                                                       @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
         Map params = new HashMap(8);
         if (pageNumber == null || pageNumber < 1) {
             pageNumber = 1;

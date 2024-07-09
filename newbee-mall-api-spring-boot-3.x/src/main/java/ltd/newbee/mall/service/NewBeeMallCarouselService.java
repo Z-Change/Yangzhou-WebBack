@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.service;
 
-import ltd.newbee.mall.api.mall.vo.NewBeeMallIndexCarouselVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallIndexCarouselVO;
 import ltd.newbee.mall.entity.Carousel;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
@@ -23,7 +23,7 @@ public interface NewBeeMallCarouselService {
      * @param number
      * @return
      */
-    List<NewBeeMallIndexCarouselVO> getCarouselsForIndex(int number);
+    List<PilipiliMallIndexCarouselVO> getCarouselsForIndex(int number);
 
     /**
      * 后台分页

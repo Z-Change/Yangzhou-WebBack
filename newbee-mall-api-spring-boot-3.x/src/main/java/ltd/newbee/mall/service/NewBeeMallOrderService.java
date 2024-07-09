@@ -8,9 +8,9 @@
  */
 package ltd.newbee.mall.service;
 
-import ltd.newbee.mall.api.mall.vo.NewBeeMallOrderDetailVO;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallOrderItemVO;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallShoppingCartItemVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallOrderDetailVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallOrderItemVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallShoppingCartItemVO;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.entity.MallUserAddress;
 import ltd.newbee.mall.entity.NewBeeMallOrder;
@@ -26,7 +26,7 @@ public interface NewBeeMallOrderService {
      * @param orderId
      * @return
      */
-    NewBeeMallOrderDetailVO getOrderDetailByOrderId(Long orderId);
+    PilipiliMallOrderDetailVO getOrderDetailByOrderId(Long orderId);
 
     /**
      * 获取订单详情
@@ -35,7 +35,7 @@ public interface NewBeeMallOrderService {
      * @param userId
      * @return
      */
-    NewBeeMallOrderDetailVO getOrderDetailByOrderNo(String orderNo, Long userId);
+    PilipiliMallOrderDetailVO getOrderDetailByOrderNo(String orderNo, Long userId);
 
     /**
      * 我的订单列表
@@ -65,7 +65,7 @@ public interface NewBeeMallOrderService {
 
     String paySuccess(String orderNo, int payType);
 
-    String saveOrder(MallUser loginMallUser, MallUserAddress address, List<NewBeeMallShoppingCartItemVO> itemsForSave);
+    String saveOrder(MallUser loginMallUser, MallUserAddress address, List<PilipiliMallShoppingCartItemVO> itemsForSave);
 
     /**
      * 后台分页
@@ -107,5 +107,5 @@ public interface NewBeeMallOrderService {
      */
     String closeOrder(Long[] ids);
 
-    List<NewBeeMallOrderItemVO> getOrderItems(Long orderId);
+    List<PilipiliMallOrderItemVO> getOrderItems(Long orderId);
 }

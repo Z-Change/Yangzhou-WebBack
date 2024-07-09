@@ -11,12 +11,12 @@ package ltd.newbee.mall.api.mall;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallSearchGoodsVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallSearchGoodsVO;
 import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToMallUser;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallGoodsDetailVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallGoodsDetailVO;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.service.NewBeeMallGoodsService;
@@ -43,11 +43,11 @@ public class PilipiliMallGoodsAPI {
 
     @GetMapping("/search")
     @Operation(summary = "商品搜索接口", description = "根据关键字和分类id进行搜索")
-    public Result<PageResult<List<NewBeeMallSearchGoodsVO>>> search(@RequestParam(required = false) @Parameter(description = "搜索关键字") String keyword,
-                                                                    @RequestParam(required = false) @Parameter(description = "分类id") Long goodsCategoryId,
-                                                                    @RequestParam(required = false) @Parameter(description = "orderBy") String orderBy,
-                                                                    @RequestParam(required = false) @Parameter(description = "页码") Integer pageNumber,
-                                                                    @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
+    public Result<PageResult<List<PilipiliMallSearchGoodsVO>>> search(@RequestParam(required = false) @Parameter(description = "搜索关键字") String keyword,
+                                                                      @RequestParam(required = false) @Parameter(description = "分类id") Long goodsCategoryId,
+                                                                      @RequestParam(required = false) @Parameter(description = "orderBy") String orderBy,
+                                                                      @RequestParam(required = false) @Parameter(description = "页码") Integer pageNumber,
+                                                                      @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
         
         logger.info("goods search api,keyword={},goodsCategoryId={},orderBy={},pageNumber={},userId={}", keyword, goodsCategoryId, orderBy, pageNumber, loginMallUser.getUserId());
 
@@ -78,7 +78,7 @@ public class PilipiliMallGoodsAPI {
 
     @GetMapping("/goods/detail/{goodsId}")
     @Operation(summary = "商品详情接口", description = "传参为商品id")
-    public Result<NewBeeMallGoodsDetailVO> goodsDetail(@Parameter(description = "商品id") @PathVariable("goodsId") Long goodsId, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
+    public Result<PilipiliMallGoodsDetailVO> goodsDetail(@Parameter(description = "商品id") @PathVariable("goodsId") Long goodsId, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
         logger.info("goods detail api,goodsId={},userId={}", goodsId, loginMallUser.getUserId());
         if (goodsId < 1) {
             return ResultGenerator.genFailResult("参数异常");
@@ -87,7 +87,7 @@ public class PilipiliMallGoodsAPI {
         if (Constants.SELL_STATUS_UP != goods.getGoodsSellStatus()) {
             PilipiliMallException.fail(ServiceResultEnum.GOODS_PUT_DOWN.getResult());
         }
-        NewBeeMallGoodsDetailVO goodsDetailVO = new NewBeeMallGoodsDetailVO();
+        PilipiliMallGoodsDetailVO goodsDetailVO = new PilipiliMallGoodsDetailVO();
         BeanUtil.copyProperties(goods, goodsDetailVO);
         goodsDetailVO.setGoodsCarouselList(goods.getGoodsCarousel().split(","));
         return ResultGenerator.genSuccessResult(goodsDetailVO);

@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.service.impl;
 
-import ltd.newbee.mall.api.mall.vo.NewBeeMallUserAddressVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallUserAddressVO;
 import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.dao.MallUserAddressMapper;
@@ -29,10 +29,10 @@ public class NewBeeMallUserAddressServiceImpl implements NewBeeMallUserAddressSe
     private MallUserAddressMapper userAddressMapper;
 
     @Override
-    public List<NewBeeMallUserAddressVO> getMyAddresses(Long userId) {
+    public List<PilipiliMallUserAddressVO> getMyAddresses(Long userId) {
         List<MallUserAddress> myAddressList = userAddressMapper.findMyAddressList(userId);
-        List<NewBeeMallUserAddressVO> newBeeMallUserAddressVOS = BeanUtil.copyList(myAddressList, NewBeeMallUserAddressVO.class);
-        return newBeeMallUserAddressVOS;
+        List<PilipiliMallUserAddressVO> pilipiliMallUserAddressVOS = BeanUtil.copyList(myAddressList, PilipiliMallUserAddressVO.class);
+        return pilipiliMallUserAddressVOS;
     }
 
     @Override

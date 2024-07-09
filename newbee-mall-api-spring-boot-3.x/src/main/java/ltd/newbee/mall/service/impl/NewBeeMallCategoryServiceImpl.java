@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.service.impl;
 
-import ltd.newbee.mall.api.mall.vo.NewBeeMallIndexCategoryVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallIndexCategoryVO;
 import ltd.newbee.mall.api.mall.vo.SecondLevelCategoryVO;
 import ltd.newbee.mall.api.mall.vo.ThirdLevelCategoryVO;
 import ltd.newbee.mall.common.Constants;
@@ -80,8 +80,8 @@ public class NewBeeMallCategoryServiceImpl implements NewBeeMallCategoryService 
     }
 
     @Override
-    public List<NewBeeMallIndexCategoryVO> getCategoriesForIndex() {
-        List<NewBeeMallIndexCategoryVO> newBeeMallIndexCategoryVOS = new ArrayList<>();
+    public List<PilipiliMallIndexCategoryVO> getCategoriesForIndex() {
+        List<PilipiliMallIndexCategoryVO> pilipiliMallIndexCategoryVOS = new ArrayList<>();
         //获取一级分类的固定数量的数据
         List<GoodsCategory> firstLevelCategories = goodsCategoryMapper.selectByLevelAndParentIdsAndNumber(Collections.singletonList(0L), PilipiliMallCategoryLevelEnum.LEVEL_ONE.getLevel(), Constants.INDEX_CATEGORY_NUMBER);
         if (!CollectionUtils.isEmpty(firstLevelCategories)) {
@@ -113,20 +113,20 @@ public class NewBeeMallCategoryServiceImpl implements NewBeeMallCategoryService 
                         //根据 parentId 将 thirdLevelCategories 分组
                         Map<Long, List<SecondLevelCategoryVO>> secondLevelCategoryVOMap = secondLevelCategoryVOS.stream().collect(groupingBy(SecondLevelCategoryVO::getParentId));
                         for (GoodsCategory firstCategory : firstLevelCategories) {
-                            NewBeeMallIndexCategoryVO newBeeMallIndexCategoryVO = new NewBeeMallIndexCategoryVO();
-                            BeanUtil.copyProperties(firstCategory, newBeeMallIndexCategoryVO);
+                            PilipiliMallIndexCategoryVO pilipiliMallIndexCategoryVO = new PilipiliMallIndexCategoryVO();
+                            BeanUtil.copyProperties(firstCategory, pilipiliMallIndexCategoryVO);
                             //如果该一级分类下有数据则放入 newBeeMallIndexCategoryVOS 对象中
                             if (secondLevelCategoryVOMap.containsKey(firstCategory.getCategoryId())) {
                                 //根据一级分类的id取出secondLevelCategoryVOMap分组中的二级级分类list
                                 List<SecondLevelCategoryVO> tempGoodsCategories = secondLevelCategoryVOMap.get(firstCategory.getCategoryId());
-                                newBeeMallIndexCategoryVO.setSecondLevelCategoryVOS(tempGoodsCategories);
-                                newBeeMallIndexCategoryVOS.add(newBeeMallIndexCategoryVO);
+                                pilipiliMallIndexCategoryVO.setSecondLevelCategoryVOS(tempGoodsCategories);
+                                pilipiliMallIndexCategoryVOS.add(pilipiliMallIndexCategoryVO);
                             }
                         }
                     }
                 }
             }
-            return newBeeMallIndexCategoryVOS;
+            return pilipiliMallIndexCategoryVOS;
         } else {
             return null;
         }

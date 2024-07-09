@@ -17,7 +17,7 @@ import java.io.Serializable;
  * 搜索列表页商品VO
  */
 @Data
-public class NewBeeMallSearchGoodsVO implements Serializable {
+public class PilipiliMallSearchGoodsVO implements Serializable {
 
     @Schema(title = "商品id")
     private Long goodsId;

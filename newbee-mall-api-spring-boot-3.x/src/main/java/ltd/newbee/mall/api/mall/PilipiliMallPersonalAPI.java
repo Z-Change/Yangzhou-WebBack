@@ -16,7 +16,7 @@ import jakarta.validation.Valid;
 import ltd.newbee.mall.api.mall.param.MallUserLoginParam;
 import ltd.newbee.mall.api.mall.param.MallUserRegisterParam;
 import ltd.newbee.mall.api.mall.param.MallUserUpdateParam;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallUserVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallUserVO;
 import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToMallUser;
@@ -113,9 +113,9 @@ public class PilipiliMallPersonalAPI {
 
     @GetMapping("/user/info")
     @Operation(summary = "获取用户信息", description = "")
-    public Result<NewBeeMallUserVO> getUserDetail(@TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
+    public Result<PilipiliMallUserVO> getUserDetail(@TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
         //已登录则直接返回
-        NewBeeMallUserVO mallUserVO = new NewBeeMallUserVO();
+        PilipiliMallUserVO mallUserVO = new PilipiliMallUserVO();
         BeanUtil.copyProperties(loginMallUser, mallUserVO);
         return ResultGenerator.genSuccessResult(mallUserVO);
     }

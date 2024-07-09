@@ -13,8 +13,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.IndexConfigTypeEnum;
 import ltd.newbee.mall.api.mall.vo.IndexInfoVO;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallIndexCarouselVO;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallIndexConfigGoodsVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallIndexCarouselVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallIndexConfigGoodsVO;
 import ltd.newbee.mall.service.NewBeeMallCarouselService;
 import ltd.newbee.mall.service.NewBeeMallIndexConfigService;
 import ltd.newbee.mall.util.Result;
@@ -41,10 +41,10 @@ public class PilipiliMallIndexAPI {
     @Operation(summary = "获取首页数据", description = "轮播图、新品、推荐等")
     public Result<IndexInfoVO> indexInfo() {
         IndexInfoVO indexInfoVO = new IndexInfoVO();
-        List<NewBeeMallIndexCarouselVO> carousels = newBeeMallCarouselService.getCarouselsForIndex(Constants.INDEX_CAROUSEL_NUMBER);
-        List<NewBeeMallIndexConfigGoodsVO> hotGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_HOT.getType(), Constants.INDEX_GOODS_HOT_NUMBER);
-        List<NewBeeMallIndexConfigGoodsVO> newGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_NEW.getType(), Constants.INDEX_GOODS_NEW_NUMBER);
-        List<NewBeeMallIndexConfigGoodsVO> recommendGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_RECOMMOND.getType(), Constants.INDEX_GOODS_RECOMMOND_NUMBER);
+        List<PilipiliMallIndexCarouselVO> carousels = newBeeMallCarouselService.getCarouselsForIndex(Constants.INDEX_CAROUSEL_NUMBER);
+        List<PilipiliMallIndexConfigGoodsVO> hotGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_HOT.getType(), Constants.INDEX_GOODS_HOT_NUMBER);
+        List<PilipiliMallIndexConfigGoodsVO> newGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_NEW.getType(), Constants.INDEX_GOODS_NEW_NUMBER);
+        List<PilipiliMallIndexConfigGoodsVO> recommendGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_RECOMMOND.getType(), Constants.INDEX_GOODS_RECOMMOND_NUMBER);
         indexInfoVO.setCarousels(carousels);
         indexInfoVO.setHotGoodses(hotGoodses);
         indexInfoVO.setNewGoodses(newGoodses);

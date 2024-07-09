@@ -10,7 +10,7 @@ package ltd.newbee.mall.service;
 
 import ltd.newbee.mall.api.mall.param.SaveCartItemParam;
 import ltd.newbee.mall.api.mall.param.UpdateCartItemParam;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallShoppingCartItemVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallShoppingCartItemVO;
 import ltd.newbee.mall.entity.NewBeeMallShoppingCartItem;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
@@ -61,7 +61,7 @@ public interface NewBeeMallShoppingCartService {
      * @param newBeeMallUserId
      * @return
      */
-    List<NewBeeMallShoppingCartItemVO> getMyShoppingCartItems(Long newBeeMallUserId);
+    List<PilipiliMallShoppingCartItemVO> getMyShoppingCartItems(Long newBeeMallUserId);
 
     /**
      * 根据userId和cartItemIds获取对应的购物项记录
@@ -70,7 +70,7 @@ public interface NewBeeMallShoppingCartService {
      * @param newBeeMallUserId
      * @return
      */
-    List<NewBeeMallShoppingCartItemVO> getCartItemsForSettle(List<Long> cartItemIds, Long newBeeMallUserId);
+    List<PilipiliMallShoppingCartItemVO> getCartItemsForSettle(List<Long> cartItemIds, Long newBeeMallUserId);
 
     /**
      * 我的购物车(分页数据)

@@ -12,16 +12,23 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
- * 首页轮播图VO
+ * 首页分类数据VO
  */
 @Data
-public class NewBeeMallIndexCarouselVO implements Serializable {
+public class PilipiliMallIndexCategoryVO implements Serializable {
 
-    @Schema(title = "轮播图图片地址")
-    private String carouselUrl;
+    @Schema(title = "当前一级分类id")
+    private Long categoryId;
 
-    @Schema(title = "轮播图点击后的跳转路径")
-    private String redirectUrl;
+    @Schema(title = "当前分类级别")
+    private Byte categoryLevel;
+
+    @Schema(title = "当前一级分类名称")
+    private String categoryName;
+
+    @Schema(title = "二级分类列表")
+    private List<SecondLevelCategoryVO> secondLevelCategoryVOS;
 }

@@ -12,23 +12,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
- * 首页分类数据VO
+ * 订单详情页页面订单项VO
  */
 @Data
-public class NewBeeMallIndexCategoryVO implements Serializable {
+public class PilipiliMallOrderItemVO implements Serializable {
 
-    @Schema(title = "当前一级分类id")
-    private Long categoryId;
+    @Schema(title = "商品id")
+    private Long goodsId;
 
-    @Schema(title = "当前分类级别")
-    private Byte categoryLevel;
+    @Schema(title = "商品数量")
+    private Integer goodsCount;
 
-    @Schema(title = "当前一级分类名称")
-    private String categoryName;
+    @Schema(title = "商品名称")
+    private String goodsName;
 
-    @Schema(title = "二级分类列表")
-    private List<SecondLevelCategoryVO> secondLevelCategoryVOS;
+    @Schema(title = "商品图片")
+    private String goodsCoverImg;
+
+    @Schema(title = "商品价格")
+    private Integer sellingPrice;
 }

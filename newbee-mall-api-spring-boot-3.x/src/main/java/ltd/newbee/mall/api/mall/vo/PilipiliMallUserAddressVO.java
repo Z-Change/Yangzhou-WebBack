@@ -15,7 +15,7 @@ import lombok.Data;
  * 收货地址VO
  */
 @Data
-public class NewBeeMallUserAddressVO {
+public class PilipiliMallUserAddressVO {
 
     @Schema(title = "地址id")
     private Long addressId;

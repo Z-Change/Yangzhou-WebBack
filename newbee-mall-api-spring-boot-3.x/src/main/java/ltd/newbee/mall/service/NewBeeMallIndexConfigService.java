@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.service;
 
-import ltd.newbee.mall.api.mall.vo.NewBeeMallIndexConfigGoodsVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallIndexConfigGoodsVO;
 import ltd.newbee.mall.entity.IndexConfig;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
@@ -23,7 +23,7 @@ public interface NewBeeMallIndexConfigService {
      * @param number
      * @return
      */
-    List<NewBeeMallIndexConfigGoodsVO> getConfigGoodsesForIndex(int configType, int number);
+    List<PilipiliMallIndexConfigGoodsVO> getConfigGoodsesForIndex(int configType, int number);
 
     /**
      * 后台分页

@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.service;
 
-import ltd.newbee.mall.api.mall.vo.NewBeeMallUserAddressVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallUserAddressVO;
 import ltd.newbee.mall.entity.MallUserAddress;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public interface NewBeeMallUserAddressService {
      * @param userId
      * @return
      */
-    List<NewBeeMallUserAddressVO> getMyAddresses(Long userId);
+    List<PilipiliMallUserAddressVO> getMyAddresses(Long userId);
 
     /**
      * 保存收货地址

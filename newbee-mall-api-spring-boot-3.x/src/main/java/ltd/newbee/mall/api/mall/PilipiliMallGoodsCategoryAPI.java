@@ -12,7 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallIndexCategoryVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallIndexCategoryVO;
 import ltd.newbee.mall.service.NewBeeMallCategoryService;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
@@ -34,8 +34,8 @@ public class PilipiliMallGoodsCategoryAPI {
 
     @GetMapping("/categories")
     @Operation(summary = "获取分类数据", description = "分类页面使用")
-    public Result<List<NewBeeMallIndexCategoryVO>> getCategories() {
-        List<NewBeeMallIndexCategoryVO> categories = newBeeMallCategoryService.getCategoriesForIndex();
+    public Result<List<PilipiliMallIndexCategoryVO>> getCategories() {
+        List<PilipiliMallIndexCategoryVO> categories = newBeeMallCategoryService.getCategoriesForIndex();
         if (CollectionUtils.isEmpty(categories)) {
             PilipiliMallException.fail(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }

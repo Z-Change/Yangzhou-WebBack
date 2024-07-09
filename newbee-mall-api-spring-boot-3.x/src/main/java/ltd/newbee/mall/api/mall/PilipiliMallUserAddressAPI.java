@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import ltd.newbee.mall.api.mall.param.SaveMallUserAddressParam;
 import ltd.newbee.mall.api.mall.param.UpdateMallUserAddressParam;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallUserAddressVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallUserAddressVO;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToMallUser;
 import ltd.newbee.mall.entity.MallUser;
@@ -37,7 +37,7 @@ public class PilipiliMallUserAddressAPI {
 
     @GetMapping("/address")
     @Operation(summary = "我的收货地址列表", description = "")
-    public Result<List<NewBeeMallUserAddressVO>> addressList(@TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
+    public Result<List<PilipiliMallUserAddressVO>> addressList(@TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
         return ResultGenerator.genSuccessResult(mallUserAddressService.getMyAddresses(loginMallUser.getUserId()));
     }
 
@@ -79,15 +79,15 @@ public class PilipiliMallUserAddressAPI {
 
     @GetMapping("/address/{addressId}")
     @Operation(summary = "获取收货地址详情", description = "传参为地址id")
-    public Result<NewBeeMallUserAddressVO> getMallUserAddress(@PathVariable("addressId") Long addressId,
-                                                              @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
+    public Result<PilipiliMallUserAddressVO> getMallUserAddress(@PathVariable("addressId") Long addressId,
+                                                                @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
         MallUserAddress mallUserAddressById = mallUserAddressService.getMallUserAddressById(addressId);
-        NewBeeMallUserAddressVO newBeeMallUserAddressVO = new NewBeeMallUserAddressVO();
-        BeanUtil.copyProperties(mallUserAddressById, newBeeMallUserAddressVO);
+        PilipiliMallUserAddressVO pilipiliMallUserAddressVO = new PilipiliMallUserAddressVO();
+        BeanUtil.copyProperties(mallUserAddressById, pilipiliMallUserAddressVO);
         if (!loginMallUser.getUserId().equals(mallUserAddressById.getUserId())) {
             return ResultGenerator.genFailResult(ServiceResultEnum.REQUEST_FORBIDEN_ERROR.getResult());
         }
-        return ResultGenerator.genSuccessResult(newBeeMallUserAddressVO);
+        return ResultGenerator.genSuccessResult(pilipiliMallUserAddressVO);
     }
 
     @GetMapping("/address/default")

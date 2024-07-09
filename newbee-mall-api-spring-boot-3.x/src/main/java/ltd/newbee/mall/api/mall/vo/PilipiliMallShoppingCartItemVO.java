@@ -17,7 +17,7 @@ import java.io.Serializable;
  * 购物车页面购物项VO
  */
 @Data
-public class NewBeeMallShoppingCartItemVO implements Serializable {
+public class PilipiliMallShoppingCartItemVO implements Serializable {
 
     @Schema(title = "购物项id")
     private Long cartItemId;

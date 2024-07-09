@@ -14,23 +14,14 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 订单详情页页面订单项VO
+ * 首页轮播图VO
  */
 @Data
-public class NewBeeMallOrderItemVO implements Serializable {
+public class PilipiliMallIndexCarouselVO implements Serializable {
 
-    @Schema(title = "商品id")
-    private Long goodsId;
+    @Schema(title = "轮播图图片地址")
+    private String carouselUrl;
 
-    @Schema(title = "商品数量")
-    private Integer goodsCount;
-
-    @Schema(title = "商品名称")
-    private String goodsName;
-
-    @Schema(title = "商品图片")
-    private String goodsCoverImg;
-
-    @Schema(title = "商品价格")
-    private Integer sellingPrice;
+    @Schema(title = "轮播图点击后的跳转路径")
+    private String redirectUrl;
 }

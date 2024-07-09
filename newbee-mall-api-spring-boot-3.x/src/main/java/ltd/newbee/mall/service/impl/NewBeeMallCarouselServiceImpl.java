@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.service.impl;
 
-import ltd.newbee.mall.api.mall.vo.NewBeeMallIndexCarouselVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallIndexCarouselVO;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.dao.CarouselMapper;
 import ltd.newbee.mall.entity.Carousel;
@@ -78,12 +78,12 @@ public class NewBeeMallCarouselServiceImpl implements NewBeeMallCarouselService 
     }
 
     @Override
-    public List<NewBeeMallIndexCarouselVO> getCarouselsForIndex(int number) {
-        List<NewBeeMallIndexCarouselVO> newBeeMallIndexCarouselVOS = new ArrayList<>(number);
+    public List<PilipiliMallIndexCarouselVO> getCarouselsForIndex(int number) {
+        List<PilipiliMallIndexCarouselVO> pilipiliMallIndexCarouselVOS = new ArrayList<>(number);
         List<Carousel> carousels = carouselMapper.findCarouselsByNum(number);
         if (!CollectionUtils.isEmpty(carousels)) {
-            newBeeMallIndexCarouselVOS = BeanUtil.copyList(carousels, NewBeeMallIndexCarouselVO.class);
+            pilipiliMallIndexCarouselVOS = BeanUtil.copyList(carousels, PilipiliMallIndexCarouselVO.class);
         }
-        return newBeeMallIndexCarouselVOS;
+        return pilipiliMallIndexCarouselVOS;
     }
 }

@@ -8,7 +8,7 @@
  */
 package ltd.newbee.mall.service;
 
-import ltd.newbee.mall.api.mall.vo.NewBeeMallIndexCategoryVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallIndexCategoryVO;
 import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
@@ -30,7 +30,7 @@ public interface NewBeeMallCategoryService {
      *
      * @return
      */
-    List<NewBeeMallIndexCategoryVO> getCategoriesForIndex();
+    List<PilipiliMallIndexCategoryVO> getCategoriesForIndex();
 
     /**
      * 后台分页

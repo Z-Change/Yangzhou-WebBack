@@ -20,7 +20,7 @@ import java.util.List;
  * 订单列表页面VO
  */
 @Data
-public class NewBeeMallOrderListVO implements Serializable {
+public class PilipiliMallOrderListVO implements Serializable {
 
     private Long orderId;
 
@@ -44,5 +44,5 @@ public class NewBeeMallOrderListVO implements Serializable {
     private Date createTime;
 
     @Schema(title = "订单项列表")
-    private List<NewBeeMallOrderItemVO> newBeeMallOrderItemVOS;
+    private List<PilipiliMallOrderItemVO> pilipiliMallOrderItemVOS;
 }

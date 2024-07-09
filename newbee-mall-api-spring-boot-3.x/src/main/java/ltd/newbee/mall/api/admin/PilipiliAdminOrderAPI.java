@@ -12,7 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import ltd.newbee.mall.api.admin.param.BatchIdParam;
-import ltd.newbee.mall.api.mall.vo.NewBeeMallOrderDetailVO;
+import ltd.newbee.mall.api.mall.vo.PilipiliMallOrderDetailVO;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToAdminUser;
 import ltd.newbee.mall.entity.AdminUserToken;
@@ -73,7 +73,7 @@ public class PilipiliAdminOrderAPI {
 
     @GetMapping("/orders/{orderId}")
     @Operation(summary = "订单详情接口", description = "传参为订单号")
-    public Result<NewBeeMallOrderDetailVO> orderDetailPage(@Parameter(description = "订单号") @PathVariable("orderId") Long orderId, @TokenToAdminUser @Parameter(hidden = true) AdminUserToken adminUser) {
+    public Result<PilipiliMallOrderDetailVO> orderDetailPage(@Parameter(description = "订单号") @PathVariable("orderId") Long orderId, @TokenToAdminUser @Parameter(hidden = true) AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
         return ResultGenerator.genSuccessResult(newBeeMallOrderService.getOrderDetailByOrderId(orderId));
     }

@@ -13,15 +13,22 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * 首页配置商品VO
+ */
 @Data
-public class NewBeeMallUserVO implements Serializable {
+public class PilipiliMallIndexConfigGoodsVO implements Serializable {
 
-    @Schema(title = "用户昵称")
-    private String nickName;
-
-    @Schema(title = "用户登录名")
-    private String loginName;
-
-    @Schema(title = "个性签名")
-    private String introduceSign;
+    @Schema(title = "商品id")
+    private Long goodsId;
+    @Schema(title = "商品名称")
+    private String goodsName;
+    @Schema(title = "商品简介")
+    private String goodsIntro;
+    @Schema(title = "商品图片地址")
+    private String goodsCoverImg;
+    @Schema(title = "商品价格")
+    private Integer sellingPrice;
+    @Schema(title = "商品标签")
+    private String tag;
 }
