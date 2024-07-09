@@ -13,7 +13,7 @@ import ltd.newbee.mall.common.PilipiliMallCategoryLevelEnum;
 import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.dao.GoodsCategoryMapper;
-import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
+import ltd.newbee.mall.dao.PilipiliMallGoodsMapper;
 import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.entity.PilipiliMallGoods;
 import ltd.newbee.mall.service.PilipiliMallGoodsService;
@@ -32,7 +32,7 @@ import java.util.List;
 public class NewBeeMallGoodsServiceImpl implements PilipiliMallGoodsService {
 
     @Autowired
-    private NewBeeMallGoodsMapper goodsMapper;
+    private PilipiliMallGoodsMapper goodsMapper;
     @Autowired
     private GoodsCategoryMapper goodsCategoryMapper;
 

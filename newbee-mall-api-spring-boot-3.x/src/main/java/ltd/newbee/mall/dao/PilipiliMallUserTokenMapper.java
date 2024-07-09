@@ -10,7 +10,7 @@ package ltd.newbee.mall.dao;
 
 import ltd.newbee.mall.entity.MallUserToken;
 
-public interface NewBeeMallUserTokenMapper {
+public interface PilipiliMallUserTokenMapper {
     int deleteByPrimaryKey(Long userId);
 
     int insert(MallUserToken record);

@@ -13,7 +13,7 @@ import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.dao.MallUserMapper;
-import ltd.newbee.mall.dao.NewBeeMallUserTokenMapper;
+import ltd.newbee.mall.dao.PilipiliMallUserTokenMapper;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.entity.MallUserToken;
 import ltd.newbee.mall.service.PilipiliMallUserService;
@@ -30,7 +30,7 @@ public class PilipiliMallUserServiceImpl implements PilipiliMallUserService {
     @Autowired
     private MallUserMapper mallUserMapper;
     @Autowired
-    private NewBeeMallUserTokenMapper newBeeMallUserTokenMapper;
+    private PilipiliMallUserTokenMapper pilipiliMallUserTokenMapper;
 
     @Override
     public String register(String loginName, String password) {
@@ -58,7 +58,7 @@ public class PilipiliMallUserServiceImpl implements PilipiliMallUserService {
             }
             //登录后即执行修改token的操作
             String token = getNewToken(System.currentTimeMillis() + "", user.getUserId());
-            MallUserToken mallUserToken = newBeeMallUserTokenMapper.selectByPrimaryKey(user.getUserId());
+            MallUserToken mallUserToken = pilipiliMallUserTokenMapper.selectByPrimaryKey(user.getUserId());
             //当前时间
             Date now = new Date();
             //过期时间
@@ -70,7 +70,7 @@ public class PilipiliMallUserServiceImpl implements PilipiliMallUserService {
                 mallUserToken.setUpdateTime(now);
                 mallUserToken.setExpireTime(expireTime);
                 //新增一条token数据
-                if (newBeeMallUserTokenMapper.insertSelective(mallUserToken) > 0) {
+                if (pilipiliMallUserTokenMapper.insertSelective(mallUserToken) > 0) {
                     //新增成功后返回
                     return token;
                 }
@@ -79,7 +79,7 @@ public class PilipiliMallUserServiceImpl implements PilipiliMallUserService {
                 mallUserToken.setUpdateTime(now);
                 mallUserToken.setExpireTime(expireTime);
                 //更新
-                if (newBeeMallUserTokenMapper.updateByPrimaryKeySelective(mallUserToken) > 0) {
+                if (pilipiliMallUserTokenMapper.updateByPrimaryKeySelective(mallUserToken) > 0) {
                     //修改成功后返回
                     return token;
                 }
@@ -122,7 +122,7 @@ public class PilipiliMallUserServiceImpl implements PilipiliMallUserService {
 
     @Override
     public Boolean logout(Long userId) {
-        return newBeeMallUserTokenMapper.deleteByPrimaryKey(userId) > 0;
+        return pilipiliMallUserTokenMapper.deleteByPrimaryKey(userId) > 0;
     }
 
     @Override

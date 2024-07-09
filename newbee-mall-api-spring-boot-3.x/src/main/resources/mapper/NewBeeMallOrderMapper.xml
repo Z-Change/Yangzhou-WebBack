@@ -8,7 +8,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
 版权所有，侵权必究！
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ltd.newbee.mall.dao.NewBeeMallOrderMapper">
+<mapper namespace="ltd.newbee.mall.dao.PilipiliMallOrderMapper">
     <resultMap id="BaseResultMap" type="ltd.newbee.mall.entity.PilipiliMallOrder">
         <id column="order_id" jdbcType="BIGINT" property="orderId"/>
         <result column="order_no" jdbcType="VARCHAR" property="orderNo"/>

@@ -13,7 +13,7 @@ import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToMallUser;
 import ltd.newbee.mall.dao.MallUserMapper;
-import ltd.newbee.mall.dao.NewBeeMallUserTokenMapper;
+import ltd.newbee.mall.dao.PilipiliMallUserTokenMapper;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.entity.MallUserToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class TokenToMallUserMethodArgumentResolver implements HandlerMethodArgum
     @Autowired
     private MallUserMapper mallUserMapper;
     @Autowired
-    private NewBeeMallUserTokenMapper newBeeMallUserTokenMapper;
+    private PilipiliMallUserTokenMapper pilipiliMallUserTokenMapper;
 
     public TokenToMallUserMethodArgumentResolver() {
     }
@@ -50,7 +50,7 @@ public class TokenToMallUserMethodArgumentResolver implements HandlerMethodArgum
             MallUser mallUser = null;
             String token = webRequest.getHeader("token");
             if (null != token && !"".equals(token) && token.length() == Constants.TOKEN_LENGTH) {
-                MallUserToken mallUserToken = newBeeMallUserTokenMapper.selectByToken(token);
+                MallUserToken mallUserToken = pilipiliMallUserTokenMapper.selectByToken(token);
                 if (mallUserToken == null || mallUserToken.getExpireTime().getTime() <= System.currentTimeMillis()) {
                     PilipiliMallException.fail(ServiceResultEnum.TOKEN_EXPIRE_ERROR.getResult());
                 }

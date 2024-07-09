@@ -36,23 +36,23 @@ import static java.util.stream.Collectors.groupingBy;
 public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
 
     @Autowired
-    private NewBeeMallOrderMapper newBeeMallOrderMapper;
+    private PilipiliMallOrderMapper pilipiliMallOrderMapper;
     @Autowired
-    private NewBeeMallOrderItemMapper newBeeMallOrderItemMapper;
+    private PilipiliMallOrderItemMapper pilipiliMallOrderItemMapper;
     @Autowired
-    private NewBeeMallShoppingCartItemMapper newBeeMallShoppingCartItemMapper;
+    private PilipiliMallShoppingCartItemMapper pilipiliMallShoppingCartItemMapper;
     @Autowired
-    private NewBeeMallGoodsMapper newBeeMallGoodsMapper;
+    private PilipiliMallGoodsMapper pilipiliMallGoodsMapper;
     @Autowired
-    private NewBeeMallOrderAddressMapper newBeeMallOrderAddressMapper;
+    private PilipiliMallOrderAddressMapper pilipiliMallOrderAddressMapper;
 
     @Override
     public PilipiliMallOrderDetailVO getOrderDetailByOrderId(Long orderId) {
-        PilipiliMallOrder pilipiliMallOrder = newBeeMallOrderMapper.selectByPrimaryKey(orderId);
+        PilipiliMallOrder pilipiliMallOrder = pilipiliMallOrderMapper.selectByPrimaryKey(orderId);
         if (pilipiliMallOrder == null) {
             PilipiliMallException.fail(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }
-        List<PilipiliMallOrderItem> orderItems = newBeeMallOrderItemMapper.selectByOrderId(pilipiliMallOrder.getOrderId());
+        List<PilipiliMallOrderItem> orderItems = pilipiliMallOrderItemMapper.selectByOrderId(pilipiliMallOrder.getOrderId());
         //获取订单项数据
         if (!CollectionUtils.isEmpty(orderItems)) {
             List<PilipiliMallOrderItemVO> pilipiliMallOrderItemVOS = BeanUtil.copyList(orderItems, PilipiliMallOrderItemVO.class);
@@ -70,14 +70,14 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
 
     @Override
     public PilipiliMallOrderDetailVO getOrderDetailByOrderNo(String orderNo, Long userId) {
-        PilipiliMallOrder pilipiliMallOrder = newBeeMallOrderMapper.selectByOrderNo(orderNo);
+        PilipiliMallOrder pilipiliMallOrder = pilipiliMallOrderMapper.selectByOrderNo(orderNo);
         if (pilipiliMallOrder == null) {
             PilipiliMallException.fail(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }
         if (!userId.equals(pilipiliMallOrder.getUserId())) {
             PilipiliMallException.fail(ServiceResultEnum.REQUEST_FORBIDEN_ERROR.getResult());
         }
-        List<PilipiliMallOrderItem> orderItems = newBeeMallOrderItemMapper.selectByOrderId(pilipiliMallOrder.getOrderId());
+        List<PilipiliMallOrderItem> orderItems = pilipiliMallOrderItemMapper.selectByOrderId(pilipiliMallOrder.getOrderId());
         //获取订单项数据
         if (CollectionUtils.isEmpty(orderItems)) {
             PilipiliMallException.fail(ServiceResultEnum.ORDER_ITEM_NOT_EXIST_ERROR.getResult());
@@ -94,8 +94,8 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
 
     @Override
     public PageResult getMyOrders(PageQueryUtil pageUtil) {
-        int total = newBeeMallOrderMapper.getTotalNewBeeMallOrders(pageUtil);
-        List<PilipiliMallOrder> pilipiliMallOrders = newBeeMallOrderMapper.findNewBeeMallOrderList(pageUtil);
+        int total = pilipiliMallOrderMapper.getTotalNewBeeMallOrders(pageUtil);
+        List<PilipiliMallOrder> pilipiliMallOrders = pilipiliMallOrderMapper.findNewBeeMallOrderList(pageUtil);
         List<PilipiliMallOrderListVO> orderListVOS = new ArrayList<>();
         if (total > 0) {
             //数据转换 将实体类转成vo
@@ -106,7 +106,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
             }
             List<Long> orderIds = pilipiliMallOrders.stream().map(PilipiliMallOrder::getOrderId).collect(Collectors.toList());
             if (!CollectionUtils.isEmpty(orderIds)) {
-                List<PilipiliMallOrderItem> orderItems = newBeeMallOrderItemMapper.selectByOrderIds(orderIds);
+                List<PilipiliMallOrderItem> orderItems = pilipiliMallOrderItemMapper.selectByOrderIds(orderIds);
                 Map<Long, List<PilipiliMallOrderItem>> itemByOrderIdMap = orderItems.stream().collect(groupingBy(PilipiliMallOrderItem::getOrderId));
                 for (PilipiliMallOrderListVO pilipiliMallOrderListVO : orderListVOS) {
                     //封装每个订单列表对象的订单项数据
@@ -126,7 +126,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
     @Override
     @Transactional
     public String cancelOrder(String orderNo, Long userId) {
-        PilipiliMallOrder pilipiliMallOrder = newBeeMallOrderMapper.selectByOrderNo(orderNo);
+        PilipiliMallOrder pilipiliMallOrder = pilipiliMallOrderMapper.selectByOrderNo(orderNo);
         if (pilipiliMallOrder != null) {
             //验证是否是当前userId下的订单，否则报错
             if (!userId.equals(pilipiliMallOrder.getUserId())) {
@@ -140,7 +140,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
                 return ServiceResultEnum.ORDER_STATUS_ERROR.getResult();
             }
             //修改订单状态&&恢复库存
-            if (newBeeMallOrderMapper.closeOrder(Collections.singletonList(pilipiliMallOrder.getOrderId()), PilipiliMallOrderStatusEnum.ORDER_CLOSED_BY_MALLUSER.getOrderStatus()) > 0 && recoverStockNum(Collections.singletonList(pilipiliMallOrder.getOrderId()))) {
+            if (pilipiliMallOrderMapper.closeOrder(Collections.singletonList(pilipiliMallOrder.getOrderId()), PilipiliMallOrderStatusEnum.ORDER_CLOSED_BY_MALLUSER.getOrderStatus()) > 0 && recoverStockNum(Collections.singletonList(pilipiliMallOrder.getOrderId()))) {
                 return ServiceResultEnum.SUCCESS.getResult();
             } else {
                 return ServiceResultEnum.DB_ERROR.getResult();
@@ -151,7 +151,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
 
     @Override
     public String finishOrder(String orderNo, Long userId) {
-        PilipiliMallOrder pilipiliMallOrder = newBeeMallOrderMapper.selectByOrderNo(orderNo);
+        PilipiliMallOrder pilipiliMallOrder = pilipiliMallOrderMapper.selectByOrderNo(orderNo);
         if (pilipiliMallOrder != null) {
             //验证是否是当前userId下的订单，否则报错
             if (!userId.equals(pilipiliMallOrder.getUserId())) {
@@ -163,7 +163,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
             }
             pilipiliMallOrder.setOrderStatus((byte) PilipiliMallOrderStatusEnum.ORDER_SUCCESS.getOrderStatus());
             pilipiliMallOrder.setUpdateTime(new Date());
-            if (newBeeMallOrderMapper.updateByPrimaryKeySelective(pilipiliMallOrder) > 0) {
+            if (pilipiliMallOrderMapper.updateByPrimaryKeySelective(pilipiliMallOrder) > 0) {
                 return ServiceResultEnum.SUCCESS.getResult();
             } else {
                 return ServiceResultEnum.DB_ERROR.getResult();
@@ -174,7 +174,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
 
     @Override
     public String paySuccess(String orderNo, int payType) {
-        PilipiliMallOrder pilipiliMallOrder = newBeeMallOrderMapper.selectByOrderNo(orderNo);
+        PilipiliMallOrder pilipiliMallOrder = pilipiliMallOrderMapper.selectByOrderNo(orderNo);
         if (pilipiliMallOrder != null) {
             //订单状态判断 非待支付状态下不进行修改操作
             if (pilipiliMallOrder.getOrderStatus().intValue() != PilipiliMallOrderStatusEnum.ORDER_PRE_PAY.getOrderStatus()) {
@@ -185,7 +185,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
             pilipiliMallOrder.setPayStatus((byte) PayStatusEnum.PAY_SUCCESS.getPayStatus());
             pilipiliMallOrder.setPayTime(new Date());
             pilipiliMallOrder.setUpdateTime(new Date());
-            if (newBeeMallOrderMapper.updateByPrimaryKeySelective(pilipiliMallOrder) > 0) {
+            if (pilipiliMallOrderMapper.updateByPrimaryKeySelective(pilipiliMallOrder) > 0) {
                 return ServiceResultEnum.SUCCESS.getResult();
             } else {
                 return ServiceResultEnum.DB_ERROR.getResult();
@@ -199,7 +199,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
     public String saveOrder(MallUser loginMallUser, MallUserAddress address, List<PilipiliMallShoppingCartItemVO> myShoppingCartItems) {
         List<Long> itemIdList = myShoppingCartItems.stream().map(PilipiliMallShoppingCartItemVO::getCartItemId).collect(Collectors.toList());
         List<Long> goodsIds = myShoppingCartItems.stream().map(PilipiliMallShoppingCartItemVO::getGoodsId).collect(Collectors.toList());
-        List<PilipiliMallGoods> pilipiliMallGoods = newBeeMallGoodsMapper.selectByPrimaryKeys(goodsIds);
+        List<PilipiliMallGoods> pilipiliMallGoods = pilipiliMallGoodsMapper.selectByPrimaryKeys(goodsIds);
         //检查是否包含已下架商品
         List<PilipiliMallGoods> goodsListNotSelling = pilipiliMallGoods.stream()
                 .filter(newBeeMallGoodsTemp -> newBeeMallGoodsTemp.getGoodsSellStatus() != Constants.SELL_STATUS_UP)
@@ -222,9 +222,9 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
         }
         //删除购物项
         if (!CollectionUtils.isEmpty(itemIdList) && !CollectionUtils.isEmpty(goodsIds) && !CollectionUtils.isEmpty(pilipiliMallGoods)) {
-            if (newBeeMallShoppingCartItemMapper.deleteBatch(itemIdList) > 0) {
+            if (pilipiliMallShoppingCartItemMapper.deleteBatch(itemIdList) > 0) {
                 List<StockNumDTO> stockNumDTOS = BeanUtil.copyList(myShoppingCartItems, StockNumDTO.class);
-                int updateStockNumResult = newBeeMallGoodsMapper.updateStockNum(stockNumDTOS);
+                int updateStockNumResult = pilipiliMallGoodsMapper.updateStockNum(stockNumDTOS);
                 if (updateStockNumResult < 1) {
                     PilipiliMallException.fail(ServiceResultEnum.SHOPPING_ITEM_COUNT_ERROR.getResult());
                 }
@@ -246,7 +246,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
                 String extraInfo = "";
                 pilipiliMallOrder.setExtraInfo(extraInfo);
                 //生成订单项并保存订单项纪录
-                if (newBeeMallOrderMapper.insertSelective(pilipiliMallOrder) > 0) {
+                if (pilipiliMallOrderMapper.insertSelective(pilipiliMallOrder) > 0) {
                     //生成订单收货地址快照，并保存至数据库
                     PilipiliMallOrderAddress pilipiliMallOrderAddress = new PilipiliMallOrderAddress();
                     BeanUtil.copyProperties(address, pilipiliMallOrderAddress);
@@ -262,7 +262,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
                         pilipiliMallOrderItems.add(pilipiliMallOrderItem);
                     }
                     //保存至数据库
-                    if (newBeeMallOrderItemMapper.insertBatch(pilipiliMallOrderItems) > 0 && newBeeMallOrderAddressMapper.insertSelective(pilipiliMallOrderAddress) > 0) {
+                    if (pilipiliMallOrderItemMapper.insertBatch(pilipiliMallOrderItems) > 0 && pilipiliMallOrderAddressMapper.insertSelective(pilipiliMallOrderAddress) > 0) {
                         //所有操作成功后，将订单号返回，以供Controller方法跳转到订单详情
                         return orderNo;
                     }
@@ -279,8 +279,8 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
 
     @Override
     public PageResult getNewBeeMallOrdersPage(PageQueryUtil pageUtil) {
-        List<PilipiliMallOrder> pilipiliMallOrders = newBeeMallOrderMapper.findNewBeeMallOrderList(pageUtil);
-        int total = newBeeMallOrderMapper.getTotalNewBeeMallOrders(pageUtil);
+        List<PilipiliMallOrder> pilipiliMallOrders = pilipiliMallOrderMapper.findNewBeeMallOrderList(pageUtil);
+        int total = pilipiliMallOrderMapper.getTotalNewBeeMallOrders(pageUtil);
         PageResult pageResult = new PageResult(pilipiliMallOrders, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
@@ -288,12 +288,12 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
     @Override
     @Transactional
     public String updateOrderInfo(PilipiliMallOrder pilipiliMallOrder) {
-        PilipiliMallOrder temp = newBeeMallOrderMapper.selectByPrimaryKey(pilipiliMallOrder.getOrderId());
+        PilipiliMallOrder temp = pilipiliMallOrderMapper.selectByPrimaryKey(pilipiliMallOrder.getOrderId());
         //不为空且orderStatus>=0且状态为出库之前可以修改部分信息
         if (temp != null && temp.getOrderStatus() >= 0 && temp.getOrderStatus() < 3) {
             temp.setTotalPrice(pilipiliMallOrder.getTotalPrice());
             temp.setUpdateTime(new Date());
-            if (newBeeMallOrderMapper.updateByPrimaryKeySelective(temp) > 0) {
+            if (pilipiliMallOrderMapper.updateByPrimaryKeySelective(temp) > 0) {
                 return ServiceResultEnum.SUCCESS.getResult();
             }
             return ServiceResultEnum.DB_ERROR.getResult();
@@ -305,7 +305,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
     @Transactional
     public String checkDone(Long[] ids) {
         //查询所有的订单 判断状态 修改状态和更新时间
-        List<PilipiliMallOrder> orders = newBeeMallOrderMapper.selectByPrimaryKeys(Arrays.asList(ids));
+        List<PilipiliMallOrder> orders = pilipiliMallOrderMapper.selectByPrimaryKeys(Arrays.asList(ids));
         String errorOrderNos = "";
         if (!CollectionUtils.isEmpty(orders)) {
             for (PilipiliMallOrder pilipiliMallOrder : orders) {
@@ -319,7 +319,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
             }
             if (!StringUtils.hasText(errorOrderNos)) {
                 //订单状态正常 可以执行配货完成操作 修改订单状态和更新时间
-                if (newBeeMallOrderMapper.checkDone(Arrays.asList(ids)) > 0) {
+                if (pilipiliMallOrderMapper.checkDone(Arrays.asList(ids)) > 0) {
                     return ServiceResultEnum.SUCCESS.getResult();
                 } else {
                     return ServiceResultEnum.DB_ERROR.getResult();
@@ -341,7 +341,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
     @Transactional
     public String checkOut(Long[] ids) {
         //查询所有的订单 判断状态 修改状态和更新时间
-        List<PilipiliMallOrder> orders = newBeeMallOrderMapper.selectByPrimaryKeys(Arrays.asList(ids));
+        List<PilipiliMallOrder> orders = pilipiliMallOrderMapper.selectByPrimaryKeys(Arrays.asList(ids));
         String errorOrderNos = "";
         if (!CollectionUtils.isEmpty(orders)) {
             for (PilipiliMallOrder pilipiliMallOrder : orders) {
@@ -355,7 +355,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
             }
             if (!StringUtils.hasText(errorOrderNos)) {
                 //订单状态正常 可以执行出库操作 修改订单状态和更新时间
-                if (newBeeMallOrderMapper.checkOut(Arrays.asList(ids)) > 0) {
+                if (pilipiliMallOrderMapper.checkOut(Arrays.asList(ids)) > 0) {
                     return ServiceResultEnum.SUCCESS.getResult();
                 } else {
                     return ServiceResultEnum.DB_ERROR.getResult();
@@ -377,7 +377,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
     @Transactional
     public String closeOrder(Long[] ids) {
         //查询所有的订单 判断状态 修改状态和更新时间
-        List<PilipiliMallOrder> orders = newBeeMallOrderMapper.selectByPrimaryKeys(Arrays.asList(ids));
+        List<PilipiliMallOrder> orders = pilipiliMallOrderMapper.selectByPrimaryKeys(Arrays.asList(ids));
         String errorOrderNos = "";
         if (!CollectionUtils.isEmpty(orders)) {
             for (PilipiliMallOrder pilipiliMallOrder : orders) {
@@ -393,7 +393,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
             }
             if (!StringUtils.hasText(errorOrderNos)) {
                 //订单状态正常 可以执行关闭操作 修改订单状态和更新时间&&恢复库存
-                if (newBeeMallOrderMapper.closeOrder(Arrays.asList(ids), PilipiliMallOrderStatusEnum.ORDER_CLOSED_BY_JUDGE.getOrderStatus()) > 0 && recoverStockNum(Arrays.asList(ids))) {
+                if (pilipiliMallOrderMapper.closeOrder(Arrays.asList(ids), PilipiliMallOrderStatusEnum.ORDER_CLOSED_BY_JUDGE.getOrderStatus()) > 0 && recoverStockNum(Arrays.asList(ids))) {
                     return ServiceResultEnum.SUCCESS.getResult();
                 } else {
                     return ServiceResultEnum.DB_ERROR.getResult();
@@ -413,9 +413,9 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
 
     @Override
     public List<PilipiliMallOrderItemVO> getOrderItems(Long orderId) {
-        PilipiliMallOrder pilipiliMallOrder = newBeeMallOrderMapper.selectByPrimaryKey(orderId);
+        PilipiliMallOrder pilipiliMallOrder = pilipiliMallOrderMapper.selectByPrimaryKey(orderId);
         if (pilipiliMallOrder != null) {
-            List<PilipiliMallOrderItem> orderItems = newBeeMallOrderItemMapper.selectByOrderId(pilipiliMallOrder.getOrderId());
+            List<PilipiliMallOrderItem> orderItems = pilipiliMallOrderItemMapper.selectByOrderId(pilipiliMallOrder.getOrderId());
             //获取订单项数据
             if (!CollectionUtils.isEmpty(orderItems)) {
                 List<PilipiliMallOrderItemVO> pilipiliMallOrderItemVOS = BeanUtil.copyList(orderItems, PilipiliMallOrderItemVO.class);
@@ -433,11 +433,11 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
      */
     public Boolean recoverStockNum(List<Long> orderIds) {
         //查询对应的订单项
-        List<PilipiliMallOrderItem> pilipiliMallOrderItems = newBeeMallOrderItemMapper.selectByOrderIds(orderIds);
+        List<PilipiliMallOrderItem> pilipiliMallOrderItems = pilipiliMallOrderItemMapper.selectByOrderIds(orderIds);
         //获取对应的商品id和商品数量并赋值到StockNumDTO对象中
         List<StockNumDTO> stockNumDTOS = BeanUtil.copyList(pilipiliMallOrderItems, StockNumDTO.class);
         //执行恢复库存的操作
-        int updateStockNumResult = newBeeMallGoodsMapper.recoverStockNum(stockNumDTOS);
+        int updateStockNumResult = pilipiliMallGoodsMapper.recoverStockNum(stockNumDTOS);
         if (updateStockNumResult < 1) {
             PilipiliMallException.fail(ServiceResultEnum.CLOSE_ORDER_ERROR.getResult());
             return false;

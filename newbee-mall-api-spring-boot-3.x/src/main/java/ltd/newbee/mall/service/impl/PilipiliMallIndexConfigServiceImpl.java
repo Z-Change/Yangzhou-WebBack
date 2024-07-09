@@ -11,7 +11,7 @@ package ltd.newbee.mall.service.impl;
 import ltd.newbee.mall.api.mall.vo.PilipiliMallIndexConfigGoodsVO;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.dao.IndexConfigMapper;
-import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
+import ltd.newbee.mall.dao.PilipiliMallGoodsMapper;
 import ltd.newbee.mall.entity.IndexConfig;
 import ltd.newbee.mall.entity.PilipiliMallGoods;
 import ltd.newbee.mall.service.PilipiliMallIndexConfigService;
@@ -34,7 +34,7 @@ public class PilipiliMallIndexConfigServiceImpl implements PilipiliMallIndexConf
     private IndexConfigMapper indexConfigMapper;
 
     @Autowired
-    private NewBeeMallGoodsMapper goodsMapper;
+    private PilipiliMallGoodsMapper goodsMapper;
 
     @Override
     public PageResult getConfigsPage(PageQueryUtil pageUtil) {

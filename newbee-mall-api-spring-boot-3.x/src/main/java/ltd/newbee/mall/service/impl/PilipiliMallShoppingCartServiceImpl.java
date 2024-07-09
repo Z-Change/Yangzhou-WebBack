@@ -14,8 +14,8 @@ import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.api.mall.vo.PilipiliMallShoppingCartItemVO;
-import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
-import ltd.newbee.mall.dao.NewBeeMallShoppingCartItemMapper;
+import ltd.newbee.mall.dao.PilipiliMallGoodsMapper;
+import ltd.newbee.mall.dao.PilipiliMallShoppingCartItemMapper;
 import ltd.newbee.mall.entity.PilipiliMallGoods;
 import ltd.newbee.mall.entity.PilipiliMallShoppingCartItem;
 import ltd.newbee.mall.service.PilipiliMallShoppingCartService;
@@ -34,24 +34,24 @@ import java.util.stream.Collectors;
 public class PilipiliMallShoppingCartServiceImpl implements PilipiliMallShoppingCartService {
 
     @Autowired
-    private NewBeeMallShoppingCartItemMapper newBeeMallShoppingCartItemMapper;
+    private PilipiliMallShoppingCartItemMapper pilipiliMallShoppingCartItemMapper;
 
     @Autowired
-    private NewBeeMallGoodsMapper newBeeMallGoodsMapper;
+    private PilipiliMallGoodsMapper pilipiliMallGoodsMapper;
 
     @Override
     public String saveNewBeeMallCartItem(SaveCartItemParam saveCartItemParam, Long userId) {
-        PilipiliMallShoppingCartItem temp = newBeeMallShoppingCartItemMapper.selectByUserIdAndGoodsId(userId, saveCartItemParam.getGoodsId());
+        PilipiliMallShoppingCartItem temp = pilipiliMallShoppingCartItemMapper.selectByUserIdAndGoodsId(userId, saveCartItemParam.getGoodsId());
         if (temp != null) {
             //已存在则修改该记录
             PilipiliMallException.fail(ServiceResultEnum.SHOPPING_CART_ITEM_EXIST_ERROR.getResult());
         }
-        PilipiliMallGoods pilipiliMallGoods = newBeeMallGoodsMapper.selectByPrimaryKey(saveCartItemParam.getGoodsId());
+        PilipiliMallGoods pilipiliMallGoods = pilipiliMallGoodsMapper.selectByPrimaryKey(saveCartItemParam.getGoodsId());
         //商品为空
         if (pilipiliMallGoods == null) {
             return ServiceResultEnum.GOODS_NOT_EXIST.getResult();
         }
-        int totalItem = newBeeMallShoppingCartItemMapper.selectCountByUserId(userId);
+        int totalItem = pilipiliMallShoppingCartItemMapper.selectCountByUserId(userId);
         //超出单个商品的最大数量
         if (saveCartItemParam.getGoodsCount() < 1) {
             return ServiceResultEnum.SHOPPING_CART_ITEM_NUMBER_ERROR.getResult();
@@ -68,7 +68,7 @@ public class PilipiliMallShoppingCartServiceImpl implements PilipiliMallShopping
         BeanUtil.copyProperties(saveCartItemParam, pilipiliMallShoppingCartItem);
         pilipiliMallShoppingCartItem.setUserId(userId);
         //保存记录
-        if (newBeeMallShoppingCartItemMapper.insertSelective(pilipiliMallShoppingCartItem) > 0) {
+        if (pilipiliMallShoppingCartItemMapper.insertSelective(pilipiliMallShoppingCartItem) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
         return ServiceResultEnum.DB_ERROR.getResult();
@@ -76,7 +76,7 @@ public class PilipiliMallShoppingCartServiceImpl implements PilipiliMallShopping
 
     @Override
     public String updateNewBeeMallCartItem(UpdateCartItemParam updateCartItemParam, Long userId) {
-        PilipiliMallShoppingCartItem pilipiliMallShoppingCartItemUpdate = newBeeMallShoppingCartItemMapper.selectByPrimaryKey(updateCartItemParam.getCartItemId());
+        PilipiliMallShoppingCartItem pilipiliMallShoppingCartItemUpdate = pilipiliMallShoppingCartItemMapper.selectByPrimaryKey(updateCartItemParam.getCartItemId());
         if (pilipiliMallShoppingCartItemUpdate == null) {
             return ServiceResultEnum.DATA_NOT_EXIST.getResult();
         }
@@ -98,7 +98,7 @@ public class PilipiliMallShoppingCartServiceImpl implements PilipiliMallShopping
         pilipiliMallShoppingCartItemUpdate.setGoodsCount(updateCartItemParam.getGoodsCount());
         pilipiliMallShoppingCartItemUpdate.setUpdateTime(new Date());
         //修改记录
-        if (newBeeMallShoppingCartItemMapper.updateByPrimaryKeySelective(pilipiliMallShoppingCartItemUpdate) > 0) {
+        if (pilipiliMallShoppingCartItemMapper.updateByPrimaryKeySelective(pilipiliMallShoppingCartItemUpdate) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
         return ServiceResultEnum.DB_ERROR.getResult();
@@ -106,7 +106,7 @@ public class PilipiliMallShoppingCartServiceImpl implements PilipiliMallShopping
 
     @Override
     public PilipiliMallShoppingCartItem getNewBeeMallCartItemById(Long newBeeMallShoppingCartItemId) {
-        PilipiliMallShoppingCartItem pilipiliMallShoppingCartItem = newBeeMallShoppingCartItemMapper.selectByPrimaryKey(newBeeMallShoppingCartItemId);
+        PilipiliMallShoppingCartItem pilipiliMallShoppingCartItem = pilipiliMallShoppingCartItemMapper.selectByPrimaryKey(newBeeMallShoppingCartItemId);
         if (pilipiliMallShoppingCartItem == null) {
             PilipiliMallException.fail(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }
@@ -115,7 +115,7 @@ public class PilipiliMallShoppingCartServiceImpl implements PilipiliMallShopping
 
     @Override
     public Boolean deleteById(Long shoppingCartItemId, Long userId) {
-        PilipiliMallShoppingCartItem pilipiliMallShoppingCartItem = newBeeMallShoppingCartItemMapper.selectByPrimaryKey(shoppingCartItemId);
+        PilipiliMallShoppingCartItem pilipiliMallShoppingCartItem = pilipiliMallShoppingCartItemMapper.selectByPrimaryKey(shoppingCartItemId);
         if (pilipiliMallShoppingCartItem == null) {
             return false;
         }
@@ -123,13 +123,13 @@ public class PilipiliMallShoppingCartServiceImpl implements PilipiliMallShopping
         if (!userId.equals(pilipiliMallShoppingCartItem.getUserId())) {
             return false;
         }
-        return newBeeMallShoppingCartItemMapper.deleteByPrimaryKey(shoppingCartItemId) > 0;
+        return pilipiliMallShoppingCartItemMapper.deleteByPrimaryKey(shoppingCartItemId) > 0;
     }
 
     @Override
     public List<PilipiliMallShoppingCartItemVO> getMyShoppingCartItems(Long newBeeMallUserId) {
         List<PilipiliMallShoppingCartItemVO> pilipiliMallShoppingCartItemVOS = new ArrayList<>();
-        List<PilipiliMallShoppingCartItem> pilipiliMallShoppingCartItems = newBeeMallShoppingCartItemMapper.selectByUserId(newBeeMallUserId, Constants.SHOPPING_CART_ITEM_TOTAL_NUMBER);
+        List<PilipiliMallShoppingCartItem> pilipiliMallShoppingCartItems = pilipiliMallShoppingCartItemMapper.selectByUserId(newBeeMallUserId, Constants.SHOPPING_CART_ITEM_TOTAL_NUMBER);
         return getNewBeeMallShoppingCartItemVOS(pilipiliMallShoppingCartItemVOS, pilipiliMallShoppingCartItems);
     }
 
@@ -139,7 +139,7 @@ public class PilipiliMallShoppingCartServiceImpl implements PilipiliMallShopping
         if (CollectionUtils.isEmpty(cartItemIds)) {
             PilipiliMallException.fail("购物项不能为空");
         }
-        List<PilipiliMallShoppingCartItem> pilipiliMallShoppingCartItems = newBeeMallShoppingCartItemMapper.selectByUserIdAndCartItemIds(newBeeMallUserId, cartItemIds);
+        List<PilipiliMallShoppingCartItem> pilipiliMallShoppingCartItems = pilipiliMallShoppingCartItemMapper.selectByUserIdAndCartItemIds(newBeeMallUserId, cartItemIds);
         if (CollectionUtils.isEmpty(pilipiliMallShoppingCartItems)) {
             PilipiliMallException.fail("购物项不能为空");
         }
@@ -160,7 +160,7 @@ public class PilipiliMallShoppingCartServiceImpl implements PilipiliMallShopping
         if (!CollectionUtils.isEmpty(pilipiliMallShoppingCartItems)) {
             //查询商品信息并做数据转换
             List<Long> newBeeMallGoodsIds = pilipiliMallShoppingCartItems.stream().map(PilipiliMallShoppingCartItem::getGoodsId).collect(Collectors.toList());
-            List<PilipiliMallGoods> pilipiliMallGoods = newBeeMallGoodsMapper.selectByPrimaryKeys(newBeeMallGoodsIds);
+            List<PilipiliMallGoods> pilipiliMallGoods = pilipiliMallGoodsMapper.selectByPrimaryKeys(newBeeMallGoodsIds);
             Map<Long, PilipiliMallGoods> newBeeMallGoodsMap = new HashMap<>();
             if (!CollectionUtils.isEmpty(pilipiliMallGoods)) {
                 newBeeMallGoodsMap = pilipiliMallGoods.stream().collect(Collectors.toMap(PilipiliMallGoods::getGoodsId, Function.identity(), (entity1, entity2) -> entity1));
@@ -188,8 +188,8 @@ public class PilipiliMallShoppingCartServiceImpl implements PilipiliMallShopping
     @Override
     public PageResult getMyShoppingCartItems(PageQueryUtil pageUtil) {
         List<PilipiliMallShoppingCartItemVO> pilipiliMallShoppingCartItemVOS = new ArrayList<>();
-        List<PilipiliMallShoppingCartItem> pilipiliMallShoppingCartItems = newBeeMallShoppingCartItemMapper.findMyNewBeeMallCartItems(pageUtil);
-        int total = newBeeMallShoppingCartItemMapper.getTotalMyNewBeeMallCartItems(pageUtil);
+        List<PilipiliMallShoppingCartItem> pilipiliMallShoppingCartItems = pilipiliMallShoppingCartItemMapper.findMyNewBeeMallCartItems(pageUtil);
+        int total = pilipiliMallShoppingCartItemMapper.getTotalMyNewBeeMallCartItems(pageUtil);
         PageResult pageResult = new PageResult(getNewBeeMallShoppingCartItemVOS(pilipiliMallShoppingCartItemVOS, pilipiliMallShoppingCartItems), total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }

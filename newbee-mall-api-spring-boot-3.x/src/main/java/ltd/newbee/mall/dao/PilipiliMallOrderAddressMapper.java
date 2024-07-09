@@ -8,20 +8,18 @@
  */
 package ltd.newbee.mall.dao;
 
-import ltd.newbee.mall.entity.AdminUserToken;
+import ltd.newbee.mall.entity.PilipiliMallOrderAddress;
 
-public interface NewBeeAdminUserTokenMapper {
-    int deleteByPrimaryKey(Long userId);
+public interface PilipiliMallOrderAddressMapper {
+    int deleteByPrimaryKey(Long orderId);
 
-    int insert(AdminUserToken record);
+    int insert(PilipiliMallOrderAddress record);
 
-    int insertSelective(AdminUserToken record);
+    int insertSelective(PilipiliMallOrderAddress record);
 
-    AdminUserToken selectByPrimaryKey(Long userId);
+    PilipiliMallOrderAddress selectByPrimaryKey(Long orderId);
 
-    AdminUserToken selectByToken(String token);
+    int updateByPrimaryKeySelective(PilipiliMallOrderAddress record);
 
-    int updateByPrimaryKeySelective(AdminUserToken record);
-
-    int updateByPrimaryKey(AdminUserToken record);
+    int updateByPrimaryKey(PilipiliMallOrderAddress record);
 }

@@ -12,7 +12,7 @@ import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.PilipiliMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.config.annotation.TokenToAdminUser;
-import ltd.newbee.mall.dao.NewBeeAdminUserTokenMapper;
+import ltd.newbee.mall.dao.PilipiliAdminUserTokenMapper;
 import ltd.newbee.mall.entity.AdminUserToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -26,7 +26,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class TokenToAdminUserMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Autowired
-    private NewBeeAdminUserTokenMapper newBeeAdminUserTokenMapper;
+    private PilipiliAdminUserTokenMapper pilipiliAdminUserTokenMapper;
 
     public TokenToAdminUserMethodArgumentResolver() {
     }
@@ -42,7 +42,7 @@ public class TokenToAdminUserMethodArgumentResolver implements HandlerMethodArgu
         if (parameter.getParameterAnnotation(TokenToAdminUser.class) instanceof TokenToAdminUser) {
             String token = webRequest.getHeader("token");
             if (null != token && !"".equals(token) && token.length() == Constants.TOKEN_LENGTH) {
-                AdminUserToken adminUserToken = newBeeAdminUserTokenMapper.selectByToken(token);
+                AdminUserToken adminUserToken = pilipiliAdminUserTokenMapper.selectByToken(token);
                 if (adminUserToken == null) {
                     PilipiliMallException.fail(ServiceResultEnum.ADMIN_NOT_LOGIN_ERROR.getResult());
                 } else if (adminUserToken.getExpireTime().getTime() <= System.currentTimeMillis()) {
