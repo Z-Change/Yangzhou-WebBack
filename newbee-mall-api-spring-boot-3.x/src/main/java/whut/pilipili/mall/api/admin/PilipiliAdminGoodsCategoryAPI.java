@@ -38,10 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link https://github.com/newbee-ltd
+ 
  */
 @RestController
 @Tag(description = "v1", name = "后台管理系统分类模块接口")

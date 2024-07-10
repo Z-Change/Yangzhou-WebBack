@@ -30,12 +30,7 @@ import jakarta.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link https://github.com/newbee-ltd
- */
+
 @RestController
 @Tag(description = "v1", name = "后台管理系统订单模块接口")
 @RequestMapping("/manage-api/v1")
