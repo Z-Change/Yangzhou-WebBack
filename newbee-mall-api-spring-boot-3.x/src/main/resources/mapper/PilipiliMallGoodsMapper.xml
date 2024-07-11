@@ -201,7 +201,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
       update_user, update_time, goods_detail_content
       )
     values (#{goodsId,jdbcType=BIGINT}, #{goodsName,jdbcType=VARCHAR}, #{goodsIntro,jdbcType=VARCHAR}, 
-      #{goodsCoverImg,jdbcType=VARCHAR}, #{goodsCarousel,jdbcType=VARCHAR}, #{originalPrice,jdbcType=INTEGER}, 
+      #{goodsCoverImg,jdbcType=VARCHAR}, #{goodsCoverImg,jdbcType=VARCHAR}, #{originalPrice,jdbcType=INTEGER},
       #{sellingPrice,jdbcType=INTEGER}, #{stockNum,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, 
       #{goodsSellStatus,jdbcType=TINYINT}, #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{goodsDetailContent,jdbcType=LONGVARCHAR}
