@@ -28,7 +28,7 @@ public class PilipiliMallIndexConfigGoodsVO implements Serializable {
     @Schema(title = "商品图片地址")
     private String goodsCoverImg;
     @Schema(title = "商品价格")
-    private Integer sellingPrice;
+    private Float sellingPrice;
     @Schema(title = "商品标签")
     private String tag;
 }

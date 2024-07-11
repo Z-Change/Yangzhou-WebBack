@@ -27,9 +27,9 @@ public class PilipiliMallGoods {
 
     private String goodsCarousel;
 
-    private Integer originalPrice;
+    private Float originalPrice;
 
-    private Integer sellingPrice;
+    private Float sellingPrice;
 
     private Integer stockNum;
 

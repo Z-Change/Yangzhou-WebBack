@@ -16,8 +16,8 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         <result column="goods_category_id" jdbcType="BIGINT" property="goodsCategoryId"/>
         <result column="goods_cover_img" jdbcType="VARCHAR" property="goodsCoverImg"/>
         <result column="goods_carousel" jdbcType="VARCHAR" property="goodsCarousel"/>
-        <result column="original_price" jdbcType="INTEGER" property="originalPrice"/>
-        <result column="selling_price" jdbcType="INTEGER" property="sellingPrice"/>
+        <result column="original_price" jdbcType="FLOAT" property="originalPrice"/>
+        <result column="selling_price" jdbcType="FLOAT" property="sellingPrice"/>
         <result column="stock_num" jdbcType="INTEGER" property="stockNum"/>
         <result column="tag" jdbcType="VARCHAR" property="tag"/>
         <result column="goods_sell_status" jdbcType="TINYINT" property="goodsSellStatus"/>

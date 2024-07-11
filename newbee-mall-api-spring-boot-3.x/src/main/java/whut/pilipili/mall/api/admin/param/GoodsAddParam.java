@@ -43,13 +43,13 @@ public class GoodsAddParam {
     @NotNull(message = "originalPrice不能为空")
     @Min(value = 1, message = "originalPrice最低为1")
     @Max(value = 1000000, message = "originalPrice最高为1000000")
-    private Integer originalPrice;
+    private Float originalPrice;
 
     @Schema(title = "sellingPrice")
     @NotNull(message = "sellingPrice不能为空")
     @Min(value = 1, message = "sellingPrice最低为1")
     @Max(value = 1000000, message = "sellingPrice最高为1000000")
-    private Integer sellingPrice;
+    private Float sellingPrice;
 
     @Schema(title = "库存")
     @NotNull(message = "库存不能为空")

@@ -233,7 +233,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
                 }
                 //生成订单号
                 String orderNo = NumberUtil.genOrderNo();
-                int priceTotal = 0;
+                float priceTotal = 0;
                 //保存订单
                 PilipiliMallOrder pilipiliMallOrder = new PilipiliMallOrder();
                 pilipiliMallOrder.setOrderNo(orderNo);

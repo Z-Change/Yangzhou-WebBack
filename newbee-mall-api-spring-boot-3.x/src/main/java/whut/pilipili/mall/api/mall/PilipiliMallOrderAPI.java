@@ -53,7 +53,7 @@ public class PilipiliMallOrderAPI {
     @PostMapping("/saveOrder")
     @Operation(summary = "生成订单接口", description = "传参为地址id和待结算的购物项id数组")
     public Result<String> saveOrder(@Parameter(description = "订单参数") @RequestBody SaveOrderParam saveOrderParam, @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
-        int priceTotal = 0;
+        float priceTotal = 0;
         if (saveOrderParam == null || saveOrderParam.getCartItemIds() == null || saveOrderParam.getAddressId() == null) {
             PilipiliMallException.fail(ServiceResultEnum.PARAM_ERROR.getResult());
         }

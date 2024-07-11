@@ -35,5 +35,5 @@ public class PilipiliMallShoppingCartItemVO implements Serializable {
     private String goodsCoverImg;
 
     @Schema(title = "商品价格")
-    private Integer sellingPrice;
+    private Float sellingPrice;
 }

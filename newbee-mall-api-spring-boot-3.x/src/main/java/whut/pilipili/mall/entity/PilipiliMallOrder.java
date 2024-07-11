@@ -21,7 +21,7 @@ public class PilipiliMallOrder {
 
     private Long userId;
 
-    private Integer totalPrice;
+    private Float totalPrice;
 
     private Byte payStatus;
 

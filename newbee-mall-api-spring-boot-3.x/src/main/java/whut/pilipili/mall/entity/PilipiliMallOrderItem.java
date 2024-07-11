@@ -24,7 +24,7 @@ public class PilipiliMallOrderItem {
 
     private String goodsCoverImg;
 
-    private Integer sellingPrice;
+    private Float sellingPrice;
 
     private Integer goodsCount;
 

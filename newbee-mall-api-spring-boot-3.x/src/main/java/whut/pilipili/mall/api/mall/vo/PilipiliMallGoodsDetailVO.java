@@ -32,7 +32,7 @@ public class PilipiliMallGoodsDetailVO implements Serializable {
     private String goodsCoverImg;
 
     @Schema(title = "商品价格")
-    private Integer sellingPrice;
+    private Float sellingPrice;
 
     @Schema(title = "商品标签")
     private String tag;
@@ -41,7 +41,7 @@ public class PilipiliMallGoodsDetailVO implements Serializable {
     private String[] goodsCarouselList;
 
     @Schema(title = "商品原价")
-    private Integer originalPrice;
+    private Float originalPrice;
 
     @Schema(title = "商品详情字段")
     private String goodsDetailContent;

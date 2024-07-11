@@ -26,7 +26,7 @@ public class PilipiliMallOrderDetailVO implements Serializable {
     private String orderNo;
 
     @Schema(title = "订单价格")
-    private Integer totalPrice;
+    private Float totalPrice;
 
     @Schema(title = "订单支付状态码")
     private Byte payStatus;

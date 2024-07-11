@@ -113,7 +113,7 @@ public class PilipiliMallShoppingCartAPI {
         if (cartItemIds.length < 1) {
             PilipiliMallException.fail("参数异常");
         }
-        int priceTotal = 0;
+        float priceTotal = 0;
         List<PilipiliMallShoppingCartItemVO> itemsForSettle = pilipiliMallShoppingCartService.getCartItemsForSettle(Arrays.asList(cartItemIds), loginMallUser.getUserId());
         if (CollectionUtils.isEmpty(itemsForSettle)) {
             //无数据则抛出异常
