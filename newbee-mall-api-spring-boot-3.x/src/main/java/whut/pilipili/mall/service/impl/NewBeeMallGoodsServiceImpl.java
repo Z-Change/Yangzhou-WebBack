@@ -46,6 +46,7 @@ public class NewBeeMallGoodsServiceImpl implements PilipiliMallGoodsService {
 
     @Override
     public String saveNewBeeMallGoods(PilipiliMallGoods goods) {
+        goods.setGoodsCarousel(goods.getGoodsCoverImg());
         GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(goods.getGoodsCategoryId());
         // 分类不存在或者不是三级分类，则该参数字段异常
         if (goodsCategory == null || goodsCategory.getCategoryLevel().intValue() != PilipiliMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {

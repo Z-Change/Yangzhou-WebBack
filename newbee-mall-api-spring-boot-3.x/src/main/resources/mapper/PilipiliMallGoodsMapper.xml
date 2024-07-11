@@ -45,7 +45,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         selling_price, stock_num)
         VALUES
         <foreach collection="pilipiliMallGoodsList" item="goods" separator=",">
-            (#{goods.goodsName},#{goods.goodsIntro},#{goods.goodsCategoryId},#{goods.goodsCoverImg},#{goods.goodsCarousel},#{goods.goodsDetailContent},#{goods.originalPrice},#{goods.sellingPrice},#{goods.stockNum})
+            (#{goods.goodsName},#{goods.goodsIntro},#{goods.goodsCategoryId},#{goods.goodsCoverImg},#{goods.goodsCoverImg},#{goods.goodsDetailContent},#{goods.originalPrice},#{goods.sellingPrice},#{goods.stockNum})
         </foreach>
     </insert>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
@@ -225,6 +225,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
             <if test="goodsCoverImg != null">
                 goods_cover_img,
             </if>
+
             <if test="goodsCarousel != null">
                 goods_carousel,
             </if>
