@@ -63,5 +63,5 @@ public interface PilipiliMallUserService {
      * @param pageUtil
      * @return
      */
-    PageResult getNewBeeMallUsersPage(PageQueryUtil pageUtil);
+    PageResult getPilipiliMallUsersPage(PageQueryUtil pageUtil);
 }

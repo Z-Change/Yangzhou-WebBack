@@ -64,7 +64,7 @@ public class PilipiliAdminOrderAPI {
             params.put("orderStatus", orderStatus);
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(pilipiliMallOrderService.getNewBeeMallOrdersPage(pageUtil));
+        return ResultGenerator.genSuccessResult(pilipiliMallOrderService.getPilipiliMallOrdersPage(pageUtil));
     }
 
     @GetMapping("/orders/{orderId}")

@@ -27,7 +27,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.annotation.Resource;
-import whut.pilipili.mall.util.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -75,7 +74,7 @@ public class PilipiliMallGoodsAPI {
         params.put("goodsSellStatus", Constants.SELL_STATUS_UP);
         //封装商品数据
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(pilipiliMallGoodsService.searchNewBeeMallGoods(pageUtil));
+        return ResultGenerator.genSuccessResult(pilipiliMallGoodsService.searchPilipiliMallGoods(pageUtil));
     }
 
     @GetMapping("/goods/detail/{goodsId}")
@@ -85,7 +84,7 @@ public class PilipiliMallGoodsAPI {
         if (goodsId < 1) {
             return ResultGenerator.genFailResult("参数异常");
         }
-        PilipiliMallGoods goods = pilipiliMallGoodsService.getNewBeeMallGoodsById(goodsId);
+        PilipiliMallGoods goods = pilipiliMallGoodsService.getPilipiliMallGoodsById(goodsId);
         if (Constants.SELL_STATUS_UP != goods.getGoodsSellStatus()) {
             PilipiliMallException.fail(ServiceResultEnum.GOODS_PUT_DOWN.getResult());
         }

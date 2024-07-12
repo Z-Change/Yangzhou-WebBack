@@ -127,7 +127,7 @@ public class PilipiliMallUserServiceImpl implements PilipiliMallUserService {
     }
 
     @Override
-    public PageResult getNewBeeMallUsersPage(PageQueryUtil pageUtil) {
+    public PageResult getPilipiliMallUsersPage(PageQueryUtil pageUtil) {
         List<MallUser> mallUsers = mallUserMapper.findMallUserList(pageUtil);
         int total = mallUserMapper.getTotalMallUsers(pageUtil);
         PageResult pageResult = new PageResult(mallUsers, total, pageUtil.getLimit(), pageUtil.getPage());

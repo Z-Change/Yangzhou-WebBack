@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import whut.pilipili.mall.common.Constants;
 import whut.pilipili.mall.config.annotation.TokenToAdminUser;
 import whut.pilipili.mall.entity.AdminUserToken;
-import whut.pilipili.mall.util.NewBeeMallUtils;
+import whut.pilipili.mall.util.PilipiliMallUtils;
 import whut.pilipili.mall.util.Result;
 import whut.pilipili.mall.util.ResultGenerator;
 import org.slf4j.Logger;
@@ -71,7 +71,7 @@ public class PilipiliAdminUploadAPI {
             }
             file.transferTo(destFile);
             Result resultSuccess = ResultGenerator.genSuccessResult();
-            resultSuccess.setData(NewBeeMallUtils.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName);
+            resultSuccess.setData(PilipiliMallUtils.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName);
             return resultSuccess;
         } catch (IOException e) {
             e.printStackTrace();
@@ -126,7 +126,7 @@ public class PilipiliAdminUploadAPI {
                     }
                 }
                 multipartFiles.get(i).transferTo(destFile);
-                fileNames.add(NewBeeMallUtils.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName);
+                fileNames.add(PilipiliMallUtils.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName);
             } catch (IOException e) {
                 e.printStackTrace();
                 return ResultGenerator.genFailResult("文件上传失败");

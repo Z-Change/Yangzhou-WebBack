@@ -21,7 +21,7 @@ public interface PilipiliMallGoodsService {
      * @param pageUtil
      * @return
      */
-    PageResult getNewBeeMallGoodsPage(PageQueryUtil pageUtil);
+    PageResult getPilipiliMallGoodsPage(PageQueryUtil pageUtil);
 
     /**
      * 添加商品
@@ -29,7 +29,7 @@ public interface PilipiliMallGoodsService {
      * @param goods
      * @return
      */
-    String saveNewBeeMallGoods(PilipiliMallGoods goods);
+    String savePilipiliMallGoods(PilipiliMallGoods goods);
 
     /**
      * 批量新增商品数据
@@ -45,7 +45,7 @@ public interface PilipiliMallGoodsService {
      * @param goods
      * @return
      */
-    String updateNewBeeMallGoods(PilipiliMallGoods goods);
+    String updatePilipiliMallGoods(PilipiliMallGoods goods);
 
     /**
      * 批量修改销售状态(上架下架)
@@ -61,7 +61,7 @@ public interface PilipiliMallGoodsService {
      * @param id
      * @return
      */
-    PilipiliMallGoods getNewBeeMallGoodsById(Long id);
+    PilipiliMallGoods getPilipiliMallGoodsById(Long id);
 
     /**
      * 商品搜索
@@ -69,5 +69,5 @@ public interface PilipiliMallGoodsService {
      * @param pageUtil
      * @return
      */
-    PageResult searchNewBeeMallGoods(PageQueryUtil pageUtil);
+    PageResult searchPilipiliMallGoods(PageQueryUtil pageUtil);
 }

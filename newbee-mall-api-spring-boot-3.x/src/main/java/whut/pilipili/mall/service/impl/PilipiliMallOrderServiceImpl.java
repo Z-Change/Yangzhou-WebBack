@@ -281,7 +281,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
 
 
     @Override
-    public PageResult getNewBeeMallOrdersPage(PageQueryUtil pageUtil) {
+    public PageResult getPilipiliMallOrdersPage(PageQueryUtil pageUtil) {
         List<PilipiliMallOrder> pilipiliMallOrders = pilipiliMallOrderMapper.findNewBeeMallOrderList(pageUtil);
         int total = pilipiliMallOrderMapper.getTotalNewBeeMallOrders(pageUtil);
         PageResult pageResult = new PageResult(pilipiliMallOrders, total, pageUtil.getLimit(), pageUtil.getPage());

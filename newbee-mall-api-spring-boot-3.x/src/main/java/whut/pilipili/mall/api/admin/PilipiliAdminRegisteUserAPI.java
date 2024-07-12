@@ -59,7 +59,7 @@ public class PilipiliAdminRegisteUserAPI {
             params.put("orderStatus", lockStatus);
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(pilipiliMallUserService.getNewBeeMallUsersPage(pageUtil));
+        return ResultGenerator.genSuccessResult(pilipiliMallUserService.getPilipiliMallUsersPage(pageUtil));
     }
 
     /**

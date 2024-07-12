@@ -37,7 +37,7 @@ public class NewBeeMallGoodsServiceImpl implements PilipiliMallGoodsService {
     private GoodsCategoryMapper goodsCategoryMapper;
 
     @Override
-    public PageResult getNewBeeMallGoodsPage(PageQueryUtil pageUtil) {
+    public PageResult getPilipiliMallGoodsPage(PageQueryUtil pageUtil) {
         List<PilipiliMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsList(pageUtil);
         int total = goodsMapper.getTotalNewBeeMallGoods(pageUtil);
         PageResult pageResult = new PageResult(goodsList, total, pageUtil.getLimit(), pageUtil.getPage());
@@ -45,7 +45,7 @@ public class NewBeeMallGoodsServiceImpl implements PilipiliMallGoodsService {
     }
 
     @Override
-    public String saveNewBeeMallGoods(PilipiliMallGoods goods) {
+    public String savePilipiliMallGoods(PilipiliMallGoods goods) {
         goods.setGoodsCarousel(goods.getGoodsCoverImg());
         GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(goods.getGoodsCategoryId());
         // 分类不存在或者不是三级分类，则该参数字段异常
@@ -69,7 +69,7 @@ public class NewBeeMallGoodsServiceImpl implements PilipiliMallGoodsService {
     }
 
     @Override
-    public String updateNewBeeMallGoods(PilipiliMallGoods goods) {
+    public String updatePilipiliMallGoods(PilipiliMallGoods goods) {
         GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(goods.getGoodsCategoryId());
         // 分类不存在或者不是三级分类，则该参数字段异常
         if (goodsCategory == null || goodsCategory.getCategoryLevel().intValue() != PilipiliMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
@@ -92,7 +92,7 @@ public class NewBeeMallGoodsServiceImpl implements PilipiliMallGoodsService {
     }
 
     @Override
-    public PilipiliMallGoods getNewBeeMallGoodsById(Long id) {
+    public PilipiliMallGoods getPilipiliMallGoodsById(Long id) {
         PilipiliMallGoods pilipiliMallGoods = goodsMapper.selectByPrimaryKey(id);
         if (pilipiliMallGoods == null) {
             PilipiliMallException.fail(ServiceResultEnum.GOODS_NOT_EXIST.getResult());
@@ -106,7 +106,7 @@ public class NewBeeMallGoodsServiceImpl implements PilipiliMallGoodsService {
     }
 
     @Override
-    public PageResult searchNewBeeMallGoods(PageQueryUtil pageUtil) {
+    public PageResult searchPilipiliMallGoods(PageQueryUtil pageUtil) {
         List<PilipiliMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsListBySearch(pageUtil);
         int total = goodsMapper.getTotalNewBeeMallGoodsBySearch(pageUtil);
         List<PilipiliMallSearchGoodsVO> pilipiliMallSearchGoodsVOS = new ArrayList<>();

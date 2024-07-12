@@ -75,7 +75,7 @@ public class PilipiliAdminGoodsInfoAPI {
             params.put("goodsSellStatus", goodsSellStatus);
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(pilipiliMallGoodsService.getNewBeeMallGoodsPage(pageUtil));
+        return ResultGenerator.genSuccessResult(pilipiliMallGoodsService.getPilipiliMallGoodsPage(pageUtil));
     }
 
     /**
@@ -87,7 +87,7 @@ public class PilipiliAdminGoodsInfoAPI {
         logger.info("adminUser:{}", adminUser.toString());
         PilipiliMallGoods pilipiliMallGoods = new PilipiliMallGoods();
         BeanUtil.copyProperties(goodsAddParam, pilipiliMallGoods);
-        String result = pilipiliMallGoodsService.saveNewBeeMallGoods(pilipiliMallGoods);
+        String result = pilipiliMallGoodsService.savePilipiliMallGoods(pilipiliMallGoods);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -105,7 +105,7 @@ public class PilipiliAdminGoodsInfoAPI {
         logger.info("adminUser:{}", adminUser.toString());
         PilipiliMallGoods pilipiliMallGoods = new PilipiliMallGoods();
         BeanUtil.copyProperties(goodsEditParam, pilipiliMallGoods);
-        String result = pilipiliMallGoodsService.updateNewBeeMallGoods(pilipiliMallGoods);
+        String result = pilipiliMallGoodsService.updatePilipiliMallGoods(pilipiliMallGoods);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -121,7 +121,7 @@ public class PilipiliAdminGoodsInfoAPI {
     public Result info(@PathVariable("id") Long id, @TokenToAdminUser @Parameter(hidden = true) AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
         Map goodsInfo = new HashMap(8);
-        PilipiliMallGoods goods = pilipiliMallGoodsService.getNewBeeMallGoodsById(id);
+        PilipiliMallGoods goods = pilipiliMallGoodsService.getPilipiliMallGoodsById(id);
         if (goods == null) {
             return ResultGenerator.genFailResult(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }

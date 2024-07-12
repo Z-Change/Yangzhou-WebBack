@@ -73,7 +73,7 @@ public interface PilipiliMallOrderService {
      * @param pageUtil
      * @return
      */
-    PageResult getNewBeeMallOrdersPage(PageQueryUtil pageUtil);
+    PageResult getPilipiliMallOrdersPage(PageQueryUtil pageUtil);
 
     /**
      * 订单信息修改
