@@ -33,7 +33,7 @@ public enum PilipiliMallOrderStatusEnum {
         this.name = name;
     }
 
-    public static PilipiliMallOrderStatusEnum getNewBeeMallOrderStatusEnumByStatus(int orderStatus) {
+    public static PilipiliMallOrderStatusEnum getPilipiliMallOrderStatusEnumByStatus(int orderStatus) {
         for (PilipiliMallOrderStatusEnum pilipiliMallOrderStatusEnum : PilipiliMallOrderStatusEnum.values()) {
             if (pilipiliMallOrderStatusEnum.getOrderStatus() == orderStatus) {
                 return pilipiliMallOrderStatusEnum;

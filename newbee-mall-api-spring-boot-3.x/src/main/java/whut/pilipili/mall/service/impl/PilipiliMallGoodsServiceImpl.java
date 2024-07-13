@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class NewBeeMallGoodsServiceImpl implements PilipiliMallGoodsService {
+public class PilipiliMallGoodsServiceImpl implements PilipiliMallGoodsService {
 
     @Autowired
     private PilipiliMallGoodsMapper goodsMapper;
@@ -38,8 +38,8 @@ public class NewBeeMallGoodsServiceImpl implements PilipiliMallGoodsService {
 
     @Override
     public PageResult getPilipiliMallGoodsPage(PageQueryUtil pageUtil) {
-        List<PilipiliMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsList(pageUtil);
-        int total = goodsMapper.getTotalNewBeeMallGoods(pageUtil);
+        List<PilipiliMallGoods> goodsList = goodsMapper.findPilipiliMallGoodsList(pageUtil);
+        int total = goodsMapper.getTotalPilipiliMallGoods(pageUtil);
         PageResult pageResult = new PageResult(goodsList, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
@@ -62,7 +62,7 @@ public class NewBeeMallGoodsServiceImpl implements PilipiliMallGoodsService {
     }
 
     @Override
-    public void batchSaveNewBeeMallGoods(List<PilipiliMallGoods> pilipiliMallGoodsList) {
+    public void batchSavePilipiliMallGoods(List<PilipiliMallGoods> pilipiliMallGoodsList) {
         if (!CollectionUtils.isEmpty(pilipiliMallGoodsList)) {
             goodsMapper.batchInsert(pilipiliMallGoodsList);
         }
@@ -107,8 +107,8 @@ public class NewBeeMallGoodsServiceImpl implements PilipiliMallGoodsService {
 
     @Override
     public PageResult searchPilipiliMallGoods(PageQueryUtil pageUtil) {
-        List<PilipiliMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsListBySearch(pageUtil);
-        int total = goodsMapper.getTotalNewBeeMallGoodsBySearch(pageUtil);
+        List<PilipiliMallGoods> goodsList = goodsMapper.findPilipiliMallGoodsListBySearch(pageUtil);
+        int total = goodsMapper.getTotalPilipiliMallGoodsBySearch(pageUtil);
         List<PilipiliMallSearchGoodsVO> pilipiliMallSearchGoodsVOS = new ArrayList<>();
         if (!CollectionUtils.isEmpty(goodsList)) {
             pilipiliMallSearchGoodsVOS = BeanUtil.copyList(goodsList, PilipiliMallSearchGoodsVO.class);

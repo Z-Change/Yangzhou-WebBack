@@ -26,7 +26,7 @@ public interface PilipiliMallShoppingCartService {
      * @param userId
      * @return
      */
-    String saveNewBeeMallCartItem(SaveCartItemParam saveCartItemParam, Long userId);
+    String savePilipiliMallCartItem(SaveCartItemParam saveCartItemParam, Long userId);
 
     /**
      * 修改购物车中的属性
@@ -35,7 +35,7 @@ public interface PilipiliMallShoppingCartService {
      * @param userId
      * @return
      */
-    String updateNewBeeMallCartItem(UpdateCartItemParam updateCartItemParam, Long userId);
+    String updatePilipiliMallCartItem(UpdateCartItemParam updateCartItemParam, Long userId);
 
     /**
      * 获取购物项详情
@@ -43,7 +43,7 @@ public interface PilipiliMallShoppingCartService {
      * @param newBeeMallShoppingCartItemId
      * @return
      */
-    PilipiliMallShoppingCartItem getNewBeeMallCartItemById(Long newBeeMallShoppingCartItemId);
+    PilipiliMallShoppingCartItem getPilipiliMallCartItemById(Long newBeeMallShoppingCartItemId);
 
     /**
      * 删除购物车中的商品

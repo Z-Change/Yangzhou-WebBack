@@ -37,7 +37,7 @@ public interface PilipiliMallShoppingCartItemMapper {
 
     int deleteBatch(List<Long> ids);
 
-    List<PilipiliMallShoppingCartItem> findMyNewBeeMallCartItems(PageQueryUtil pageUtil);
+    List<PilipiliMallShoppingCartItem> findMyPilipiliMallCartItems(PageQueryUtil pageUtil);
 
-    int getTotalMyNewBeeMallCartItems(PageQueryUtil pageUtil);
+    int getTotalMyPilipiliMallCartItems(PageQueryUtil pageUtil);
 }

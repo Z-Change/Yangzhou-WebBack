@@ -48,7 +48,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
                  open="(" separator="," close=")">#{item}
         </foreach>
     </select>
-    <select id="findNewBeeMallOrderList" parameterType="Map" resultMap="BaseResultMap">
+    <select id="findPilipiliMallOrderList" parameterType="Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from pilipili_mall_order
@@ -81,7 +81,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         </if>
     </select>
 
-    <select id="getTotalNewBeeMallOrders" parameterType="Map" resultType="int">
+    <select id="getTotalPilipiliMallOrders" parameterType="Map" resultType="int">
         select count(*) from pilipili_mall_order
         <where>
             <if test="orderNo!=null and orderNo!=''">

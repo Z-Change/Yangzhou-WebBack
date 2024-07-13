@@ -66,9 +66,9 @@ public class PilipiliMallShoppingCartAPI {
 
     @PostMapping("/shop-cart")
     @Operation(summary = "添加商品到购物车接口", description = "传参为商品id、数量")
-    public Result saveNewBeeMallShoppingCartItem(@RequestBody SaveCartItemParam saveCartItemParam,
+    public Result savePilipiliMallShoppingCartItem(@RequestBody SaveCartItemParam saveCartItemParam,
                                                  @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
-        String saveResult = pilipiliMallShoppingCartService.saveNewBeeMallCartItem(saveCartItemParam, loginMallUser.getUserId());
+        String saveResult = pilipiliMallShoppingCartService.savePilipiliMallCartItem(saveCartItemParam, loginMallUser.getUserId());
         //添加成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(saveResult)) {
             return ResultGenerator.genSuccessResult();
@@ -79,9 +79,9 @@ public class PilipiliMallShoppingCartAPI {
 
     @PutMapping("/shop-cart")
     @Operation(summary = "修改购物项数据", description = "传参为购物项id、数量")
-    public Result updateNewBeeMallShoppingCartItem(@RequestBody UpdateCartItemParam updateCartItemParam,
+    public Result updatePilipiliMallShoppingCartItem(@RequestBody UpdateCartItemParam updateCartItemParam,
                                                    @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
-        String updateResult = pilipiliMallShoppingCartService.updateNewBeeMallCartItem(updateCartItemParam, loginMallUser.getUserId());
+        String updateResult = pilipiliMallShoppingCartService.updatePilipiliMallCartItem(updateCartItemParam, loginMallUser.getUserId());
         //修改成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(updateResult)) {
             return ResultGenerator.genSuccessResult();
@@ -92,9 +92,9 @@ public class PilipiliMallShoppingCartAPI {
 
     @DeleteMapping("/shop-cart/{newBeeMallShoppingCartItemId}")
     @Operation(summary = "删除购物项", description = "传参为购物项id")
-    public Result updateNewBeeMallShoppingCartItem(@PathVariable("newBeeMallShoppingCartItemId") Long newBeeMallShoppingCartItemId,
+    public Result updatePilipiliMallShoppingCartItem(@PathVariable("newBeeMallShoppingCartItemId") Long newBeeMallShoppingCartItemId,
                                                    @TokenToMallUser @Parameter(hidden = true) MallUser loginMallUser) {
-        PilipiliMallShoppingCartItem newBeeMallCartItemById = pilipiliMallShoppingCartService.getNewBeeMallCartItemById(newBeeMallShoppingCartItemId);
+        PilipiliMallShoppingCartItem newBeeMallCartItemById = pilipiliMallShoppingCartService.getPilipiliMallCartItemById(newBeeMallShoppingCartItemId);
         if (!loginMallUser.getUserId().equals(newBeeMallCartItemById.getUserId())) {
             return ResultGenerator.genFailResult(ServiceResultEnum.REQUEST_FORBIDEN_ERROR.getResult());
         }

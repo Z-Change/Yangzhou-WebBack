@@ -37,7 +37,7 @@ public interface PilipiliMallGoodsService {
      * @param pilipiliMallGoodsList
      * @return
      */
-    void batchSaveNewBeeMallGoods(List<PilipiliMallGoods> pilipiliMallGoodsList);
+    void batchSavePilipiliMallGoods(List<PilipiliMallGoods> pilipiliMallGoodsList);
 
     /**
      * 修改商品信息

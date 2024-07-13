@@ -41,7 +41,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
         where user_id = #{newBeeMallUserId,jdbcType=BIGINT} and is_deleted = 0
         limit #{number}
     </select>
-    <select id="findMyNewBeeMallCartItems" resultMap="BaseResultMap">
+    <select id="findMyPilipiliMallCartItems" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from pilipili_mall_shopping_cart_item
@@ -50,7 +50,7 @@ Copyright (c) 2019-2021 十三 all rights reserved.
             limit #{start},#{limit}
         </if>
     </select>
-    <select id="getTotalMyNewBeeMallCartItems" resultType="int">
+    <select id="getTotalMyPilipiliMallCartItems" resultType="int">
         select
         count(*)
         from pilipili_mall_shopping_cart_item

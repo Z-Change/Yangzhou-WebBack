@@ -29,9 +29,9 @@ public interface PilipiliMallOrderMapper {
 
     int updateByPrimaryKey(PilipiliMallOrder record);
 
-    List<PilipiliMallOrder> findNewBeeMallOrderList(PageQueryUtil pageUtil);
+    List<PilipiliMallOrder> findPilipiliMallOrderList(PageQueryUtil pageUtil);
 
-    int getTotalNewBeeMallOrders(PageQueryUtil pageUtil);
+    int getTotalPilipiliMallOrders(PageQueryUtil pageUtil);
 
     List<PilipiliMallOrder> selectByPrimaryKeys(@Param("orderIds") List<Long> orderIds);
 

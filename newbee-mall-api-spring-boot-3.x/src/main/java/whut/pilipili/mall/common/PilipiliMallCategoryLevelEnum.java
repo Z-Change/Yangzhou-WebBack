@@ -28,7 +28,7 @@ public enum PilipiliMallCategoryLevelEnum {
         this.name = name;
     }
 
-    public static PilipiliMallCategoryLevelEnum getNewBeeMallOrderStatusEnumByLevel(int level) {
+    public static PilipiliMallCategoryLevelEnum getPilipiliMallOrderStatusEnumByLevel(int level) {
         for (PilipiliMallCategoryLevelEnum newBeeMallCategoryLevelEnum : PilipiliMallCategoryLevelEnum.values()) {
             if (newBeeMallCategoryLevelEnum.getLevel() == level) {
                 return newBeeMallCategoryLevelEnum;

@@ -32,15 +32,15 @@ public interface PilipiliMallGoodsMapper {
 
     int updateByPrimaryKey(PilipiliMallGoods record);
 
-    List<PilipiliMallGoods> findNewBeeMallGoodsList(PageQueryUtil pageUtil);
+    List<PilipiliMallGoods> findPilipiliMallGoodsList(PageQueryUtil pageUtil);
 
-    int getTotalNewBeeMallGoods(PageQueryUtil pageUtil);
+    int getTotalPilipiliMallGoods(PageQueryUtil pageUtil);
 
     List<PilipiliMallGoods> selectByPrimaryKeys(List<Long> goodsIds);
 
-    List<PilipiliMallGoods> findNewBeeMallGoodsListBySearch(PageQueryUtil pageUtil);
+    List<PilipiliMallGoods> findPilipiliMallGoodsListBySearch(PageQueryUtil pageUtil);
 
-    int getTotalNewBeeMallGoodsBySearch(PageQueryUtil pageUtil);
+    int getTotalPilipiliMallGoodsBySearch(PageQueryUtil pageUtil);
 
     int batchInsert(@Param("newBeeMallGoodsList") List<PilipiliMallGoods> pilipiliMallGoodsList);
 

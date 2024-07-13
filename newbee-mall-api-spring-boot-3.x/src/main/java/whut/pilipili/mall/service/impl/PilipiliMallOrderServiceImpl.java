@@ -61,7 +61,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
             List<PilipiliMallOrderItemVO> pilipiliMallOrderItemVOS = BeanUtil.copyList(orderItems, PilipiliMallOrderItemVO.class);
             PilipiliMallOrderDetailVO pilipiliMallOrderDetailVO = new PilipiliMallOrderDetailVO();
             BeanUtil.copyProperties(pilipiliMallOrder, pilipiliMallOrderDetailVO);
-            pilipiliMallOrderDetailVO.setOrderStatusString(PilipiliMallOrderStatusEnum.getNewBeeMallOrderStatusEnumByStatus(pilipiliMallOrderDetailVO.getOrderStatus()).getName());
+            pilipiliMallOrderDetailVO.setOrderStatusString(PilipiliMallOrderStatusEnum.getPilipiliMallOrderStatusEnumByStatus(pilipiliMallOrderDetailVO.getOrderStatus()).getName());
             pilipiliMallOrderDetailVO.setPayTypeString(PayTypeEnum.getPayTypeEnumByType(pilipiliMallOrderDetailVO.getPayType()).getName());
             pilipiliMallOrderDetailVO.setPilipiliMallOrderItemVOS(pilipiliMallOrderItemVOS);
             return pilipiliMallOrderDetailVO;
@@ -88,7 +88,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
         List<PilipiliMallOrderItemVO> pilipiliMallOrderItemVOS = BeanUtil.copyList(orderItems, PilipiliMallOrderItemVO.class);
         PilipiliMallOrderDetailVO pilipiliMallOrderDetailVO = new PilipiliMallOrderDetailVO();
         BeanUtil.copyProperties(pilipiliMallOrder, pilipiliMallOrderDetailVO);
-        pilipiliMallOrderDetailVO.setOrderStatusString(PilipiliMallOrderStatusEnum.getNewBeeMallOrderStatusEnumByStatus(pilipiliMallOrderDetailVO.getOrderStatus()).getName());
+        pilipiliMallOrderDetailVO.setOrderStatusString(PilipiliMallOrderStatusEnum.getPilipiliMallOrderStatusEnumByStatus(pilipiliMallOrderDetailVO.getOrderStatus()).getName());
         pilipiliMallOrderDetailVO.setPayTypeString(PayTypeEnum.getPayTypeEnumByType(pilipiliMallOrderDetailVO.getPayType()).getName());
         pilipiliMallOrderDetailVO.setPilipiliMallOrderItemVOS(pilipiliMallOrderItemVOS);
         return pilipiliMallOrderDetailVO;
@@ -97,15 +97,15 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
 
     @Override
     public PageResult getMyOrders(PageQueryUtil pageUtil) {
-        int total = pilipiliMallOrderMapper.getTotalNewBeeMallOrders(pageUtil);
-        List<PilipiliMallOrder> pilipiliMallOrders = pilipiliMallOrderMapper.findNewBeeMallOrderList(pageUtil);
+        int total = pilipiliMallOrderMapper.getTotalPilipiliMallOrders(pageUtil);
+        List<PilipiliMallOrder> pilipiliMallOrders = pilipiliMallOrderMapper.findPilipiliMallOrderList(pageUtil);
         List<PilipiliMallOrderListVO> orderListVOS = new ArrayList<>();
         if (total > 0) {
             //数据转换 将实体类转成vo
             orderListVOS = BeanUtil.copyList(pilipiliMallOrders, PilipiliMallOrderListVO.class);
             //设置订单状态中文显示值
             for (PilipiliMallOrderListVO pilipiliMallOrderListVO : orderListVOS) {
-                pilipiliMallOrderListVO.setOrderStatusString(PilipiliMallOrderStatusEnum.getNewBeeMallOrderStatusEnumByStatus(pilipiliMallOrderListVO.getOrderStatus()).getName());
+                pilipiliMallOrderListVO.setOrderStatusString(PilipiliMallOrderStatusEnum.getPilipiliMallOrderStatusEnumByStatus(pilipiliMallOrderListVO.getOrderStatus()).getName());
             }
             List<Long> orderIds = pilipiliMallOrders.stream().map(PilipiliMallOrder::getOrderId).collect(Collectors.toList());
             if (!CollectionUtils.isEmpty(orderIds)) {
@@ -115,7 +115,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
                     //封装每个订单列表对象的订单项数据
                     if (itemByOrderIdMap.containsKey(pilipiliMallOrderListVO.getOrderId())) {
                         List<PilipiliMallOrderItem> orderItemListTemp = itemByOrderIdMap.get(pilipiliMallOrderListVO.getOrderId());
-                        //将NewBeeMallOrderItem对象列表转换成NewBeeMallOrderItemVO对象列表
+                        //将PilipiliMallOrderItem对象列表转换成PilipiliMallOrderItemVO对象列表
                         List<PilipiliMallOrderItemVO> pilipiliMallOrderItemVOS = BeanUtil.copyList(orderItemListTemp, PilipiliMallOrderItemVO.class);
                         pilipiliMallOrderListVO.setPilipiliMallOrderItemVOS(pilipiliMallOrderItemVOS);
                     }
@@ -260,7 +260,7 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
                         PilipiliMallOrderItem pilipiliMallOrderItem = new PilipiliMallOrderItem();
                         //使用BeanUtil工具类将newBeeMallShoppingCartItemVO中的属性复制到newBeeMallOrderItem对象中
                         BeanUtil.copyProperties(pilipiliMallShoppingCartItemVO, pilipiliMallOrderItem);
-                        //NewBeeMallOrderMapper文件insert()方法中使用了useGeneratedKeys因此orderId可以获取到
+                        //PilipiliMallOrderMapper文件insert()方法中使用了useGeneratedKeys因此orderId可以获取到
                         pilipiliMallOrderItem.setOrderId(pilipiliMallOrder.getOrderId());
                         pilipiliMallOrderItems.add(pilipiliMallOrderItem);
                     }
@@ -282,8 +282,8 @@ public class PilipiliMallOrderServiceImpl implements PilipiliMallOrderService {
 
     @Override
     public PageResult getPilipiliMallOrdersPage(PageQueryUtil pageUtil) {
-        List<PilipiliMallOrder> pilipiliMallOrders = pilipiliMallOrderMapper.findNewBeeMallOrderList(pageUtil);
-        int total = pilipiliMallOrderMapper.getTotalNewBeeMallOrders(pageUtil);
+        List<PilipiliMallOrder> pilipiliMallOrders = pilipiliMallOrderMapper.findPilipiliMallOrderList(pageUtil);
+        int total = pilipiliMallOrderMapper.getTotalPilipiliMallOrders(pageUtil);
         PageResult pageResult = new PageResult(pilipiliMallOrders, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
