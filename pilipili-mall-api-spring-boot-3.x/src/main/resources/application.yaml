@@ -18,12 +18,18 @@ spring:
       max-lifetime: 600000
       connection-timeout: 30000
       connection-test-query: SELECT 1
+
   servlet:
     multipart:
       # 单个文件最大大小
       max-file-size: 50MB
       # 所有上传文件最大大小
       max-request-size: 50MB
+
+
+nacos:
+  config:
+    server-addr: 43.136.82.254:8848 # Nacos的地址
 
 # mybatis config
 mybatis:
