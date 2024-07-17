@@ -19,7 +19,7 @@ import jakarta.annotation.Resource;
 import java.util.List;
 
 @RestController
-@Tag(description = "v1", name = "新蜂商城分类页面接口")
+@Tag(description = "v1", name = "pilipili商城分类页面接口")
 @RequestMapping("/api/v1")
 public class PilipiliMallGoodsCategoryAPI {
 

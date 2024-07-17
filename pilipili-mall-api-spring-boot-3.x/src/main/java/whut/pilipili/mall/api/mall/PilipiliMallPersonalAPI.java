@@ -25,7 +25,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Tag(description = "v1", name = "新蜂商城用户操作相关接口")
+@Tag(description = "v1", name = "pilipili商城用户操作相关接口")
 @RequestMapping("/api/v1")
 public class PilipiliMallPersonalAPI {
 

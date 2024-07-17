@@ -64,11 +64,11 @@ public class SpringDocConfig {
 
     private Info apiInfo() {
         Contact contact = new Contact();
-        contact.setEmail("2449207463@qq.com");
-        contact.setName("程序员十三");
-        contact.setUrl("https://juejin.cn/user/3808363978174302");
+        contact.setEmail("1668139313@qq.com");
+        contact.setName("中专422");
+        contact.setUrl("https://github.com/Z-Change/Yangzhou-WebBack");
         return new Info()
-                .title("新蜂商城接口文档")
+                .title("pilipili商城接口文档")
                 .description("swagger接口文档")
                 .version("3.0")
                 .contact(contact);

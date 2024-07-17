@@ -22,7 +22,7 @@ import jakarta.annotation.Resource;
 import java.util.List;
 
 @RestController
-@Tag(description = "v1", name = "新蜂商城个人地址相关接口")
+@Tag(description = "v1", name = "pilipili商城个人地址相关接口")
 @RequestMapping("/api/v1")
 public class PilipiliMallUserAddressAPI {
 
